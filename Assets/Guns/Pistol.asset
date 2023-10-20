@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde29a84161e7754f825ba9afa28c8e8, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: 
+  Type: 0
+  ImpactType: {fileID: 11400000, guid: b3f92483fabfb6348af9f086faa1cec5, type: 2}
+  Name: Pistol
+  ModelPrefab: {fileID: 6773579517224749801, guid: b89ff515d457d044e98741c1086dc7a0,
+    type: 3}
+  BloodParticle: {fileID: 4302051180656694884, guid: c5e32ff72de437346a6b56d648c55b93,
+    type: 3}
+  AnimationClip: {fileID: 7400000, guid: fccf2d040a569c746829a582afa08311, type: 2}
+  SpawnPoint: {x: 0.08, y: -0.15, z: 0.01}
+  SpawnRotation: {x: 0, y: 0, z: 0}
+  PivotPoint: {x: 0, y: 0, z: 0}
+  RightHandIKTarget: {fileID: 0}
+  LeftHandIKTarget: {fileID: 0}
+  AimPosition: {x: 0, y: -0.13, z: -0.01}
+  AimRotation: {x: 0, y: 0, z: 0}
+  AimSpeed: 4
+  AimFOV: 45
+  BaseFOV: 70
+  ShootConfig: {fileID: 11400000, guid: a2803c517bd49704794cf427a4105599, type: 2}
+  TrailConfig: {fileID: 11400000, guid: 7cfca0213a584db46aac56605850763b, type: 2}
+  AmmoConfig: {fileID: 11400000, guid: ecb39bb3af18c8048809b838d8f0c12a, type: 2}
+  DamageConfig: {fileID: 11400000, guid: 35191bb73d1c4554ca18388efc8fc0df, type: 2}

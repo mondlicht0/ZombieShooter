@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde29a84161e7754f825ba9afa28c8e8, type: 3}
+  m_Name: MCX
+  m_EditorClassIdentifier: 
+  Type: 1
+  ImpactType: {fileID: 11400000, guid: b3f92483fabfb6348af9f086faa1cec5, type: 2}
+  Name: MCX
+  ModelPrefab: {fileID: 4530383837280286296, guid: eb93790f2b67c754ba2838e6bc879e91,
+    type: 3}
+  AnimationClip: {fileID: 7400000, guid: f48ab0572ea80bf4a99fcdaf8c233d89, type: 2}
+  SpawnPoint: {x: 0.31, y: 5.3, z: 0.98}
+  SpawnRotation: {x: -4.52, y: -7.01, z: 0}
+  PivotPoint: {x: 0, y: 0, z: 0}
+  RightHandIKTarget: {fileID: 3394359580009977590, guid: eb93790f2b67c754ba2838e6bc879e91,
+    type: 3}
+  LeftHandIKTarget: {fileID: 2726287167931090762, guid: eb93790f2b67c754ba2838e6bc879e91,
+    type: 3}
+  AimPosition: {x: -0.01, y: -0.42, z: 0.79}
+  AimRotation: {x: 0, y: 0, z: 0}
+  AimSpeed: 4
+  AimFOV: 50
+  BaseFOV: 70
+  ShootConfig: {fileID: 11400000, guid: 1733b0493159b624da7f59cf2ab86560, type: 2}
+  TrailConfig: {fileID: 11400000, guid: e319c8d20ec8ca34aaef1b1bc68a88a6, type: 2}
