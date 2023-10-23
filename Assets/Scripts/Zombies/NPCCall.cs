@@ -22,12 +22,11 @@ public class NPCCall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Call();
+        if (!agent.isDead) Call();
     }
 
     public void Call()
     {
-
         if (agent.playerSeen)
         {
             for (int i = 0; i < agents.Length; i++)

@@ -1,6 +1,7 @@
 using baponkar.npc.zombie;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.MLAgents;
 using UnityEngine;
 
 public class Health : MonoBehaviour, IDamagable
@@ -48,6 +49,7 @@ public class Health : MonoBehaviour, IDamagable
 
     public void Die(Vector3 direction)
     {
+        ragdol.GetComponent<NPCAgent>().isDead = true;
         ragdol.ActivateRagdol();
     }
 }

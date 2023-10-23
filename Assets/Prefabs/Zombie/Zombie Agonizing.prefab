@@ -1230,7 +1230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0af9753c3c1af42821d7af6a219642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Root: {fileID: 0}
+  Root: {fileID: 3077958357321662275}
   isHead: 0
   health: {fileID: 0}
 --- !u!1 &3223446316901682734
@@ -1898,7 +1898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0af9753c3c1af42821d7af6a219642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Root: {fileID: 0}
+  Root: {fileID: 3077958357321662275}
   isHead: 0
   health: {fileID: 4299334441645923093}
 --- !u!1 &6308008654330303604
@@ -2076,7 +2076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0af9753c3c1af42821d7af6a219642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Root: {fileID: 0}
+  Root: {fileID: 3077958357321662275}
   isHead: 0
   health: {fileID: 0}
 --- !u!1 &6736210235910423223

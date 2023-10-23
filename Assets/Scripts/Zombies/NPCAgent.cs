@@ -47,10 +47,17 @@ public class NPCAgent : MonoBehaviour
     public bool isDead;
     public bool playerSeen = false;
 
+    private WaveSpawner _waveSpawner;
+
     [HideInInspector]
     public Vector3 initialPosition;
 
     public Animator animator { get { return _animator; } }
+
+    private void Awake()
+    {
+        _waveSpawner = FindObjectOfType<WaveSpawner>();
+    }
 
     void Start()
     {
@@ -83,6 +90,16 @@ public class NPCAgent : MonoBehaviour
     {
         stateMachine.Update();
     }
+
+    private void OnDestroy()
+    {
+        int enemiesLeft = 0;
+        enemiesLeft = FindObjectsOfType<NPCAgent>().Length;
+
+        if (enemiesLeft == 0)
+            _waveSpawner.LaunchWave();
+    }
+
     public void AttackPlayer()
     {
         if(playerTransform.TryGetComponent(out PlayerHealth health) && !aiHealth.isDead && Vector3.Distance(playerTransform.position, transform.position) <= config.attackRadius + config.offsetAttackRadius && !health.isDead)
@@ -90,5 +107,7 @@ public class NPCAgent : MonoBehaviour
             health.TakeDamage(config.attackDamage, Vector3.zero);
         }
     }
+
+
 }
 

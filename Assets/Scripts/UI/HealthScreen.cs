@@ -25,7 +25,6 @@ public class HealthScreen : MonoBehaviour
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
-        _vignette.color.Override(new Color(152, 0, 0));
     }
 
     public IEnumerator HurtFlash()

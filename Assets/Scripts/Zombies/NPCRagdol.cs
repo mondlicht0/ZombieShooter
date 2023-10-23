@@ -102,7 +102,9 @@ public class NPCRagdol : MonoBehaviour
             yield return null;
         }
 
-        gameObject.SetActive(false);
+        _npcAgent.isDead = true;
+        Destroy(gameObject);
+        //gameObject.SetActive(false);
     }
 
     public void EnableAnimator()
