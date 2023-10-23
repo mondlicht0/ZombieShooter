@@ -418,7 +418,7 @@ Transform:
   - {fileID: 447706356745701065}
   - {fileID: 2377779182383119992}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8957310180604297788
 Animator:
@@ -495,7 +495,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.38
-  m_Speed: 0.5
+  m_Speed: 2
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 720
@@ -660,6 +660,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34951aed6dc023c4caa0c106fbc50e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _agent: {fileID: 4897935202418754910}
+  _navMeshAgent: {fileID: 2571502176666203671}
+  _animator: {fileID: 8957310180604297788}
 --- !u!114 &2515119010990343736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,7 +708,6 @@ MonoBehaviour:
   soundSensor: {fileID: 0}
   aiHealth: {fileID: 0}
   ragdoll: {fileID: 0}
-  _animator: {fileID: 8957310180604297788}
   capsuleCollider: {fileID: 0}
   isIdleing: 0
   isPatrolling: 0

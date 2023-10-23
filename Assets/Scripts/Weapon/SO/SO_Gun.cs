@@ -106,12 +106,14 @@ public class SO_Gun : ScriptableObject
 
             _weaponAnim.SetTrigger("Shoot");
 
-            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+           
 
             Vector3 spreadAmount = ShootConfig.GetSpread();
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0) + spreadAmount / 10);
             //Vector3 screenCenter = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             //Vector3 shootDirection = _camera.transform.forward + spreadAmount;
             Vector3 shootDirection = ray.origin - _shootSystem.transform.forward;
+            //shootDirection += spreadAmount;
 
 
             AmmoConfig.CurrentClip--;
@@ -270,8 +272,8 @@ public class SO_Gun : ScriptableObject
     {
         // We do a bunch of other stuff on the same frame, so we really want it to be immediately destroyed, not at Unity's convenience.
         Model.SetActive(false);
-        //Destroy(Model);
-        //TrailPool.Clear();
+        Destroy(Model);
+        _trailPool.Clear();
         //if (BulletPool != null)
         //{
             //BulletPool.Clear();

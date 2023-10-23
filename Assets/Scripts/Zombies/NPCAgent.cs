@@ -35,7 +35,7 @@ public class NPCAgent : MonoBehaviour
     [HideInInspector]
     public NPCRagdol ragdoll;
 
-    [SerializeField] private Animator _animator;
+    private Animator _animator;
     [HideInInspector]
     public CapsuleCollider capsuleCollider;
         
@@ -71,7 +71,7 @@ public class NPCAgent : MonoBehaviour
         soundSensor = GetComponentInChildren<NPCSoundSensor>();
         aiHealth = GetComponent<Health>();
         ragdoll = GetComponent<NPCRagdol>();
-        //animator = GetComponentInChildren<Animator>();
+        _animator = GetComponentInChildren<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
             
         stateMachine = new NPCStateMachine(this);
@@ -83,6 +83,11 @@ public class NPCAgent : MonoBehaviour
         
 
         stateMachine.ChangeState(initialState);
+
+        _animator.applyRootMotion = true;
+
+        navMeshAgent.updatePosition = false;
+        navMeshAgent.updateRotation = true;
     }
 
         

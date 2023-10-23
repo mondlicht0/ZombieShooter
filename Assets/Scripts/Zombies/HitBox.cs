@@ -12,6 +12,7 @@ namespace baponkar.npc.zombie
 
         public void Die(Vector3 direction)
         {
+            Debug.Log(health.GetComponent<NPCAgent>().isDead);
             health.GetComponent<NPCAgent>().isDead = true;
             health.Ragdol.ActivateRagdol();
         }
