@@ -63,6 +63,12 @@ public class SO_Gun : ScriptableObject
     public Transform Mag { get { return _mag; } }
     public Animator WeaponAnim { get { return _weaponAnim; } }
 
+    private void OnDisable()
+    {
+        AmmoConfig.CurrentClip = AmmoConfig.ClipSize;
+        AmmoConfig.CurrentAmmo = AmmoConfig.MaxAmmo;
+    }
+
     public void Spawn(Transform parent, MonoBehaviour activeMonoBehaviour)
     {
         this._activeMonoBehaviour = activeMonoBehaviour;
@@ -100,9 +106,13 @@ public class SO_Gun : ScriptableObject
 
             _weaponAnim.SetTrigger("Shoot");
 
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
             Vector3 spreadAmount = ShootConfig.GetSpread();
-            //Vector3 shootDirection = _shootSystem.transform.up + spreadAmount;
-            Vector3 shootDirection = _camera.transform.forward + spreadAmount;
+            //Vector3 screenCenter = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            //Vector3 shootDirection = _camera.transform.forward + spreadAmount;
+            Vector3 shootDirection = ray.origin - _shootSystem.transform.forward;
+
 
             AmmoConfig.CurrentClip--;
 
@@ -110,7 +120,7 @@ public class SO_Gun : ScriptableObject
 
             _recoil.RecoilFire();
 
-            if (Physics.Raycast(_shootSystem.transform.position, shootDirection, out RaycastHit hit, float.MaxValue, ShootConfig.HitMask))
+            if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, ShootConfig.HitMask))
             {
                 _activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position, hit.point, hit));
                 SurfaceManager.Instance.HandleImpact(hit.transform.gameObject, hit.point, hit.normal, ImpactType, 0);
@@ -121,14 +131,31 @@ public class SO_Gun : ScriptableObject
                                     _particlePool.Release(particleInstance);*/
                     Instantiate(BloodParticle, hit.point, Quaternion.Euler(hit.point - _shootSystem.transform.position));
 
-                    hitbox.health.TakeDamage(DamageConfig.GetDamage(5), hit.point);
+                    hitbox.TakeDamage(DamageConfig.GetDamage(5), hit.point);
                 }
             }
+            
+            /*if (Physics.Raycast(_shootSystem.transform.position, shootDirection, out RaycastHit hit, float.MaxValue, ShootConfig.HitMask))
+            {
+                _activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position, hit.point, hit));
+                SurfaceManager.Instance.HandleImpact(hit.transform.gameObject, hit.point, hit.normal, ImpactType, 0);
+
+                if (hit.collider.TryGetComponent(out HitBox hitbox))
+                {
+                    *//*                ParticleSystem particleInstance = _particlePool.Get();
+                                    _particlePool.Release(particleInstance);*//*
+                    Instantiate(BloodParticle, hit.point, Quaternion.Euler(hit.point - _shootSystem.transform.position));
+
+                    hitbox.health.TakeDamage(DamageConfig.GetDamage(5), hit.point);
+                }
+            }*/
             else
             {
-                _activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position,
+                _activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position, (ray.GetPoint(75) - _shootSystem.transform.forward), new RaycastHit()));
+                
+                /*_activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position,
                                                               _shootSystem.transform.position + (shootDirection * TrailConfig.MissDistance),
-                                                              new RaycastHit()));
+                                                              new RaycastHit()));*/
             }
         }
     }

@@ -83,10 +83,10 @@ public class PlayerGunSelector : MonoBehaviour
             _action.IsReloading = false;
         }
 
-        if (Keyboard.current.vKey.wasPressedThisFrame)
+/*        if (Keyboard.current.vKey.wasPressedThisFrame)
         {
             _action.KnifeAttack();
-        }
+        }*/
     }
 
     public void Equip(SO_Gun Gun)

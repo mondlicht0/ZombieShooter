@@ -13,11 +13,12 @@ public class AmmoDisplayer : MonoBehaviour
     private void Awake()
     {
         _ammoText = GetComponent<TextMeshProUGUI>();
+        //_gunSelector = FindObjectOfType<PlayerGunSelector>();
     }
 
     private void Start()
     {
-        //_gunSelector = FindObjectOfType<PlayerGunSelector>();
+        _gunSelector = FindObjectOfType<PlayerGunSelector>();
     }
 
     private void Update()
