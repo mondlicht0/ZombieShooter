@@ -65,7 +65,6 @@ public class NPCChasePlayerState : NPCState
 
         if (distance >= agent.config.attackRadius + agent.config.offsetAttackRadius)
         {
-            Debug.Log($"{distance}");
             agent.animator.SetBool("isAttacking", false);
             agent.navMeshAgent.isStopped = false;
             agent.navMeshAgent.speed = agent.config.chaseWalkingSpeed + agent.config.offsetChaseSpeed;

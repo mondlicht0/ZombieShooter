@@ -19,10 +19,10 @@ MonoBehaviour:
   patrolRadius: 10
   patrolTurnSpeed: 5
   offsetPatrolSpeed: 0
-  patrolWalkingSpeed: 3
+  patrolWalkingSpeed: 2
   patrolWaitTime: 0.091
   offsetAttackRadius: 0.44
-  attackRadius: 0.5
+  attackRadius: 0.8
   attackTurnSpeed: 5
   offsetAttackSpeed: 0
   attackWalkingSpeed: 2
@@ -32,4 +32,4 @@ MonoBehaviour:
   chaseRadius: 20
   chaseTurnSpeed: 1
   offsetChaseSpeed: 0
-  chaseWalkingSpeed: 1
+  chaseWalkingSpeed: 2

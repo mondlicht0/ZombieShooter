@@ -20,12 +20,12 @@ MonoBehaviour:
   BloodParticle: {fileID: 4302051180656694884, guid: c5e32ff72de437346a6b56d648c55b93,
     type: 3}
   AnimationClip: {fileID: 7400000, guid: 500bfba1c0515f44f8820b65a6f819c3, type: 2}
-  SpawnPoint: {x: 0.08, y: -0.14, z: -0.01}
+  SpawnPoint: {x: 0.08, y: -0.58, z: -0.01}
   SpawnRotation: {x: 0, y: 0, z: 0}
   PivotPoint: {x: 0, y: 0, z: 0}
   RightHandIKTarget: {fileID: 0}
   LeftHandIKTarget: {fileID: 0}
-  AimPosition: {x: 0.015, y: -0.125, z: -0.01}
+  AimPosition: {x: -0.005, y: -0.58, z: -0.01}
   AimRotation: {x: -91, y: 0, z: -0.05}
   AimSpeed: 4
   AimFOV: 45
