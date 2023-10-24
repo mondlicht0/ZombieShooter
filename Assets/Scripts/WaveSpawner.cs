@@ -15,6 +15,34 @@ public class WaveSpawner : MonoBehaviour
         LaunchWave();
     }
 
+    private WaveSpawner SpawnEnemyInWaveWithout()
+    {
+        if (_enemiesLeftToSpawn > 0)
+        {
+            //yield return new WaitForSeconds(_waves[_currentWaveIndex].WaveSettings[_currentEnemyIndex].SpawnDelay);
+            Instantiate(_waves[_currentWaveIndex].WaveSettings[_currentEnemyIndex].EnemyPrefab,
+                        _waves[_currentWaveIndex].WaveSettings[_currentEnemyIndex].Spawner.transform.position,
+                        Quaternion.identity);
+            _enemiesLeftToSpawn--;
+            _currentEnemyIndex++;
+            return SpawnEnemyInWaveWithout();
+            //StartCoroutine(SpawnEnemyInWave());
+        }
+
+        else
+        {
+            if (_currentWaveIndex < _waves.Length - 1)
+            {
+                _currentWaveIndex++;
+                _enemiesLeftToSpawn = _waves[_currentWaveIndex].WaveSettings.Length;
+                _currentEnemyIndex = 0;
+            }
+        }
+
+        return null;
+    }
+
+
     private IEnumerator SpawnEnemyInWave()
     {
         if (_enemiesLeftToSpawn > 0)
@@ -41,7 +69,8 @@ public class WaveSpawner : MonoBehaviour
 
     public void LaunchWave()
     {
-        StartCoroutine(SpawnEnemyInWave());
+        SpawnEnemyInWaveWithout();
+        //StartCoroutine(SpawnEnemyInWave());
     }
 }
 
@@ -60,6 +89,6 @@ public class WaveSettings
     [SerializeField] private float _spawnDelay;
 
     public GameObject EnemyPrefab { get => _enemyPrefab; }
-    public GameObject Spawner { get => _enemyPrefab; }
+    public GameObject Spawner { get => _spawner; }
     public float SpawnDelay { get => _spawnDelay; }
 }

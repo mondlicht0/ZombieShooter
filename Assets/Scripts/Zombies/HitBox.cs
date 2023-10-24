@@ -10,9 +10,13 @@ namespace baponkar.npc.zombie
         public bool isHead = false;
         public Health health;
 
+        private void Awake()
+        {
+            health = Root.GetComponent<Health>();
+        }
+
         public void Die(Vector3 direction)
         {
-            Debug.Log(health.GetComponent<NPCAgent>().isDead);
             health.GetComponent<NPCAgent>().isDead = true;
             health.Ragdol.ActivateRagdol();
         }
@@ -36,11 +40,6 @@ namespace baponkar.npc.zombie
                 health.isDead = true;
                 Die(direction);
             }
-        }
-
-        private void Awake()
-        {
-            health = Root.GetComponent<Health>();
         }
 
         // public void OnRaycastHit(RaycastWeapon weapon, Vector3 direction)

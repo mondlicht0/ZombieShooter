@@ -49,7 +49,6 @@ public class Health : MonoBehaviour, IDamagable
 
     public void Die(Vector3 direction)
     {
-        Debug.Log($"{ragdol.GetComponent<NPCAgent>().isDead}");
         ragdol.GetComponent<NPCAgent>().isDead = true;
         ragdol.ActivateRagdol();
     }
