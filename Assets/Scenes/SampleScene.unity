@@ -4634,6 +4634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 2018093229}
+  _playerHealth: {fileID: 2018093240}
   _shakeIntensity: 5
   _shakeTime: 0.4
   _headBob: {fileID: 11400000, guid: e8f2afb8556edce4ca5c1cb862b5c56e, type: 2}
@@ -5815,6 +5816,7 @@ GameObject:
   - component: {fileID: 1142652680}
   - component: {fileID: 1142652682}
   - component: {fileID: 1142652681}
+  - component: {fileID: 1142652683}
   m_Layer: 5
   m_Name: HealthAmount
   m_TagString: Untagged
@@ -5939,6 +5941,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142652679}
   m_CullTransparentMesh: 1
+--- !u!114 &1142652683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142652679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca64577063350746b7ea4878e96dba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerHealth: {fileID: 2018093240}
 --- !u!1 &1160637621
 GameObject:
   m_ObjectHideFlags: 0
@@ -6185,7 +6200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e0ce75b8c6dc14d9652612c1693949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: {fileID: 2018093240}
+  _playerHealth: {fileID: 2018093240}
   _bloodScreen: {fileID: 1179026229}
   _cameraVolume: {fileID: 330585549}
   _vignette: {fileID: 0}
@@ -9932,7 +9947,7 @@ MonoBehaviour:
   HealAmount: 5
   HealRadius: 2
   RotateSpeed: 5
-  RayOffset: {x: 0, y: -1.4, z: 0}
+  RayOffset: {x: 0, y: 0, z: 0}
   _playerHealth: {fileID: 2018093240}
 --- !u!1 &1756806230
 GameObject:
@@ -11472,11 +11487,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0724b78d7fb45b4fb07691507a5f94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 120
-  CurrentHealth: 100
-  isDead: 0
+  _maxHealth: 100
+  _currentHealth: 100
+  _isDead: 0
   _bloodScreen: {fileID: 1179026231}
-  _healthText: {fileID: 1142652681}
   _cameraShake: {fileID: 932724682}
 --- !u!1 &2018435038
 GameObject:

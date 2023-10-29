@@ -1,58 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IDamagable
 {
-    public float MaxHealth;
-    public float CurrentHealth;
-    public bool isDead;
+    [SerializeField] private float _maxHealth;
+    [SerializeField] private float _currentHealth;
+    [SerializeField] private bool _isDead;
 
     [SerializeField] private HealthScreen _bloodScreen;
-    [SerializeField] private TextMeshProUGUI _healthText;
     [SerializeField] private HeadBobController _cameraShake;
 
-    private float healCD;
-    private float maxHealCD;
-    private float regenRate;
+    private float _healCD;
+    private float _maxHealCD;
+    private float _regenRate;
 
-    private bool startCD;
-    private bool canRegen;
+    private bool _startCD;
+    private bool _canRegen;
+
+    public event Action OnHealthChange;
+
+    #region
+    public float MaxHealth { get => _maxHealth; }
+    public float CurrentHealth { get => _currentHealth;}
+    public bool IsDead { get => _isDead; }
+    #endregion
+
+    public void AddHealth(float amount)
+    {
+        _currentHealth += amount;
+    }
 
     private void Start()
     {
-        CurrentHealth = MaxHealth;
+        _currentHealth = _maxHealth;
     }
 
     private void Update()
     {
-        _healthText.text = $"{CurrentHealth}";
-
-        if (startCD)
+        if (_startCD)
         {
-            healCD -= Time.deltaTime;
+            _healCD -= Time.deltaTime;
 
-            if (healCD <= 0)
+            if (_healCD <= 0)
             {
-                canRegen = true;
-                startCD = false;
+                _canRegen = true;
+                _startCD = false;
             }
         }
 
-        if (canRegen)
+        if (_canRegen)
         {
-            if (CurrentHealth < MaxHealth)
+            if (CurrentHealth < _maxHealth)
             {
-                CurrentHealth += Time.deltaTime * regenRate;
+                _currentHealth += Time.deltaTime * _regenRate;
                 _bloodScreen.UpdateHealth();
             }  
 
             else
             {
-                CurrentHealth = MaxHealth;
-                healCD = maxHealCD;
-                canRegen = false;
+                _currentHealth = _maxHealth;
+                _healCD = _maxHealCD;
+                _canRegen = false;
                 _bloodScreen.SetHealthAlpha0();
             }
         }
@@ -61,24 +70,29 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     public void Die(Vector3 direction)
     {
-        Debug.Log("Dead");
-        isDead = false;
+        Debug.Log("Player Dead");
+        _isDead = false;
     }
 
     public void TakeDamage(int damage, Vector3 direction)
     {
-        if (CurrentHealth > 0)
+        if (_currentHealth > 0)
         {
-            CurrentHealth -= damage;
-            canRegen = false;
-            StartCoroutine(_cameraShake.StartShake());
-            StartCoroutine(_bloodScreen.HurtFlash());
+            _currentHealth -= damage;
+            _canRegen = false;
+
+            if (OnHealthChange != null)
+            {
+                OnHealthChange();
+            }
+            //StartCoroutine(_cameraShake.StartShake());
+            //StartCoroutine(_bloodScreen.HurtFlash());
             _bloodScreen.UpdateHealth();
-            healCD = maxHealCD;
-            startCD = true;
+            _healCD = _maxHealCD;
+            _startCD = true;
         }
 
-        if (CurrentHealth <= 0)
+        if (_currentHealth <= 0)
         {
             Die(Vector3.zero);
         }

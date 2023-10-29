@@ -14,7 +14,7 @@ public class NPCChasePlayerState : NPCState
 
     void NPCState.Enter(NPCAgent agent)
     {
-        Debug.Log("Zombie Chase");
+        //Debug.Log("Zombie Chase");
         agent.playerSeen = true;
         agent.isChaseing = true;
         agent.navMeshAgent.stoppingDistance = agent.config.attackRadius;
@@ -40,7 +40,7 @@ public class NPCChasePlayerState : NPCState
                 //agent.navMeshAgent.speed = agent.config.chaseWalkingSpeed + agent.config.offsetChaseSpeed;
                 if (timer <= 0.0f)
                 {
-                    Debug.Log("Chase Itme");
+                    //Debug.Log("Chase Itme");
                     agent.navMeshAgent.SetDestination(agent.playerTransform.position);
                     timer = agent.config.waitTime;
                 }
@@ -59,7 +59,7 @@ public class NPCChasePlayerState : NPCState
 
     private static void ChasePlayer(NPCAgent agent)
     {
-        Debug.Log("Chase Attack");
+        //Debug.Log("Chase Attack");
         Player player = GameObject.FindObjectOfType<Player>();
         float distance = Vector3.Distance(player.transform.position, agent.transform.position);
 
@@ -72,7 +72,7 @@ public class NPCChasePlayerState : NPCState
         }
         else
         {
-            Debug.Log("Attack");
+            //Debug.Log("Attack");
             agent.navMeshAgent.isStopped = true;
             agent.stateMachine.ChangeState(NPCStateId.Attack);
         }

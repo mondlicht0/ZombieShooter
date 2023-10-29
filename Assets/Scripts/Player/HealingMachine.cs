@@ -46,7 +46,7 @@ public class HealingMachine : MonoBehaviour
                 Debug.Log("check heal");
                 _healthScreen.HealFlash();
                 float maxCurrentDifference = _playerHealth.MaxHealth - _playerHealth.CurrentHealth;
-                _playerHealth.CurrentHealth += maxCurrentDifference > HealAmount ? HealAmount : maxCurrentDifference;
+                _playerHealth.AddHealth(maxCurrentDifference > HealAmount ? HealAmount : maxCurrentDifference);
             }
         }
     }

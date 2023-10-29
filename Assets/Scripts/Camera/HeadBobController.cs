@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class HeadBobController : MonoBehaviour
 {
+    #region
     [SerializeField] private InputHandler _input;
+    [SerializeField] private PlayerHealth _playerHealth;
 
     private CinemachineVirtualCamera virtualCamera;
 
@@ -33,14 +35,16 @@ public class HeadBobController : MonoBehaviour
     private CinemachineBasicMultiChannelPerlin noise;
     private float lerpSpeed = 5f;
     private bool isWalking;
+    #endregion
 
-    void Start()
+
+    private void Start()
     {
         virtualCamera = GetComponent<CinemachineVirtualCamera>();
         noise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
-    void Update()
+    private void Update()
     {
         float targetFrequency = 0;
         float targetAmplitude = 0;
@@ -62,12 +66,27 @@ public class HeadBobController : MonoBehaviour
         noise.m_AmplitudeGain = Mathf.Lerp(noise.m_AmplitudeGain, targetAmplitude, Time.deltaTime * lerpSpeed);
     }
 
+    private void Subscribe()
+    {
+        _playerHealth.OnHealthChange += HealthChanged;
+    }
+    private void Unsubscribe()
+    {
+        _playerHealth.OnHealthChange -= HealthChanged;
+    }
+
+    private void HealthChanged()
+    {
+        StartCoroutine(StartShake());
+    }
+
+
     public void SetIsWalking(bool walking)
     {
         isWalking = walking;
     }
 
-    public void ShakeCamera()
+    private void ShakeCamera()
     {
         noise.m_NoiseProfile = _sixD;
         noise.m_AmplitudeGain = _shakeIntensity;
@@ -75,7 +94,7 @@ public class HeadBobController : MonoBehaviour
         _timer = _shakeTime;
     }
 
-    public IEnumerator StopShake()
+    private IEnumerator StopShake()
     {
         Debug.Log("Stop");
         noise.m_AmplitudeGain = Mathf.Lerp(noise.m_AmplitudeGain, 0.1f, Time.deltaTime * 5f);
@@ -86,7 +105,7 @@ public class HeadBobController : MonoBehaviour
         _timer = 0f;
     }
 
-    public IEnumerator StartShake()
+    private IEnumerator StartShake()
     {
         ShakeCamera();
 

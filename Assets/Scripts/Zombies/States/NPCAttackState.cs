@@ -23,7 +23,7 @@ public class NPCAttackState : NPCState
     void NPCState.Enter(NPCAgent agent)
     {
         
-        Debug.Log("Zombie Attack");
+        //Debug.Log("Zombie Attack");
         attackTime = agent.config.attackTime;
         agent.isAttacking = true;
         //offset = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
@@ -46,10 +46,10 @@ public class NPCAttackState : NPCState
         {
             agent.stateMachine.ChangeState(NPCStateId.Death);
         }
-        else if (!agent.aiHealth.isDead && distance <= agent.config.attackRadius + agent.config.offsetAttackRadius && !playerHealth.isDead)
+        else if (!agent.aiHealth.isDead && distance <= agent.config.attackRadius + agent.config.offsetAttackRadius && !playerHealth.IsDead)
         {
 
-            if (playerHealth != null && !playerHealth.isDead)
+            if (playerHealth != null && !playerHealth.IsDead)
             {
                 timer -= Time.deltaTime;
                 if (timer <= 0)
@@ -60,7 +60,7 @@ public class NPCAttackState : NPCState
             }
 
         }
-        if (playerHealth.isDead)
+        if (playerHealth.IsDead)
         {
             agent.playerSeen = false;
             agent.stateMachine.ChangeState(NPCStateId.Patrol);
