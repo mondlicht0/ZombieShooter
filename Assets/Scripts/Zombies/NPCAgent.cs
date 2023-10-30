@@ -107,7 +107,7 @@ public class NPCAgent : MonoBehaviour
 
     public void AttackPlayer()
     {
-        if(playerTransform.TryGetComponent(out PlayerHealth health) && !aiHealth.isDead && Vector3.Distance(playerTransform.position, transform.position) <= config.attackRadius + config.offsetAttackRadius && !health.isDead)
+        if(playerTransform.TryGetComponent(out PlayerHealth health) && !aiHealth.isDead && Vector3.Distance(playerTransform.position, transform.position) <= config.attackRadius + config.offsetAttackRadius && !health.IsDead)
         {
             health.TakeDamage(config.attackDamage, Vector3.zero);
         }

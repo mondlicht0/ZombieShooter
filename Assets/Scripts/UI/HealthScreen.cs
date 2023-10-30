@@ -1,14 +1,14 @@
+using System;
 using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Cysharp.Threading.Tasks;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class HealthScreen : MonoBehaviour
 {
-    [SerializeField] private PlayerHealth _health;
+    [SerializeField] private PlayerHealth _playerHealth;
     [SerializeField] private Image _bloodScreen;
     [SerializeField] private Volume _cameraVolume;
     [SerializeField] private Vignette _vignette;
@@ -27,12 +27,37 @@ public class HealthScreen : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
+
+    private void OnEnable()
+    {
+        _playerHealth.OnHealthChange += HealthChanged;
+    }
+
+    private void OnDisable()
+    {
+        _playerHealth.OnHealthChange -= HealthChanged;
+
+        if (_cameraVolume.sharedProfile.TryGet(out _vignette))
+        {
+            _vignette.intensity.value = 0f;
+        }
+    }
+
+    private async void HealthChanged()
+    {
+        Debug.Log("Health Screen Changed");
+        var health = _playerHealth;
+        //StartCoroutine(HurtFlash());
+        await HurtFlashAsync();
+    }
+
+
     public IEnumerator HurtFlash()
     {
         if (_cameraVolume.sharedProfile.TryGet(out _vignette))
         {
 
-            _intensity = 0.4f + 1 - _health.CurrentHealth / _health.MaxHealth;
+            _intensity = 0.4f + 1 - _playerHealth.CurrentHealth / _playerHealth.MaxHealth;
 
             _vignette.intensity.value = _intensity;
             //_audioSource.PlayOneShot(_hurtSound);
@@ -40,14 +65,39 @@ public class HealthScreen : MonoBehaviour
 
             while (_intensity > 0)
             {
-                _intensity -= 0.05f;
+                _intensity -= 0.1f;
 
-                if (_intensity <= _health.CurrentHealth / (_health.MaxHealth * 2)) _intensity = 1 - _health.CurrentHealth / _health.MaxHealth;
-                _vignette.intensity.value = _intensity;
+                /*if (_intensity <= _playerHealth.CurrentHealth / (_playerHealth.MaxHealth * 2)) _intensity = 1 - _playerHealth.CurrentHealth / _playerHealth.MaxHealth;
+                _vignette.intensity.value = _intensity;*/
 
                 yield return new WaitForSeconds(0.5f);
             }
             
+        }
+    }
+
+    public async UniTask HurtFlashAsync()
+    {
+        if (_cameraVolume.sharedProfile.TryGet(out _vignette))
+        {
+            _intensity = 0.4f + 1 - _playerHealth.CurrentHealth / _playerHealth.MaxHealth;
+
+            _vignette.intensity.value = _intensity;
+            // _audioSource.PlayOneShot(_hurtSound);
+            await UniTask.Delay(TimeSpan.FromSeconds(_hurtTimer), DelayType.DeltaTime, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy());
+            //await Task.Delay(TimeSpan.FromSeconds(_hurtTimer));
+
+            while (_intensity > 0)
+            {
+                _intensity -= 0.1f;
+
+                /*if (_intensity <= _playerHealth.CurrentHealth / (_playerHealth.MaxHealth * 2))
+                    _intensity = 1 - _playerHealth.CurrentHealth / _playerHealth.MaxHealth; */
+
+                _vignette.intensity.value = _intensity;
+
+                await UniTask.Delay(TimeSpan.FromSeconds(0.5f), DelayType.DeltaTime, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy());
+            }
         }
     }
 
@@ -68,11 +118,11 @@ public class HealthScreen : MonoBehaviour
     public void UpdateHealth()
     {
         Color splatterAlpha = _bloodScreen.color;
-        splatterAlpha.a = 1 - (_health.CurrentHealth / _health.MaxHealth);
+        splatterAlpha.a = 1 - (_playerHealth.CurrentHealth / _playerHealth.MaxHealth);
 
         _bloodScreen.color = splatterAlpha;
 
-        if (_health.CurrentHealth == _health.MaxHealth - 0.01f) _bloodScreen.color = new Color(_bloodScreen.color.r, _bloodScreen.color.g, _bloodScreen.color.b, 0);
+        if (_playerHealth.CurrentHealth == _playerHealth.MaxHealth - 0.01f) _bloodScreen.color = new Color(_bloodScreen.color.r, _bloodScreen.color.g, _bloodScreen.color.b, 0);
     }
 
     public void SetHealthAlpha0()
@@ -81,13 +131,5 @@ public class HealthScreen : MonoBehaviour
         splatterAlpha.a = 0;
 
         _bloodScreen.color = splatterAlpha;
-    }
-
-    private void OnDisable()
-    {
-        if (_cameraVolume.sharedProfile.TryGet(out _vignette))
-        {
-            _vignette.intensity.value = 0f;
-        }
     }
 }
