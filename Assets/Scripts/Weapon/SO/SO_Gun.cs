@@ -70,7 +70,7 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
 
     public void Visit(EnemyHitBox enemy)
     {
-        enemy.Health.TakeDamage(DamageConfig.GetDamage(5), Vector3.zero);
+        enemy.Health.TakeDamage(DamageConfig.GetDamage(5), Vector3.zero, 1000);
     }
 
     public void Visit(EnemyHeadHitBox head)
@@ -134,13 +134,14 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
                 _activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position, hit.point, hit));
                 SurfaceManager.Instance.HandleImpact(hit.transform.gameObject, hit.point, hit.normal, ImpactType, 0);
 
-                if (hit.collider.TryGetComponent(out HitBox hitbox))
+                if (hit.collider.TryGetComponent(out EnemyHitBox hitbox))
                 {
                     /*                ParticleSystem particleInstance = _particlePool.Get();
                                     _particlePool.Release(particleInstance);*/
                     Instantiate(BloodParticle, hit.point, Quaternion.Euler(hit.point - _shootSystem.transform.position));
 
                     hitbox.Accept(this);
+                    Visit(hitbox);
                 }
             }
             

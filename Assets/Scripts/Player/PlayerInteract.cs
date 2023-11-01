@@ -31,6 +31,11 @@ public class PlayerInteract : MonoBehaviour
 
                 if (_inputHandler.IsInteract) interact.BaseInteract();
             }
+
+            else
+            {
+                _playerUI.UpdateText("none");
+            }
         }
     }
 }
