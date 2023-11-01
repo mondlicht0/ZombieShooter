@@ -7,10 +7,9 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 using Unity.VisualScripting;
-using baponkar.npc.zombie;
 
 [CreateAssetMenu(fileName = "Gun", menuName = "Guns/Gun", order = 0)]
-public class SO_Gun : ScriptableObject
+public class SO_Gun : ScriptableObject, IWeaponVisitor
 {
     public GunType Type;
     public ImpactType ImpactType;
@@ -69,6 +68,16 @@ public class SO_Gun : ScriptableObject
         AmmoConfig.CurrentAmmo = AmmoConfig.MaxAmmo;
     }
 
+    public void Visit(EnemyHitBox enemy)
+    {
+        enemy.Health.TakeDamage(DamageConfig.GetDamage(5), Vector3.zero);
+    }
+
+    public void Visit(EnemyHeadHitBox head)
+    {
+        head.Health.TakeDamage(DamageConfig.GetDamage(5), Vector3.zero, 1000);
+    }
+
     public void Spawn(Transform parent, MonoBehaviour activeMonoBehaviour)
     {
         this._activeMonoBehaviour = activeMonoBehaviour;
@@ -106,8 +115,6 @@ public class SO_Gun : ScriptableObject
 
             _weaponAnim.SetTrigger("Shoot");
 
-           
-
             Vector3 spreadAmount = ShootConfig.GetSpread();
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0) + spreadAmount / 10);
             //Vector3 screenCenter = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0));
@@ -133,7 +140,7 @@ public class SO_Gun : ScriptableObject
                                     _particlePool.Release(particleInstance);*/
                     Instantiate(BloodParticle, hit.point, Quaternion.Euler(hit.point - _shootSystem.transform.position));
 
-                    hitbox.TakeDamage(DamageConfig.GetDamage(5), hit.point);
+                    hitbox.Accept(this);
                 }
             }
             

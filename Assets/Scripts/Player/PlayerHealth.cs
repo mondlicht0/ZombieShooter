@@ -74,7 +74,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         _isDead = false;
     }
 
-    public void TakeDamage(int damage, Vector3 direction)
+    public void TakeDamage(int damage, Vector3 direction, int multiplier = 1)
     {
         if (_currentHealth > 0)
         {

@@ -1,4 +1,3 @@
-using baponkar.npc.zombie;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.MLAgents;
@@ -42,7 +41,7 @@ public class Health : MonoBehaviour, IDamagable
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage, Vector3 direction)
+    public void TakeDamage(int damage, Vector3 direction, int multiplier = 1)
     {
 
     }

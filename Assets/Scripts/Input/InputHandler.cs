@@ -14,21 +14,23 @@ public class InputHandler : MonoBehaviour
     private bool _isAttack = false;
     private bool _isAim = false;
     private bool _isReload = false;
+    private bool _isInteract = false;
 
     public InputActionAsset InputActions;
     private InputAction _mouseClick;
     private InputAction _mouseHold;
 
-    public Vector2 MovementInput { get { return _movementInput; } }
-    public Vector2 MouseInput { get { return _mouseInput; } }
-    public float InputX { get { return _inputX; } }
-    public float InputY { get { return _inputY; } }
-    public bool JumpInput { get { return _jumpInput; } set { _jumpInput = value; } }
-    public bool IsMovementPressed { get { return _isMovementPressed; } }
-    public bool IsShiftPressed { get { return _isShiftPressed; } }
-    public bool IsAttack { get { return _isAttack; } }
-    public bool IsAim { get { return _isAim; } }
-    public bool IsReload { get { return _isReload; } }
+    public Vector2 MovementInput { get => _movementInput; }
+    public Vector2 MouseInput { get => _mouseInput; }
+    public float InputX { get => _inputX; }
+    public float InputY { get => _inputY; }
+    public bool JumpInput { get => _jumpInput; set { _jumpInput = value; } }
+    public bool IsMovementPressed { get => _isMovementPressed; }
+    public bool IsShiftPressed { get => _isShiftPressed; }
+    public bool IsAttack { get => _isAttack; }
+    public bool IsAim { get => _isAim;  }
+    public bool IsReload { get => _isReload;  }
+    public bool IsInteract { get => _isInteract; }
 
     private void Awake()
     {
@@ -112,6 +114,11 @@ public class InputHandler : MonoBehaviour
     public void OnShiftInput(InputAction.CallbackContext context)
     {
         _isShiftPressed = context.performed;
+    }
+
+    public void OnInteractInput(InputAction.CallbackContext context)
+    {
+        _isInteract = context.performed;
     }
 
 /*    public void OnAttackInput(InputAction.CallbackContext context)

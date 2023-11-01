@@ -89,6 +89,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""0fdcb315-47f2-4ab0-8393-3ac12f71d6d9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -289,6 +298,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e9745802-cd7e-460d-915f-bde6265aeee1"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -304,6 +324,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnMove_Attack = m_OnMove.FindAction("Attack", throwIfNotFound: true);
         m_OnMove_Aim = m_OnMove.FindAction("Aim", throwIfNotFound: true);
         m_OnMove_Reload = m_OnMove.FindAction("Reload", throwIfNotFound: true);
+        m_OnMove_Interact = m_OnMove.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -372,6 +393,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OnMove_Attack;
     private readonly InputAction m_OnMove_Aim;
     private readonly InputAction m_OnMove_Reload;
+    private readonly InputAction m_OnMove_Interact;
     public struct OnMoveActions
     {
         private @PlayerInput m_Wrapper;
@@ -383,6 +405,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_OnMove_Attack;
         public InputAction @Aim => m_Wrapper.m_OnMove_Aim;
         public InputAction @Reload => m_Wrapper.m_OnMove_Reload;
+        public InputAction @Interact => m_Wrapper.m_OnMove_Interact;
         public InputActionMap Get() { return m_Wrapper.m_OnMove; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -413,6 +436,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IOnMoveActions instance)
@@ -438,6 +464,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IOnMoveActions instance)
@@ -464,5 +493,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }
