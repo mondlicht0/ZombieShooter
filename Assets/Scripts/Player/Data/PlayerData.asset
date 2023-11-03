@@ -35,3 +35,4 @@ MonoBehaviour:
   MaxSlopeAngle: 45
   IdleFOV: 70
   RunFOV: 90
+  Woods: 0

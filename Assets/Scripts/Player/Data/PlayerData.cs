@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newPlayerData", menuName = "Data/Player Data/Base Data")]
 public class PlayerData : ScriptableObject
 {
+    public static PlayerData Instance;
+
     [Header("Movement Values")]
     public float WalkSpeed = 5f;
     public float RunSpeed = 5f;
@@ -37,5 +39,8 @@ public class PlayerData : ScriptableObject
     [Header("Camera Settings")]
     public float IdleFOV = 70f;
     public float RunFOV = 90f;
-    
+
+    [Header("Resources")]
+    public int Woods = 0;
+
 }

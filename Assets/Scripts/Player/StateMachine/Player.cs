@@ -56,6 +56,8 @@ public class Player : MonoBehaviour
         _animator = GetComponent<Animator>();
         _animatorStateController = GetComponent<AnimationStateController>();
         //_headBob = GetComponent<HeadBobController>();
+
+        PlayerData.Instance = _playerData;
     }
 
     private void Start()

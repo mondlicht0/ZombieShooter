@@ -70,12 +70,7 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
 
     public void Visit(EnemyHitBox enemy)
     {
-        enemy.Health.TakeDamage(DamageConfig.GetDamage(5), Vector3.zero, 1000);
-    }
-
-    public void Visit(EnemyHeadHitBox head)
-    {
-        head.Health.TakeDamage(DamageConfig.GetDamage(5), Vector3.zero, 1000);
+        enemy.Health.TakeDamage(DamageConfig.GetDamage(5), Vector3.zero, enemy.Type == EnemyHitBoxType.Head ? 1000 : 1);
     }
 
     public void Spawn(Transform parent, MonoBehaviour activeMonoBehaviour)
@@ -134,14 +129,13 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
                 _activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position, hit.point, hit));
                 SurfaceManager.Instance.HandleImpact(hit.transform.gameObject, hit.point, hit.normal, ImpactType, 0);
 
-                if (hit.collider.TryGetComponent(out EnemyHitBox hitbox))
+                if (hit.collider.TryGetComponent(out HitBox hitbox))
                 {
                     /*                ParticleSystem particleInstance = _particlePool.Get();
                                     _particlePool.Release(particleInstance);*/
                     Instantiate(BloodParticle, hit.point, Quaternion.Euler(hit.point - _shootSystem.transform.position));
 
                     hitbox.Accept(this);
-                    Visit(hitbox);
                 }
             }
             
@@ -311,5 +305,10 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
         config.SpawnRotation = SpawnRotation;
 
         return config;
+    }
+
+    public void Visit(SO_Gun gun)
+    {
+        throw new System.NotImplementedException();
     }
 }

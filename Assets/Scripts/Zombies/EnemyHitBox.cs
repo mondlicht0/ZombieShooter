@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class EnemyHitBox : HitBox
 {
+    public EnemyHitBoxType Type;
     public Transform Root;
-    public Health Health;
+
+    private Health _health;
+
+    public Health Health { get => _health; }
 
     public override void Accept(IWeaponVisitor visitor)
     {
@@ -14,44 +18,13 @@ public class EnemyHitBox : HitBox
 
     private void Awake()
     {
-        Health = Root.GetComponent<Health>();
+        _health = Root.GetComponent<Health>();
     }
 
+}
 
-
-    /*    public Transform Root;
-        public bool isHead = false;
-        public Health health;*/
-
-    /*    private void Awake()
-        {
-            health = Root.GetComponent<Health>();
-        }
-
-        public void Die(Vector3 direction)
-        {
-            health.GetComponent<NPCAgent>().isDead = true;
-            health.Ragdol.ActivateRagdol();
-        }
-
-        public void TakeDamage(int damage, Vector3 direction)
-        {
-            int damageTaken = Mathf.Clamp(damage, 0, health.currentHealth);
-
-            if (health.currentHealth > 0)
-            {
-                health.currentHealth -= isHead ? damage + 500 : damage;
-            }
-            if (health.currentHealth <= 30f && health.currentHealth > 0)
-            {
-                health.isInjured = true;
-            }
-            if (health.currentHealth <= 0)
-            {
-                health.currentHealth = 0;
-                health.isInjured = false;
-                health.isDead = true;
-                Die(direction);
-            }
-        }*/
+public enum EnemyHitBoxType
+{
+    Head,
+    Body
 }

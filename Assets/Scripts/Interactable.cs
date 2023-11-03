@@ -4,15 +4,21 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    public string text;
+    public string Text;
+    public bool IsInteractable = true;
 
     public void BaseInteract()
     {
-        Debug.Log($"Interacted with {text}");
+        Debug.Log($"Interacted with {Text}");
         Interact();
     }
 
     protected virtual void Interact()
+    {
+
+    }
+
+    protected virtual void Interact(PlayerData playerData)
     {
 
     }

@@ -43,7 +43,23 @@ public class Health : MonoBehaviour, IDamagable
 
     public void TakeDamage(int damage, Vector3 direction, int multiplier = 1)
     {
+        int damageTaken = Mathf.Clamp(damage, 0, currentHealth);
 
+        if (currentHealth > 0)
+        {
+            currentHealth -= damageTaken * multiplier;
+        }
+        if (currentHealth <= 30f && currentHealth > 0)
+        {
+            isInjured = true;
+        }
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            isInjured = false;
+            isDead = true;
+            Die(direction);
+        }
     }
 
     public void Die(Vector3 direction)
