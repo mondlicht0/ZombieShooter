@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     private Rigidbody _rb;
     private CharacterController _controller;
     private PlayerLook _look;
+    private PlayerGunSelector _gunSelector;
     private InputHandler _inputHandler;
     [SerializeField] private HeadBobController _headBob;
 
@@ -38,14 +39,15 @@ public class Player : MonoBehaviour
     private AnimationStateController _animatorStateController;
 
     private CinemachineVirtualCamera _camera;
-    public PlayerData PlayerData { get { return _playerData; } set { _playerData = value; } }
-    public Rigidbody Rigidbody { get { return _rb; } }
-    public CharacterController Controller { get { return _controller; } }
-    public Animator Animator { get { return _animator; } }
-    public AnimationStateController AnimatorStateController { get { return _animatorStateController; } }
-    public CinemachineVirtualCamera Camera { get { return _camera; } }
-    public HeadBobController HeadBob { get { return _headBob; } }
-    public float DashCDTimer { get { return _dashCDTimer; } set { _dashCDTimer = value; } }
+    public PlayerData PlayerData { get => _playerData; set { _playerData = value; } }
+    public Rigidbody Rigidbody { get => _rb; }
+    public CharacterController Controller { get => _controller; }
+    public Animator Animator { get => _animator; }
+    public AnimationStateController AnimatorStateController { get => _animatorStateController; }
+    public CinemachineVirtualCamera Camera { get => _camera; }
+    public HeadBobController HeadBob { get => _headBob; }
+    public PlayerGunSelector GunSelector { get => _gunSelector; }
+    public float DashCDTimer { get => _dashCDTimer; set { _dashCDTimer = value; } }
 
     private void Awake()
     {
@@ -55,6 +57,7 @@ public class Player : MonoBehaviour
         _inputHandler = GetComponent<InputHandler>();
         _animator = GetComponent<Animator>();
         _animatorStateController = GetComponent<AnimationStateController>();
+        _gunSelector = GetComponent<PlayerGunSelector>();
         //_headBob = GetComponent<HeadBobController>();
 
         PlayerData.Instance = _playerData;

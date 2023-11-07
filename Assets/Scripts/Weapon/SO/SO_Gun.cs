@@ -307,6 +307,13 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
         return config;
     }
 
+    public void Drop()
+    {
+        _model.transform.SetParent(null);
+
+
+    }
+
     public void Visit(SO_Gun gun)
     {
         throw new System.NotImplementedException();

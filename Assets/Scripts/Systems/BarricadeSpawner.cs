@@ -1,11 +1,19 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BarricadeSpawner : Interactable
 {
     [SerializeField] private List<Transform> _planks;
+    [SerializeField] private Transform _planksParent;
 
-    public int WoodPlanks = 0;
+    [Header("UI")]
+    [SerializeField] private Canvas _canvas;
+    [SerializeField] private TextMeshProUGUI _text;
+    [Space]
+    [SerializeField] private string _lackOfWoods = "Not enough woods";
+
+    private int _woodPlanks = 0;
 
     private BoxCollider _barricadeCollider;
     private int _currentPlanksCount = 0;
@@ -17,24 +25,17 @@ public class BarricadeSpawner : Interactable
 
     private void Start()
     {
-        WoodPlanks = PlayerData.Instance.Woods;
-
-        if (WoodPlanks <= 0) IsInteractable = false;
+        _woodPlanks = PlayerData.Instance.Woods;
 
         SetPlanksList();
-    }
+        CheckBarricadeWoodsAndFull();
 
-    private void Update()
-    {
-        if (WoodPlanks <= 0) IsInteractable = false;
-        else IsInteractable = true; // TODO: Change it to events
+        _text.text = Text;
     }
 
     protected override void Interact()
     {
-        if (PlayerData.Instance.Woods <= 0 || _currentPlanksCount == _planks.Count) return;
-
-        else
+        if (PlayerData.Instance.Woods >= 0 && _currentPlanksCount != _planks.Count)
         {
             for (int i = 0; i < _planks.Count && PlayerData.Instance.Woods != 0; i++)
             {
@@ -44,19 +45,34 @@ public class BarricadeSpawner : Interactable
 
                     _currentPlanksCount++;
                     PlayerData.Instance.Woods--;
+
+                    CheckBarricadeWoodsAndFull();
                 }
             }
-
-            if (_currentPlanksCount == _planks.Count) IsInteractable = false;
         }
     }
 
     private void SetPlanksList()
     {
-        gameObject.GetComponentsInChildren(true, _planks);
+        _planksParent.GetComponentsInChildren(true, _planks);
         _planks.Remove(_planks[0]);
+    }
 
-        foreach (Transform plank in _planks) plank.gameObject.SetActive(false);
+    private bool IsFull()
+    {
+        Debug.Log(_currentPlanksCount);
+        Debug.Log(_currentPlanksCount == _planks.Count);
+        return _currentPlanksCount == _planks.Count;
+    }
+
+    private void CheckBarricadeWoodsAndFull()
+    {
+        if (_woodPlanks <= 0 || IsFull())
+        {
+            Text = !IsFull() ? _lackOfWoods : "";
+            IsInteractable = false;
+            return;
+        }
     }
 }
 

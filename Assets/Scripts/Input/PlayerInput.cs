@@ -98,6 +98,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Drop"",
+                    ""type"": ""Button"",
+                    ""id"": ""3706ad51-7db9-4c12-85f3-5fc5c7022017"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -309,6 +318,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""543bdf3f-1aba-4fb1-a632-44a8a1e3fcda"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -325,6 +345,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnMove_Aim = m_OnMove.FindAction("Aim", throwIfNotFound: true);
         m_OnMove_Reload = m_OnMove.FindAction("Reload", throwIfNotFound: true);
         m_OnMove_Interact = m_OnMove.FindAction("Interact", throwIfNotFound: true);
+        m_OnMove_Drop = m_OnMove.FindAction("Drop", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -394,6 +415,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OnMove_Aim;
     private readonly InputAction m_OnMove_Reload;
     private readonly InputAction m_OnMove_Interact;
+    private readonly InputAction m_OnMove_Drop;
     public struct OnMoveActions
     {
         private @PlayerInput m_Wrapper;
@@ -406,6 +428,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Aim => m_Wrapper.m_OnMove_Aim;
         public InputAction @Reload => m_Wrapper.m_OnMove_Reload;
         public InputAction @Interact => m_Wrapper.m_OnMove_Interact;
+        public InputAction @Drop => m_Wrapper.m_OnMove_Drop;
         public InputActionMap Get() { return m_Wrapper.m_OnMove; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -439,6 +462,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Drop.started += instance.OnDrop;
+            @Drop.performed += instance.OnDrop;
+            @Drop.canceled += instance.OnDrop;
         }
 
         private void UnregisterCallbacks(IOnMoveActions instance)
@@ -467,6 +493,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Drop.started -= instance.OnDrop;
+            @Drop.performed -= instance.OnDrop;
+            @Drop.canceled -= instance.OnDrop;
         }
 
         public void RemoveCallbacks(IOnMoveActions instance)
@@ -494,5 +523,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnAim(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnDrop(InputAction.CallbackContext context);
     }
 }

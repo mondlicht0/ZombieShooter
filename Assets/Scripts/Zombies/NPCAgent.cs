@@ -112,7 +112,5 @@ public class NPCAgent : MonoBehaviour
             health.TakeDamage(config.attackDamage, Vector3.zero);
         }
     }
-
-
 }
 

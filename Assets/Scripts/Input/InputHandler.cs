@@ -15,6 +15,7 @@ public class InputHandler : MonoBehaviour
     private bool _isAim = false;
     private bool _isReload = false;
     private bool _isInteract = false;
+    private bool _isDrop = false;
 
     public InputActionAsset InputActions;
     private InputAction _mouseClick;
@@ -121,13 +122,18 @@ public class InputHandler : MonoBehaviour
         _isInteract = context.performed;
     }
 
-/*    public void OnAttackInput(InputAction.CallbackContext context)
+    public void OnDropInput(InputAction.CallbackContext context)
     {
-        _isAttack = context.performed;
+        _isDrop = context.performed;
     }
 
-    public void OnAimInput(InputAction.CallbackContext context)
-    {
-        _isAim = context.performed;
-    }*/
+    /*    public void OnAttackInput(InputAction.CallbackContext context)
+        {
+            _isAttack = context.performed;
+        }
+
+        public void OnAimInput(InputAction.CallbackContext context)
+        {
+            _isAim = context.performed;
+        }*/
 }
