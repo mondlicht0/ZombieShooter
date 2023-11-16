@@ -21,7 +21,7 @@ public class NPCAttackState : NPCState
 
     void NPCState.Enter(NPCAgent agent)
     {
-        
+        Debug.Log("Enter to Attack State");
         //Debug.Log("Zombie Attack");
         attackTime = agent.config.attackTime;
         agent.isAttacking = true;
@@ -37,7 +37,7 @@ public class NPCAttackState : NPCState
         FacePlayer(agent, Vector3.zero);
         
         float distance = Vector3.Distance(player.transform.position, agent.transform.position);
-        if (!agent.aiHealth.isDead && distance > agent.config.attackRadius + agent.config.offsetAttackRadius)
+        if (!agent.aiHealth.isDead && distance > agent.config.attackRadius + agent.config.offsetAttackRadius && !agent.attackWall)
         {
             agent.stateMachine.ChangeState(NPCStateId.ChasePlayer);
         }
@@ -47,6 +47,21 @@ public class NPCAttackState : NPCState
         }
         else if (!agent.aiHealth.isDead && distance <= agent.config.attackRadius + agent.config.offsetAttackRadius && !playerHealth.IsDead)
         {
+            Ray ray = new Ray(agent.transform.position, agent.transform.forward);
+            if (Physics.Raycast(ray, out agent.hit, 1f))
+            {
+                if (agent.hit.collider.TryGetComponent(out BarricadeSpawner barricade))
+                {
+                    timer -= Time.deltaTime;
+
+                    barricade.RemoveBoard();
+
+                    if (timer <= 0)
+                    {
+                        timer = attackTime;
+                    }
+                }
+            }
 
             if (playerHealth != null && !playerHealth.IsDead)
             {
@@ -54,6 +69,7 @@ public class NPCAttackState : NPCState
                 if (timer <= 0)
                 {
                     //playerHealth.TakeDamage(agent.config.attackDamage, Vector3.zero);
+                    
                     timer = attackTime;
                 }
             }

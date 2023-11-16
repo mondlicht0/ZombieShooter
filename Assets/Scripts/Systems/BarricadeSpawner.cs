@@ -52,6 +52,25 @@ public class BarricadeSpawner : Interactable
         }
     }
 
+    public void AddBoard()
+    {
+
+    }
+
+    public void RemoveBoard()
+    {
+        Debug.Log("Remove Board begin");
+        for (int i = 0; i <= _planks.Count; i++)
+        {
+            if (_planks[i].transform.gameObject.activeSelf)
+            {
+                _planks[i].transform.gameObject.SetActive(false);
+                Debug.Log("Remove Board end");
+                return;
+            }
+        }
+    }
+
     private void SetPlanksList()
     {
         _planksParent.GetComponentsInChildren(true, _planks);

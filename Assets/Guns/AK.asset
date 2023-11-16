@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde29a84161e7754f825ba9afa28c8e8, type: 3}
   m_Name: AK
   m_EditorClassIdentifier: 
+  Name: MCX
   Type: 1
   ImpactType: {fileID: 11400000, guid: b3f92483fabfb6348af9f086faa1cec5, type: 2}
-  Name: MCX
   ModelPrefab: {fileID: 3523528700248198161, guid: bd8d37954286c5944a8356a9769a32ea,
+    type: 3}
+  ModelWithoutHands: {fileID: 3523528700248198161, guid: 9af1220653f5a7344bca267f84402183,
     type: 3}
   BloodParticle: {fileID: 4302051180656694884, guid: c5e32ff72de437346a6b56d648c55b93,
     type: 3}

@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     private bool _canRegen;
 
     public event Action OnHealthChange;
+    public event Action OnHealthAdd;
 
     #region
     public float MaxHealth { get => _maxHealth; }
@@ -28,7 +29,13 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     public void AddHealth(float amount)
     {
-        _currentHealth += amount;
+        float maxCurrentDifference = _maxHealth - _currentHealth;
+        _currentHealth += maxCurrentDifference > amount ? amount : maxCurrentDifference;
+
+        if (OnHealthAdd != null)
+        {
+            OnHealthAdd();
+        }
     }
 
     private void Start()

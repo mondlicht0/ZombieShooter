@@ -15,7 +15,7 @@ public class PlayerAction : MonoBehaviour
     public Transform WeaponPivot;
 
     [SerializeField] private CinemachineVirtualCamera _camera;
-    [SerializeField] private Image _crosshair;
+    [SerializeField] private PlayerUI _UI;
     [SerializeField] private Animator _animator;
     [SerializeField] private Animator _rigController;
     [SerializeField] private MultiParentConstraint _parentConstraint;
@@ -49,15 +49,21 @@ public class PlayerAction : MonoBehaviour
 
     private void Update()
     {
-        GunSelector.ActiveGun.Tick(Input.IsAttack && GunSelector.ActiveGun != null, IsReloading, Input.IsAim, GunSelector, WeaponPivot, _crosshair);
-
-        if (ShouldAutoReload() || ShouldManualReload())
+        if (GunSelector.ActiveGun != null)
         {
-            IsReloading = true;
-            GunSelector.ActiveGun.WeaponAnim.SetTrigger("Reload");
-            
+            GunSelector.ActiveGun.Tick(Input.IsAttack && GunSelector.ActiveGun != null, IsReloading, Input.IsAim, GunSelector, WeaponPivot, _UI);
+
+            if (ShouldAutoReload() || ShouldManualReload())
+            {
+                IsReloading = true;
+                GunSelector.ActiveGun.WeaponAnim.SetTrigger("Reload");
+
+            }
         }
+            
     }
+
+
 
     public void KnifeAttack()
     {

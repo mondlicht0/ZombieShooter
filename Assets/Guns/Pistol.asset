@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde29a84161e7754f825ba9afa28c8e8, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
+  Name: Pistol
   Type: 0
   ImpactType: {fileID: 11400000, guid: b3f92483fabfb6348af9f086faa1cec5, type: 2}
-  Name: Pistol
   ModelPrefab: {fileID: 6773579517224749801, guid: b89ff515d457d044e98741c1086dc7a0,
+    type: 3}
+  ModelWithoutHands: {fileID: 6773579517224749801, guid: cf01abfe906b2bc4b93b57573f169786,
     type: 3}
   BloodParticle: {fileID: 4302051180656694884, guid: c5e32ff72de437346a6b56d648c55b93,
     type: 3}
