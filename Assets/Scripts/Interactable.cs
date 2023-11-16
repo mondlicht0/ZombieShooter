@@ -12,7 +12,7 @@ public abstract class Interactable : MonoBehaviour
     {
         Debug.Log($"Interacted with {Text}");
 
-        if (UseEvents )
+        if (UseEvents)
         {
             GetComponent<InteractionEvent>().OnInteract.Invoke();
         }

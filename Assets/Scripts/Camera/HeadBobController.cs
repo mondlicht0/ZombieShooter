@@ -38,6 +38,16 @@ public class HeadBobController : MonoBehaviour
     #endregion
 
 
+    private void OnEnable()
+    {
+        _playerHealth.OnHealthChange += HealthChanged;
+    }
+
+    private void OnDisable()
+    {
+        _playerHealth.OnHealthChange += HealthChanged;
+    }
+
     private void Start()
     {
         virtualCamera = GetComponent<CinemachineVirtualCamera>();

@@ -323,7 +323,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""543bdf3f-1aba-4fb1-a632-44a8a1e3fcda"",
                     ""path"": ""<Keyboard>/g"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap(duration=0.1,pressPoint=0.1)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Drop"",

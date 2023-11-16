@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 3019085480685031595}
   - component: {fileID: 6099875958136671968}
   - component: {fileID: 373768093616218524}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Zombie Agonizing
   m_TagString: Untagged
   m_Icon: {fileID: 0}

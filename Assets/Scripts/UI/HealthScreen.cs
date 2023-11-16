@@ -31,11 +31,13 @@ public class HealthScreen : MonoBehaviour
     private void OnEnable()
     {
         _playerHealth.OnHealthChange += HealthChanged;
+        _playerHealth.OnHealthAdd += AddHealthChanged;
     }
 
     private void OnDisable()
     {
         _playerHealth.OnHealthChange -= HealthChanged;
+        _playerHealth.OnHealthAdd -= AddHealthChanged;
 
         if (_cameraVolume.sharedProfile.TryGet(out _vignette))
         {
@@ -51,13 +53,22 @@ public class HealthScreen : MonoBehaviour
         await HurtFlashAsync();
     }
 
+    private async void AddHealthChanged()
+    {
+        Debug.Log("Health Screen Changed");
+        var health = _playerHealth;
+        //StartCoroutine(HurtFlash());
+        await HealFlash();
+    }
+
 
     public IEnumerator HurtFlash()
     {
         if (_cameraVolume.sharedProfile.TryGet(out _vignette))
         {
 
-            _intensity = 0.4f + 1 - _playerHealth.CurrentHealth / _playerHealth.MaxHealth;
+            //_intensity = 0.2f - _playerHealth.CurrentHealth / _playerHealth.MaxHealth;
+            _intensity = 0.2f;
 
             _vignette.intensity.value = _intensity;
             //_audioSource.PlayOneShot(_hurtSound);
@@ -80,37 +91,50 @@ public class HealthScreen : MonoBehaviour
     {
         if (_cameraVolume.sharedProfile.TryGet(out _vignette))
         {
-            _intensity = 0.4f + 1 - _playerHealth.CurrentHealth / _playerHealth.MaxHealth;
+            _intensity = 0.1f;
 
             _vignette.intensity.value = _intensity;
             // _audioSource.PlayOneShot(_hurtSound);
             await UniTask.Delay(TimeSpan.FromSeconds(_hurtTimer), DelayType.DeltaTime, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy());
-            //await Task.Delay(TimeSpan.FromSeconds(_hurtTimer));
 
-            while (_intensity > 0)
+            _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0f, 0.3f);
+            /*while (_intensity > 0)
             {
-                _intensity -= 0.1f;
+                _intensity -= 0.05f;
 
-                /*if (_intensity <= _playerHealth.CurrentHealth / (_playerHealth.MaxHealth * 2))
-                    _intensity = 1 - _playerHealth.CurrentHealth / _playerHealth.MaxHealth; */
+                *//*if (_intensity <= _playerHealth.CurrentHealth / (_playerHealth.MaxHealth * 2))
+                    _intensity = 1 - _playerHealth.CurrentHealth / _playerHealth.MaxHealth; *//*
 
                 _vignette.intensity.value = _intensity;
 
                 await UniTask.Delay(TimeSpan.FromSeconds(0.5f), DelayType.DeltaTime, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy());
-            }
+            }*/
         }
     }
 
-    public void HealFlash()
+    public async UniTask HealFlash()
     {
         if (_cameraVolume.sharedProfile.TryGet(out _vignette))
         {
             _vignette.color.Override(new Color(0, 255, 0));
-            _intensity = 0.7f;
+            _intensity = 0.1f;
 
+            _vignette.intensity.value = _intensity;
+            await UniTask.Delay(TimeSpan.FromSeconds(_hurtTimer), DelayType.DeltaTime, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy());
 
-            _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, _intensity, 0.5f);
-            //_audioSource.PlayOneShot(_hurtSound);
+            _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0f, 0.3f);
+
+            /*while (_intensity > 0)
+            {
+                _intensity -= 0.05f;
+
+                *//*if (_intensity <= _playerHealth.CurrentHealth / (_playerHealth.MaxHealth * 2))
+                    _intensity = 1 - _playerHealth.CurrentHealth / _playerHealth.MaxHealth; *//*
+
+                _vignette.intensity.value = _intensity;
+
+                await UniTask.Delay(TimeSpan.FromSeconds(0.5f), DelayType.DeltaTime, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy());
+            }*/
             _vignette.color.Override(new Color(152, 0, 0));
         }
     }

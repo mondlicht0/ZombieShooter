@@ -40,12 +40,15 @@ public class NPCAgent : MonoBehaviour
     public CapsuleCollider capsuleCollider;
         
     [Header("NPC Zombie Agent.")]
-    public bool isIdleing;
-    public bool isPatrolling;
-    public bool isChaseing;
-    public bool isAttacking;
-    public bool isDead;
+    public bool isIdleing = false;
+    public bool isPatrolling = false;
+    public bool isChaseing = false;
+    public bool isAttacking = false;
+    public bool isDead = false;
     public bool playerSeen = false;
+    public bool attackWall = false;
+
+    public RaycastHit hit;
 
     private WaveSpawner _waveSpawner;
 
@@ -112,5 +115,16 @@ public class NPCAgent : MonoBehaviour
             health.TakeDamage(config.attackDamage, Vector3.zero);
         }
     }
+
+/*    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Barricade"))
+        {
+            navMeshAgent.isStopped = true;
+            attackWall = true;
+            stateMachine.ChangeState(NPCStateId.Attack);
+            other.GetComponent<BarricadeSpawner>().RemoveBoard();
+        }
+    }*/
 }
 

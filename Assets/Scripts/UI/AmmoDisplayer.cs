@@ -23,6 +23,6 @@ public class AmmoDisplayer : MonoBehaviour
 
     private void Update()
     {
-        _ammoText.SetText($"{_gunSelector.ActiveGun.AmmoConfig.CurrentClip} / {_gunSelector.ActiveGun.AmmoConfig.CurrentAmmo}");
+        //_ammoText.SetText($"{_gunSelector.ActiveGun?.AmmoConfig.CurrentClip} / {_gunSelector.ActiveGun?.AmmoConfig.CurrentAmmo}");
     }
 }

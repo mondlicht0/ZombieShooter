@@ -63,23 +63,39 @@ public class NPCChasePlayerState : NPCState
         Player player = GameObject.FindObjectOfType<Player>();
         float distance = Vector3.Distance(player.transform.position, agent.transform.position);
 
+        Ray ray = new Ray(agent.transform.position, agent.transform.forward);
+        Debug.DrawRay(agent.transform.position, agent.transform.forward, Color.red);
+
         if (distance >= agent.config.attackRadius + agent.config.offsetAttackRadius)
         {
             agent.animator.SetBool("isAttacking", false);
             agent.navMeshAgent.isStopped = false;
             agent.navMeshAgent.speed = agent.config.chaseWalkingSpeed + agent.config.offsetChaseSpeed;
             agent.navMeshAgent.SetDestination(agent.playerTransform.position);
+
+            if (Physics.Raycast(ray, out agent.hit, 0.2f))
+            {
+                if (agent.hit.transform.CompareTag("Barricade"))
+                {
+                    Debug.Log("Barricade");
+                    agent.navMeshAgent.isStopped = true;
+                    agent.attackWall = true;
+                    agent.stateMachine.ChangeState(NPCStateId.Attack);
+                }
+            }
         }
-        else
-        {
-            //Debug.Log("Attack");
-            agent.navMeshAgent.isStopped = true;
-            agent.stateMachine.ChangeState(NPCStateId.Attack);
-        }
+
 
         if (player.isDead)
         {
             agent.stateMachine.ChangeState(NPCStateId.Patrol);
+        }
+
+        else if (!agent.aiHealth.isDead && !(distance > agent.config.attackRadius + agent.config.offsetAttackRadius))
+        {
+            //Debug.Log("Attack");
+            agent.navMeshAgent.isStopped = true;
+            agent.stateMachine.ChangeState(NPCStateId.Attack);
         }
     }
 }

@@ -8,9 +8,7 @@ public class HealingMachine : MonoBehaviour
     public float RotateSpeed = 45f;
     public Vector3 RayOffset;
 
-    [SerializeField] private PlayerHealth _playerHealth;
-
-    private RaycastHit _hit;
+    private PlayerHealth _playerHealth;
     private GameObject _medSign;
     private HealthScreen _healthScreen;
 
@@ -18,14 +16,13 @@ public class HealingMachine : MonoBehaviour
     {
         _medSign = transform.GetChild(0).gameObject;
         _healthScreen = FindObjectOfType<HealthScreen>();
-        //_playerHealth = FindObjectOfType<PlayerHealth>();
+        _playerHealth = FindObjectOfType<PlayerHealth>();
     }
 
     private void Update()
     {
         if (_playerHealth.CurrentHealth < _playerHealth.MaxHealth)
         {
-
             _medSign.SetActive(true);
             _medSign.transform.Rotate(Vector3.forward, RotateSpeed * Time.deltaTime);
             CheckHeal();
@@ -37,16 +34,14 @@ public class HealingMachine : MonoBehaviour
 
     private void CheckHeal()
     {
-        
         Ray ray = new Ray(transform.position + RayOffset, transform.right);
-        if (Physics.Raycast(ray, out _hit, HealRadius))
+        RaycastHit hit;
+        Debug.DrawRay(transform.position + RayOffset, transform.right);
+        if (Physics.Raycast(ray, out hit, HealRadius))
         {
-            if (_hit.collider.TryGetComponent(out _playerHealth))
+            if (hit.collider.TryGetComponent(out _playerHealth))
             {
-                Debug.Log("check heal");
-                _healthScreen.HealFlash();
-                float maxCurrentDifference = _playerHealth.MaxHealth - _playerHealth.CurrentHealth;
-                _playerHealth.AddHealth(maxCurrentDifference > HealAmount ? HealAmount : maxCurrentDifference);
+                _playerHealth.AddHealth(HealAmount);
             }
         }
     }

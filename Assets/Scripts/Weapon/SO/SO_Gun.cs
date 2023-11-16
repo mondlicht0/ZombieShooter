@@ -1,28 +1,24 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
-using DG.Tweening;
 using Cinemachine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
-using Unity.VisualScripting;
 
 [CreateAssetMenu(fileName = "Gun", menuName = "Guns/Gun", order = 0)]
 public class SO_Gun : ScriptableObject, IWeaponVisitor
 {
+    public string Name;
     public GunType Type;
     public ImpactType ImpactType;
-    public string Name;
     public GameObject ModelPrefab;
-
+    public GameObject ModelWithoutHands;
     public GameObject BloodParticle;
 
     public AnimationClip AnimationClip;
 
     [Header("Spawn")]
-    public Vector3 SpawnPoint; // 0.31, -0.38, 0.98
-    public Vector3 SpawnRotation; // -4.52, -7.01, 0
+    public Vector3 SpawnPoint;
+    public Vector3 SpawnRotation;
 
     public Vector3 PivotPoint;
 
@@ -57,17 +53,23 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
     private CinemachineVirtualCamera _camera;
     private Transform _mag;
     private Animator _weaponAnim;
+    private Rigidbody _weaponRigidbody;
 
-    public GameObject Model { get { return _model; } }
-    public Transform Mag { get { return _mag; } }
-    public Animator WeaponAnim { get { return _weaponAnim; } }
+    public GameObject Model { get => _model; }
+    public Transform Mag { get => _mag; }
+    public Animator WeaponAnim { get => _weaponAnim; }
+    public Rigidbody WeaponRigidbody { get => _weaponRigidbody; }
+
+    public void SetEmptyModel()
+    {
+        Destroy(_model);
+    }
 
     private void OnDisable()
     {
         AmmoConfig.CurrentClip = AmmoConfig.ClipSize;
         AmmoConfig.CurrentAmmo = AmmoConfig.MaxAmmo;
     }
-
     public void Visit(EnemyHitBox enemy)
     {
         enemy.Health.TakeDamage(DamageConfig.GetDamage(5), Vector3.zero, enemy.Type == EnemyHitBoxType.Head ? 1000 : 1);
@@ -88,6 +90,7 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
         _model.transform.localPosition = SpawnPoint;
         _model.transform.localRotation = Quaternion.Euler(SpawnRotation);
 
+        _weaponRigidbody = ModelWithoutHands.GetComponent<Rigidbody>();
         _weaponAnim = _model.GetComponent<Animator>();
 
         //_mag = _model.transform.Find("Mag");
@@ -101,7 +104,7 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
         //parent.localPosition = PivotPoint;
     }
 
-    public void Shoot()
+    public async void Shoot(PlayerUI playerUI)
     {
         if (Time.time > ShootConfig.FireRate + _lastShootTime)
         {
@@ -133,33 +136,34 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
                 {
                     /*                ParticleSystem particleInstance = _particlePool.Get();
                                     _particlePool.Release(particleInstance);*/
-                    Instantiate(BloodParticle, hit.point, Quaternion.Euler(hit.point - _shootSystem.transform.position));
 
+                    
+                    Instantiate(BloodParticle, hit.point, Quaternion.Euler(hit.point - _shootSystem.transform.position));
+                    
                     hitbox.Accept(this);
+                    await playerUI.CrosshairHit();
                 }
             }
-            
-            /*if (Physics.Raycast(_shootSystem.transform.position, shootDirection, out RaycastHit hit, float.MaxValue, ShootConfig.HitMask))
-            {
-                _activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position, hit.point, hit));
-                SurfaceManager.Instance.HandleImpact(hit.transform.gameObject, hit.point, hit.normal, ImpactType, 0);
-
-                if (hit.collider.TryGetComponent(out HitBox hitbox))
-                {
-                    *//*                ParticleSystem particleInstance = _particlePool.Get();
-                                    _particlePool.Release(particleInstance);*//*
-                    Instantiate(BloodParticle, hit.point, Quaternion.Euler(hit.point - _shootSystem.transform.position));
-
-                    hitbox.health.TakeDamage(DamageConfig.GetDamage(5), hit.point);
-                }
-            }*/
             else
             {
                 _activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position, (ray.GetPoint(75) - _shootSystem.transform.forward), new RaycastHit()));
-                
-                /*_activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position,
-                                                              _shootSystem.transform.position + (shootDirection * TrailConfig.MissDistance),
-                                                              new RaycastHit()));*/
+            }
+        }
+    }
+
+    private void CrosshairtCheckEnemy(PlayerUI playerUI)
+    {
+        Vector3 spreadAmount = ShootConfig.GetSpread();
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0) + spreadAmount / 10);
+        if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue))
+        {
+            if (hit.collider.TryGetComponent(out EnemyHitBox hitbox))
+            {
+                playerUI.ChangeCrosshairColor(Color.red);
+            }
+            else
+            {
+                playerUI.ChangeCrosshairColor(Color.white);
             }
         }
     }
@@ -174,22 +178,22 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
         AmmoConfig.Reload();
     }
 
-    public void Tick(bool isAttack, bool isReload, bool isAim, PlayerGunSelector gunSelector, Transform weaponPivot, Image crosshair)
+    public void Tick(bool isAttack, bool isReload, bool isAim, PlayerGunSelector gunSelector, Transform weaponPivot, PlayerUI playerUI)
     {
         if (isAttack)
         {
             if (AmmoConfig.CurrentClip > 0 && !isReload)
             {
-                gunSelector.ActiveGun.Shoot();
+                gunSelector.ActiveGun.Shoot(playerUI);
             }
 
-            if (isReload)
+            /*if (isReload)
             {
                 //gunSelector.ActiveGun.Reload(isReload);
-            }  
+            }*/  
         }
-
-        gunSelector.ActiveGun.Aim(isAim, weaponPivot, _camera, crosshair);
+        CrosshairtCheckEnemy(playerUI);
+        gunSelector.ActiveGun.Aim(isAim, weaponPivot, _camera, playerUI.Crosshair);
 
     }
 
@@ -273,7 +277,7 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
     public void Despawn()
     {
         // We do a bunch of other stuff on the same frame, so we really want it to be immediately destroyed, not at Unity's convenience.
-        Model.SetActive(false);
+        //Model.SetActive(false);
         Destroy(Model);
         _trailPool.Clear();
         //if (BulletPool != null)
@@ -305,13 +309,6 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
         config.SpawnRotation = SpawnRotation;
 
         return config;
-    }
-
-    public void Drop()
-    {
-        _model.transform.SetParent(null);
-
-
     }
 
     public void Visit(SO_Gun gun)
