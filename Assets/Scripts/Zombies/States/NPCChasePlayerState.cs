@@ -14,7 +14,7 @@ public class NPCChasePlayerState : NPCState
 
     void NPCState.Enter(NPCAgent agent)
     {
-        //Debug.Log("Zombie Chase");
+        Debug.Log("Zombie Chase");
         agent.playerSeen = true;
         agent.isChaseing = true;
         agent.navMeshAgent.stoppingDistance = agent.config.attackRadius;
@@ -22,6 +22,7 @@ public class NPCChasePlayerState : NPCState
 
     void NPCState.Exit(NPCAgent agent)
     {
+        Debug.Log("Exit Zombie Chase");
         agent.isChaseing = false;
         agent.navMeshAgent.stoppingDistance = 0.0f;
     }
@@ -73,7 +74,7 @@ public class NPCChasePlayerState : NPCState
             agent.navMeshAgent.speed = agent.config.chaseWalkingSpeed + agent.config.offsetChaseSpeed;
             agent.navMeshAgent.SetDestination(agent.playerTransform.position);
 
-            if (Physics.Raycast(ray, out agent.hit, 0.2f))
+            if (Physics.Raycast(ray, out agent.hit, 1f))
             {
                 if (agent.hit.transform.CompareTag("Barricade"))
                 {

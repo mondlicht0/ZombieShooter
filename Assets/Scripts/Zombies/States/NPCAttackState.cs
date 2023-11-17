@@ -45,16 +45,18 @@ public class NPCAttackState : NPCState
         {
             agent.stateMachine.ChangeState(NPCStateId.Death);
         }
-        else if (!agent.aiHealth.isDead && distance <= agent.config.attackRadius + agent.config.offsetAttackRadius && !playerHealth.IsDead)
+        else if (!agent.aiHealth.isDead && (distance <= agent.config.attackRadius + agent.config.offsetAttackRadius || agent.attackWall) && !playerHealth.IsDead)
         {
+           
             Ray ray = new Ray(agent.transform.position, agent.transform.forward);
-            if (Physics.Raycast(ray, out agent.hit, 1f))
+            if (Physics.Raycast(ray, out agent.hit, 5f))
             {
-                if (agent.hit.collider.TryGetComponent(out BarricadeSpawner barricade))
+                if (agent.hit.transform.CompareTag("Barricade"))
                 {
+                    Debug.Log("Remove Barricade Zombie");
                     timer -= Time.deltaTime;
 
-                    barricade.RemoveBoard();
+                    agent.hit.transform.GetComponent<BarricadeSpawner>().RemoveBoard();
 
                     if (timer <= 0)
                     {

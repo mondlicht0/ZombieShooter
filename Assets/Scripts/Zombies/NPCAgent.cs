@@ -110,21 +110,20 @@ public class NPCAgent : MonoBehaviour
 
     public void AttackPlayer()
     {
+        Ray ray = new Ray(transform.position, transform.forward);
+
         if(playerTransform.TryGetComponent(out PlayerHealth health) && !aiHealth.isDead && Vector3.Distance(playerTransform.position, transform.position) <= config.attackRadius + config.offsetAttackRadius && !health.IsDead)
         {
             health.TakeDamage(config.attackDamage, Vector3.zero);
         }
-    }
 
-/*    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Barricade"))
+/*        if (Physics.Raycast(ray, out hit, 1f))
         {
-            navMeshAgent.isStopped = true;
-            attackWall = true;
-            stateMachine.ChangeState(NPCStateId.Attack);
-            other.GetComponent<BarricadeSpawner>().RemoveBoard();
-        }
-    }*/
+            if (hit.collider.TryGetComponent(out BarricadeSpawner barricade))
+            {
+                barricade.RemoveBoard();
+            }
+        }*/
+    }
 }
 

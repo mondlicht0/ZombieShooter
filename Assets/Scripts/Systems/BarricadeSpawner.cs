@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BarricadeSpawner : Interactable
 {
@@ -91,6 +92,14 @@ public class BarricadeSpawner : Interactable
             Text = !IsFull() ? _lackOfWoods : "";
             IsInteractable = false;
             return;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out NPCAgent agent))
+        {
+            if (agent.attackWall) RemoveBoard();
         }
     }
 }

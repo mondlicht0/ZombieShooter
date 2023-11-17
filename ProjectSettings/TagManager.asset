@@ -8,6 +8,7 @@ TagManager:
   - Head
   - ship
   - asteroid
+  - Barricade
   layers:
   - Default
   - TransparentFX
