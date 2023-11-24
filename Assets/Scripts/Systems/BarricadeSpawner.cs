@@ -5,23 +5,31 @@ using UnityEngine.AI;
 
 public class BarricadeSpawner : Interactable
 {
+    public bool _isDestroyed = false;
+
     [SerializeField] private List<Transform> _planks;
     [SerializeField] private Transform _planksParent;
+    [SerializeField] private int _currentPlanksCount = 0;
 
     [Header("UI")]
     [SerializeField] private Canvas _canvas;
     [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private MoneyDisplayer _moneyDisplayer;
     [Space]
-    [SerializeField] private string _lackOfWoods = "Not enough woods";
+    [SerializeField] private string _lackOfWoods = "NOT ENOUGH MONEY";
 
     private int _woodPlanks = 0;
+    private int _price = 100;
 
     private BoxCollider _barricadeCollider;
-    private int _currentPlanksCount = 0;
+    private NavMeshObstacle _obstacle;
+
+    public bool IsDestroyed { get => _isDestroyed; }
 
     private void Awake()
     {
         _barricadeCollider = GetComponent<BoxCollider>();
+        _obstacle = GetComponent<NavMeshObstacle>();
     }
 
     private void Start()
@@ -32,20 +40,26 @@ public class BarricadeSpawner : Interactable
         CheckBarricadeWoodsAndFull();
 
         _text.text = Text;
+
+        //_currentPlanksCount = _planks.Count;
     }
 
     protected override void Interact()
     {
-        if (PlayerData.Instance.Woods >= 0 && _currentPlanksCount != _planks.Count)
+        if (PlayerData.Instance.Money >= 0 && _currentPlanksCount != _planks.Count)
         {
-            for (int i = 0; i < _planks.Count && PlayerData.Instance.Woods != 0; i++)
+            for (int i = 0; i < _planks.Count && PlayerData.Instance.Money != 0; i++)
             {
                 if (_planks[i].gameObject.activeSelf == false)
                 {
                     _planks[i].gameObject.SetActive(true);
 
                     _currentPlanksCount++;
-                    PlayerData.Instance.Woods--;
+                    PlayerData.Instance.Money -= _price;
+                    _moneyDisplayer.UpdateMoneyText(PlayerData.Instance.Money);
+
+                    _obstacle.enabled = true;
+                    _barricadeCollider.enabled = true;
 
                     CheckBarricadeWoodsAndFull();
                 }
@@ -58,17 +72,30 @@ public class BarricadeSpawner : Interactable
 
     }
 
+    private bool IsBarricadeDestroyed()
+    {
+        return _currentPlanksCount == 0;
+    }
+
     public void RemoveBoard()
     {
-        Debug.Log("Remove Board begin");
-        for (int i = 0; i <= _planks.Count; i++)
+        if (!IsBarricadeDestroyed())
         {
-            if (_planks[i].transform.gameObject.activeSelf)
+            for (int i = 0; i <= _planks.Count; i++)
             {
-                _planks[i].transform.gameObject.SetActive(false);
-                Debug.Log("Remove Board end");
-                return;
+                if (_planks[i].transform.gameObject.activeSelf)
+                {
+                    _planks[i].transform.gameObject.SetActive(false);
+                    _currentPlanksCount--;
+                    Debug.Log("Remove Board end");
+                    return;
+                }
             }
+        } else
+        {
+            _isDestroyed = true;
+            _obstacle.enabled = false;
+            _barricadeCollider.enabled = false;
         }
     }
 
@@ -80,8 +107,6 @@ public class BarricadeSpawner : Interactable
 
     private bool IsFull()
     {
-        Debug.Log(_currentPlanksCount);
-        Debug.Log(_currentPlanksCount == _planks.Count);
         return _currentPlanksCount == _planks.Count;
     }
 
@@ -94,6 +119,7 @@ public class BarricadeSpawner : Interactable
             return;
         }
     }
+
 
     private void OnTriggerEnter(Collider other)
     {

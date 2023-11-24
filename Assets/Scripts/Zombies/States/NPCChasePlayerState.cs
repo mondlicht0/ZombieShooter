@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NPCChasePlayerState : NPCState
 {
@@ -14,7 +15,7 @@ public class NPCChasePlayerState : NPCState
 
     void NPCState.Enter(NPCAgent agent)
     {
-        Debug.Log("Zombie Chase");
+        //Debug.Log("Zombie Chase");
         agent.playerSeen = true;
         agent.isChaseing = true;
         agent.navMeshAgent.stoppingDistance = agent.config.attackRadius;
@@ -22,7 +23,7 @@ public class NPCChasePlayerState : NPCState
 
     void NPCState.Exit(NPCAgent agent)
     {
-        Debug.Log("Exit Zombie Chase");
+        //Debug.Log("Exit Zombie Chase");
         agent.isChaseing = false;
         agent.navMeshAgent.stoppingDistance = 0.0f;
     }
@@ -64,7 +65,7 @@ public class NPCChasePlayerState : NPCState
         Player player = GameObject.FindObjectOfType<Player>();
         float distance = Vector3.Distance(player.transform.position, agent.transform.position);
 
-        Ray ray = new Ray(agent.transform.position, agent.transform.forward);
+        Ray ray = new Ray(agent.transform.position + Vector3.up, agent.transform.forward);
         Debug.DrawRay(agent.transform.position, agent.transform.forward, Color.red);
 
         if (distance >= agent.config.attackRadius + agent.config.offsetAttackRadius)
@@ -74,9 +75,9 @@ public class NPCChasePlayerState : NPCState
             agent.navMeshAgent.speed = agent.config.chaseWalkingSpeed + agent.config.offsetChaseSpeed;
             agent.navMeshAgent.SetDestination(agent.playerTransform.position);
 
-            if (Physics.Raycast(ray, out agent.hit, 1f))
+            if (Physics.Raycast(ray, out agent.hit, 0.7f))
             {
-                if (agent.hit.transform.CompareTag("Barricade"))
+                if (agent.hit.transform.TryGetComponent(out BarricadeSpawner barricade) && barricade.GetComponent<NavMeshObstacle>().enabled)
                 {
                     Debug.Log("Barricade");
                     agent.navMeshAgent.isStopped = true;

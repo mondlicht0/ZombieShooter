@@ -1,22 +1,43 @@
+using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
+    public static WaveSpawner Instance;
+    public int EnemyCount;
+
     [SerializeField] private Waves[] _waves;
+    [SerializeField] private WaveDisplayer _waveDisplayer;
 
     private int _currentEnemyIndex;
     private int _currentWaveIndex;
     private int _enemiesLeftToSpawn;
 
+    private float _breakTime = 5;
+
+    public int CurrentEnemyIndex { get => _currentEnemyIndex; }
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         _enemiesLeftToSpawn = _waves[0].WaveSettings.Length;
-        LaunchWave();
+        SpawnEnemyInWaveWithout();
     }
 
-    private WaveSpawner SpawnEnemyInWaveWithout()
+    private void SpawnEnemyInWaveWithout()
     {
+        EnemyCount = _waves[_currentWaveIndex].WaveSettings.Length;
+
+        _waveDisplayer.RemainingEnemies.text = $"ZOMBIES: {EnemyCount}";
+        _waveDisplayer.CurrentWave.text = $"WAVE: {_currentWaveIndex}";
+
         if (_enemiesLeftToSpawn > 0)
         {
             //yield return new WaitForSeconds(_waves[_currentWaveIndex].WaveSettings[_currentEnemyIndex].SpawnDelay);
@@ -25,12 +46,13 @@ public class WaveSpawner : MonoBehaviour
                         Quaternion.identity);
             _enemiesLeftToSpawn--;
             _currentEnemyIndex++;
-            return SpawnEnemyInWaveWithout();
+            SpawnEnemyInWaveWithout();
             //StartCoroutine(SpawnEnemyInWave());
         }
 
         else
         {
+            
             if (_currentWaveIndex < _waves.Length - 1)
             {
                 _currentWaveIndex++;
@@ -38,8 +60,6 @@ public class WaveSpawner : MonoBehaviour
                 _currentEnemyIndex = 0;
             }
         }
-
-        return null;
     }
 
 
@@ -69,8 +89,32 @@ public class WaveSpawner : MonoBehaviour
 
     public void LaunchWave()
     {
-        SpawnEnemyInWaveWithout();
+        Breaktime(true);
         //StartCoroutine(SpawnEnemyInWave());
+    }
+
+    public async void Breaktime(bool on)
+    {
+        _waveDisplayer.TurnBreaktime(on);
+
+        float remainingTime = _breakTime;
+
+        while (remainingTime > 0f)
+        {
+            Debug.Log("Turn");
+            _waveDisplayer.UpdateBreaktimeText(remainingTime);
+
+            await UniTask.Delay(1000);
+
+            remainingTime--;
+
+        }
+
+        //await UniTask.Delay(TimeSpan.FromSeconds(_breakTime));
+
+        _waveDisplayer.TurnBreaktime(!on);
+
+        SpawnEnemyInWaveWithout();
     }
 }
 

@@ -42,5 +42,6 @@ public class PlayerData : ScriptableObject
 
     [Header("Resources")]
     public int Woods = 0;
+    public int Money = 0;
 
 }

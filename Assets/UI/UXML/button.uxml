@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/styles.uss?fileID=7433441132597879392&amp;guid=0cbe728800910d24aa60fe1a2fd580bf&amp;type=3#styles" />
+    <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);">
+        <ui:Button text="PLAY" display-tooltip-when-elided="true" name="menu-button" class="buttons menu-buttons" style="-unity-font-style: bold;" />
+    </ui:VisualElement>
+</ui:UXML>

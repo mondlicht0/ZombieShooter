@@ -20,6 +20,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     public event Action OnHealthChange;
     public event Action OnHealthAdd;
+    public event Action OnDied;
 
     #region
     public float MaxHealth { get => _maxHealth; }

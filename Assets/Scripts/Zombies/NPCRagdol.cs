@@ -66,6 +66,8 @@ public class NPCRagdol : MonoBehaviour
             rb.detectCollisions = true;
             rb.useGravity = true;
             rb.isKinematic = false;
+
+            rb.gameObject.layer = 0;
         }
 
         ApplyForce(_npcAgent.playerTransform.forward);

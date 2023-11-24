@@ -21,7 +21,7 @@ public class NPCCall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!agent.isDead) Call();
+        //if (!agent.isDead) Call();
     }
 
     public void Call()

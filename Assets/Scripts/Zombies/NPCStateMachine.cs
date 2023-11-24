@@ -36,6 +36,7 @@ public class NPCStateMachine
     {
         GetState(currentState)?.Exit(agent);
         currentState = newState;
+        agent.DebugStateText.text = $"{currentState}";
         GetState(currentState)?.Enter(agent);
     }
 }
