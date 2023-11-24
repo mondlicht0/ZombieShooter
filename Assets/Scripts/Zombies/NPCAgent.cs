@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.MLAgents;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -48,7 +49,10 @@ public class NPCAgent : MonoBehaviour
     public bool playerSeen = false;
     public bool attackWall = false;
 
+    public TextMeshProUGUI DebugStateText;
+
     public RaycastHit hit;
+    public NavMeshHit navHit;
 
     private WaveSpawner _waveSpawner;
 
@@ -117,13 +121,13 @@ public class NPCAgent : MonoBehaviour
             health.TakeDamage(config.attackDamage, Vector3.zero);
         }
 
-/*        if (Physics.Raycast(ray, out hit, 1f))
+        if (Physics.Raycast(ray, out hit, 1f))
         {
             if (hit.collider.TryGetComponent(out BarricadeSpawner barricade))
             {
                 barricade.RemoveBoard();
             }
-        }*/
+        }
     }
 }
 

@@ -51,17 +51,16 @@ public class NPCAttackState : NPCState
             Ray ray = new Ray(agent.transform.position, agent.transform.forward);
             if (Physics.Raycast(ray, out agent.hit, 5f))
             {
-                if (agent.hit.transform.CompareTag("Barricade"))
+                if (agent.hit.collider.TryGetComponent(out BarricadeSpawner barricade) && barricade.IsDestroyed)
                 {
-                    Debug.Log("Remove Barricade Zombie");
-                    timer -= Time.deltaTime;
+                    agent.attackWall = false;
+                    agent.stateMachine.ChangeState(NPCStateId.ChasePlayer);
+                }
 
-                    agent.hit.transform.GetComponent<BarricadeSpawner>().RemoveBoard();
-
-                    if (timer <= 0)
-                    {
-                        timer = attackTime;
-                    }
+                else if (!barricade.IsDestroyed)
+                {
+                    agent.attackWall = true;
+                    agent.stateMachine.ChangeState(NPCStateId.Attack);
                 }
             }
 

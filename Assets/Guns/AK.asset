@@ -36,3 +36,5 @@ MonoBehaviour:
   TrailConfig: {fileID: 11400000, guid: e319c8d20ec8ca34aaef1b1bc68a88a6, type: 2}
   AmmoConfig: {fileID: 11400000, guid: 07aeb4b409797bc48a497a7e96474280, type: 2}
   DamageConfig: {fileID: 11400000, guid: 1cd5c2ba5162e42468d1ce9ec19075ba, type: 2}
+  WeaponIcon: {fileID: 21300000, guid: cc65d9b037e6c9441bc575c8ac77eeb7, type: 3}
+  BulletIcon: {fileID: 21300000, guid: 3d40dd2b310c2ae4e96c9597dd8fe275, type: 3}

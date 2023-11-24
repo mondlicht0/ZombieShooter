@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/styles.uss?fileID=7433441132597879392&amp;guid=0cbe728800910d24aa60fe1a2fd580bf&amp;type=3#styles" />
+    <Style src="project://database/Assets/UI%20Toolkit/menu-buttons.uss?fileID=7433441132597879392&amp;guid=3b54a349af1ef36479c777733b60b927&amp;type=3#menu-buttons" />
+    <ui:VisualElement name="Screen" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0); -unity-background-image-tint-color: rgb(0, 0, 0); background-image: url(&apos;project://database/Assets/UI/%E2%80%94Pngtree%E2%80%94vertical%20gradient%20black%20transparent_5659216.png?fileID=2800000&amp;guid=b206c7ffa89590744a0b555dee8a2c0e&amp;type=3#—Pngtree—vertical gradient black transparent_5659216&apos;);">
+        <ui:VisualElement name="Content" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; flex-direction: row; align-items: flex-start; align-self: auto; justify-content: flex-start;">
+            <ui:VisualElement name="LeftColumn" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0.66); max-width: 30%; min-width: 30%; flex-shrink: 0; width: auto; justify-content: flex-start; align-items: flex-start; max-height: 100%; min-height: 100%; padding-left: 42px; padding-right: 42px; padding-top: 42px; padding-bottom: 42px; align-self: auto;">
+                <ui:VisualElement name="Header" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); max-height: 50px; justify-content: center; align-items: center;">
+                    <ui:Label tabindex="-1" text="AlmaU ZOMBIES" display-tooltip-when-elided="true" name="GameTitle" enable-rich-text="true" style="-unity-font-style: bold; font-size: 36px; -unity-text-align: middle-left; color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0); -unity-background-image-tint-color: rgb(255, 255, 255); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-top-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0); text-shadow: 10px 50px 10px rgba(0, 0, 0, 0.45); -unity-text-outline-width: 0; -unity-text-outline-color: rgb(255, 255, 255);" />
+                </ui:VisualElement>
+                <ui:VisualElement name="MenuButtons" style="background-color: rgba(0, 0, 0, 0); flex-shrink: 0; align-items: center; justify-content: center; align-self: auto;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

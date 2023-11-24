@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.MLAgents;
@@ -16,28 +17,12 @@ public class Health : MonoBehaviour, IDamagable
 
     public NPCRagdol Ragdol { get { return ragdol; } }
 
+    public event Action OnHealthChange;
+    public event Action OnDied;
+
     public void Start()
     {
         ragdol = GetComponent<NPCRagdol>();
-
-        /*
-        rigidBody = GetComponentsInChildren<Rigidbody>();
-        for (int i = 0; i < rigidBody.Length; i++)
-        {
-            hitBox = rigidBody[i].gameObject.AddComponent<HitBox>();
-            if (rigidBody[i].gameObject.CompareTag("Head")) hitBox.isHead = true;
-            hitBox.health = this;
-        }
-
-        currentHealth = maxHealth;
-
-        HitBox[] hitBoxes = gameObject.GetComponentsInChildren<HitBox>();
-        
-        foreach (HitBox hitBox in hitBoxes)
-        {
-            hitBox.health = this;
-        }*/
-
         currentHealth = maxHealth;
     }
 
@@ -55,16 +40,19 @@ public class Health : MonoBehaviour, IDamagable
         }
         if (currentHealth <= 0)
         {
-            currentHealth = 0;
-            isInjured = false;
-            isDead = true;
             Die(direction);
         }
     }
 
     public void Die(Vector3 direction)
     {
+        Debug.Log("Dead");
+        currentHealth = 0;
+        isInjured = false;
+        isDead = true;
         ragdol.GetComponent<NPCAgent>().isDead = true;
         ragdol.ActivateRagdol();
+
+        GlobalEventManager.SendEnemyKilled(WaveSpawner.Instance.EnemyCount);
     }
 }

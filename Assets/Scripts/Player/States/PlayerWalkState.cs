@@ -14,7 +14,7 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void Enter()
     {
-        Debug.Log("Enter to Walk");
+        //Debug.Log("Enter to Walk");
 
         Context.Armature.SetBool("IsWalking", true);
         Player.HeadBob.SetIsWalking(true);
@@ -22,7 +22,7 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void Exit()
     {
-        Debug.Log("Exit from Walk");
+        //Debug.Log("Exit from Walk");
     }
 
     public override void LogicUpdate()

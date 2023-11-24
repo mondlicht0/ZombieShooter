@@ -18,7 +18,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void Enter()
     {
-        Debug.Log("Enter to Idle");
+        //Debug.Log("Enter to Idle");
 
         Context.Armature.SetBool("IsWalking", false);
 

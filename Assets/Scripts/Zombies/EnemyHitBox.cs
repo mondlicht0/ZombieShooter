@@ -6,6 +6,7 @@ public class EnemyHitBox : HitBox
 {
     public EnemyHitBoxType Type;
     public Transform Root;
+    public Transform SlicedPart = null;
 
     private Health _health;
 
@@ -13,6 +14,8 @@ public class EnemyHitBox : HitBox
 
     public override void Accept(IWeaponVisitor visitor)
     {
+        if (SlicedPart != null) { SlicedPart.gameObject.SetActive(false); }
+
         visitor.Visit(this);
     }
 

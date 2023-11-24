@@ -41,6 +41,10 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
     public SO_AmmoConfiguration AmmoConfig;
     public SO_DamageConfiguration DamageConfig;
 
+    [Header("UI Icons")]
+    public Sprite WeaponIcon;
+    public Sprite BulletIcon;
+
     private MonoBehaviour _activeMonoBehaviour;
     private GameObject _model;
     private float _lastShootTime;
@@ -72,7 +76,7 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
     }
     public void Visit(EnemyHitBox enemy)
     {
-        enemy.Health.TakeDamage(DamageConfig.GetDamage(5), Vector3.zero, enemy.Type == EnemyHitBoxType.Head ? 1000 : 1);
+        enemy.Health.TakeDamage(DamageConfig.GetDamage(5), _shootSystem.transform.forward.normalized, enemy.Type == EnemyHitBoxType.Head ? 1000 : 1);
     }
 
     public void Spawn(Transform parent, MonoBehaviour activeMonoBehaviour)

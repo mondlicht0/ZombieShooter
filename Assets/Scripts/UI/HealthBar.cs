@@ -14,17 +14,19 @@ public class HealthBar : MonoBehaviour
 
     private void UpdateText()
     {
-        Debug.Log("Health changed");
+        //Debug.Log("Health changed");
         _healthText.text = $"{_playerHealth.CurrentHealth}";
     }
 
     private void OnEnable()
     {
         _playerHealth.OnHealthChange += UpdateText;
+        _playerHealth.OnHealthAdd += UpdateText;
     }
 
     private void OnDisable()
     {
         _playerHealth.OnHealthChange -= UpdateText;
+        _playerHealth.OnHealthAdd -= UpdateText;
     }
 }
