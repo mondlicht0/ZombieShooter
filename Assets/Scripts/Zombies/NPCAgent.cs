@@ -112,7 +112,7 @@ public class NPCAgent : MonoBehaviour
             _waveSpawner.LaunchWave();
     }
 
-    public void AttackPlayer()
+    public void AttackAnimationEvent()
     {
         Ray ray = new Ray(transform.position, transform.forward);
 
@@ -123,7 +123,7 @@ public class NPCAgent : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 1f))
         {
-            if (hit.collider.TryGetComponent(out BarricadeSpawner barricade))
+            if (hit.collider.TryGetComponent(out BarricadeWall barricade))
             {
                 barricade.RemoveBoard();
             }

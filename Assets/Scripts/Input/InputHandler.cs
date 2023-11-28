@@ -17,9 +17,12 @@ public class InputHandler : MonoBehaviour
     private bool _isInteract = false;
     private bool _isDrop = false;
 
+    public PlayerInput _playerInput;
+
     public InputActionAsset InputActions;
     private InputAction _mouseClick;
     private InputAction _mouseHold;
+    public InputAction Interact;
 
     public Vector2 MovementInput { get => _movementInput; }
     public Vector2 MouseInput { get => _mouseInput; }
@@ -35,8 +38,12 @@ public class InputHandler : MonoBehaviour
 
     private void Awake()
     {
+        _playerInput = new PlayerInput();
+
+
         _mouseClick = InputActions.FindAction("Attack");
         _mouseHold = InputActions.FindAction("Aim");
+        Interact = InputActions.FindAction("Interact");
     }
 
     private void OnEnable()
@@ -119,7 +126,7 @@ public class InputHandler : MonoBehaviour
 
     public void OnInteractInput(InputAction.CallbackContext context)
     {
-        _isInteract = context.performed;
+        _isInteract = _playerInput.OnMove.Interact.triggered;
     }
 
     public void OnDropInput(InputAction.CallbackContext context)

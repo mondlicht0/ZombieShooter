@@ -75,9 +75,9 @@ public class NPCChasePlayerState : NPCState
             agent.navMeshAgent.speed = agent.config.chaseWalkingSpeed + agent.config.offsetChaseSpeed;
             agent.navMeshAgent.SetDestination(agent.playerTransform.position);
 
-            if (Physics.Raycast(ray, out agent.hit, 0.7f))
+            if (Physics.Raycast(ray, out agent.hit, 2f))
             {
-                if (agent.hit.transform.TryGetComponent(out BarricadeSpawner barricade) && barricade.GetComponent<NavMeshObstacle>().enabled)
+                if (agent.hit.transform.TryGetComponent(out BarricadeWall barricade) && !barricade.IsDestroyed)
                 {
                     Debug.Log("Barricade");
                     agent.navMeshAgent.isStopped = true;

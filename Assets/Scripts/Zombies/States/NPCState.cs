@@ -8,7 +8,8 @@ public enum NPCStateId
     Patrol,
     ChasePlayer,
     Attack,
-    Death
+    Death,
+    AttackWall
 
 }
 public interface NPCState

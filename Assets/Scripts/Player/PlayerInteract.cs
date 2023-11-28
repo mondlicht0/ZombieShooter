@@ -1,7 +1,7 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Cysharp;
+using Cysharp.Threading.Tasks;
 
 public class PlayerInteract : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class PlayerInteract : MonoBehaviour
         _playerUI = GetComponent<PlayerUI>();
     }
 
-    private void Update()
+    private async void Update()
     {
         Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
         RaycastHit hitInfo;
@@ -29,7 +29,9 @@ public class PlayerInteract : MonoBehaviour
             {
                 _playerUI.UpdateText(interact.Text); 
 
-                if (_inputHandler.IsInteract && interact.IsInteractable) interact.BaseInteract();
+                if (_inputHandler.Interact.triggered) interact.BaseInteract();
+
+                //if (_inputHandler.IsInteract && interact.IsInteractable) interact.BaseInteract();
             }
         }
     }
