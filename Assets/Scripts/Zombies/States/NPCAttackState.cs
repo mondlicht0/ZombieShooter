@@ -37,30 +37,21 @@ public class NPCAttackState : NPCState
         FacePlayer(agent, Vector3.zero);
         
         float distance = Vector3.Distance(player.transform.position, agent.transform.position);
-        if (!agent.aiHealth.isDead && distance > agent.config.attackRadius + agent.config.offsetAttackRadius && !agent.attackWall)
+
+        if (!agent.aiHealth.isDead && (distance <= agent.config.attackRadius + agent.config.offsetAttackRadius || agent.attackWall) && !playerHealth.IsDead)
         {
-            agent.stateMachine.ChangeState(NPCStateId.ChasePlayer);
-        }
-        else if (agent.aiHealth.isDead)
-        {
-            agent.stateMachine.ChangeState(NPCStateId.Death);
-        }
-        else if (!agent.aiHealth.isDead && (distance <= agent.config.attackRadius + agent.config.offsetAttackRadius || agent.attackWall) && !playerHealth.IsDead)
-        {
-           
+            agent.navMeshAgent.isStopped = true;
             Ray ray = new Ray(agent.transform.position, agent.transform.forward);
             if (Physics.Raycast(ray, out agent.hit, 5f))
             {
-                if (agent.hit.collider.TryGetComponent(out BarricadeSpawner barricade) && barricade.IsDestroyed)
-                {
-                    agent.attackWall = false;
-                    agent.stateMachine.ChangeState(NPCStateId.ChasePlayer);
-                }
-
-                else if (!barricade.IsDestroyed)
+                if (agent.hit.collider.TryGetComponent(out BarricadeWall barricade) && !barricade.IsDestroyed)
                 {
                     agent.attackWall = true;
-                    agent.stateMachine.ChangeState(NPCStateId.Attack);
+                }
+
+                else
+                {
+                    agent.attackWall = false;
                 }
             }
 
@@ -70,12 +61,24 @@ public class NPCAttackState : NPCState
                 if (timer <= 0)
                 {
                     //playerHealth.TakeDamage(agent.config.attackDamage, Vector3.zero);
-                    
+
                     timer = attackTime;
                 }
             }
 
         }
+
+
+        else if (!agent.aiHealth.isDead && distance > agent.config.attackRadius + agent.config.offsetAttackRadius && !agent.attackWall)
+        {
+            agent.stateMachine.ChangeState(NPCStateId.ChasePlayer);
+        }
+        else if (agent.aiHealth.isDead)
+        {
+            agent.stateMachine.ChangeState(NPCStateId.Death);
+        }
+        
+        
         if (playerHealth.IsDead)
         {
             agent.playerSeen = false;

@@ -24,7 +24,7 @@ public class BarricadeSpawner : Interactable
     private BoxCollider _barricadeCollider;
     private NavMeshObstacle _obstacle;
 
-    public bool IsDestroyed { get => _isDestroyed; }
+    //public bool IsDestroyed { get => _isDestroyed; }
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class BarricadeSpawner : Interactable
 
         _text.text = Text;
 
-        //_currentPlanksCount = _planks.Count;
+        _isDestroyed = IsBarricadeDestroyed();
     }
 
     protected override void Interact()
@@ -54,12 +54,16 @@ public class BarricadeSpawner : Interactable
                 {
                     _planks[i].gameObject.SetActive(true);
 
+
+                    _isDestroyed = false;
+
                     _currentPlanksCount++;
                     PlayerData.Instance.Money -= _price;
                     _moneyDisplayer.UpdateMoneyText(PlayerData.Instance.Money);
 
                     _obstacle.enabled = true;
                     _barricadeCollider.enabled = true;
+                    
 
                     CheckBarricadeWoodsAndFull();
                 }
