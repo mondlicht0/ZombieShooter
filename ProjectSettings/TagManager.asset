@@ -9,6 +9,7 @@ TagManager:
   - ship
   - asteroid
   - Barricade
+  - SpawnWall
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Weapons
   - EnemyHitbox
   - Interactable
-  - 
+  - MiniMap
   - 
   - 
   - 

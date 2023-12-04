@@ -200,6 +200,17 @@
                 },
                 {
                     "name": "",
+                    "id": "f9830d4a-a830-44f0-a4c9-dd47b685cd09",
+                    "path": "<AndroidGamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e60a891b-dfe8-46c0-875c-475860c9a00c",
                     "path": "<Keyboard>/space",
                     "interactions": "",

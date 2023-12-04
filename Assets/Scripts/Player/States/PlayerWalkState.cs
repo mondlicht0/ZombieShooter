@@ -1,8 +1,5 @@
 using Cinemachine;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Windows;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerWalkState : PlayerBaseState
 {

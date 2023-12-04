@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21c6046bbdbb544d9183c3fe35989c5, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  WalkSpeed: 7
+  WalkSpeed: 4
   RunSpeed: 20
   DashSpeed: 5
   JumpHeight: 0
@@ -36,4 +36,4 @@ MonoBehaviour:
   IdleFOV: 70
   RunFOV: 90
   Woods: 5
-  Money: 4600
+  Money: 5200
