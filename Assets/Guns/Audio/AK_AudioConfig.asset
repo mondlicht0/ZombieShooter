@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e48dd1a3bfdc09b4fb1a2a2e765629ed, type: 3}
+  m_Name: AK_AudioConfig
+  m_EditorClassIdentifier: 
+  Volume: 0.249
+  FireClips:
+  - {fileID: 8300000, guid: 0e5ec5d798406aa4699be8c44dd7599f, type: 3}
+  EmptyClip: {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}
+  ReloadClip: {fileID: 8300000, guid: de412b716f7455e4d986e5a627467376, type: 3}
+  LastBulletClip: {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}

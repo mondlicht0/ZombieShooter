@@ -55,9 +55,9 @@ public class PlayerAction : MonoBehaviour
 
             if (ShouldAutoReload() || ShouldManualReload())
             {
+                GunSelector.ActiveGun.StartReloading();
                 IsReloading = true;
                 GunSelector.ActiveGun.WeaponAnim.SetTrigger("Reload");
-
             }
         }
             

@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject _loadingScreen;
     [SerializeField] private ProgressBar _progressBar;
+    [SerializeField] private AudioClip _mainMenuMusic;
 
     private List<AsyncOperation> _scenesLoading = new List<AsyncOperation>();
+    private AudioSource _audioSource;
 
     private float _totalSceneProgress;
 
@@ -22,10 +24,13 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         SceneManager.LoadSceneAsync((int)SceneIndexes.MENU, LoadSceneMode.Additive);
+
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public async void LoadGame()
     {
+        _audioSource.Stop();
         _loadingScreen.SetActive(true);
 
         _scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MENU));

@@ -69,7 +69,7 @@ public class NPCAgent : MonoBehaviour
     void Start()
     {
         if(playerTransform == null){
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         }
 
         initialPosition = this.transform.position;
