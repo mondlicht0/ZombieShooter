@@ -82,7 +82,7 @@ public class NPCAttackState : NPCState
         if (playerHealth.IsDead)
         {
             agent.playerSeen = false;
-            agent.stateMachine.ChangeState(NPCStateId.Patrol);
+            agent.stateMachine.ChangeState(NPCStateId.Idle);
         }
 
     }

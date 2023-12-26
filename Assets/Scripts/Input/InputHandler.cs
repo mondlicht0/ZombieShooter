@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class InputHandler : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class InputHandler : MonoBehaviour
     public bool IsAim { get => _isAim;  }
     public bool IsReload { get => _isReload;  }
     public bool IsInteract { get => _isInteract; }
+
+    [SerializeField] private Button _attackButton;
 
     private void Awake()
     {
@@ -134,13 +137,13 @@ public class InputHandler : MonoBehaviour
         _isDrop = context.performed;
     }
 
-    /*    public void OnAttackInput(InputAction.CallbackContext context)
-        {
-            _isAttack = context.performed;
-        }
+    public void OnAttackInput()
+    {
+        _isAttack = true;
+    }
 
-        public void OnAimInput(InputAction.CallbackContext context)
-        {
-            _isAim = context.performed;
-        }*/
+    public void OnAimInput()
+    {
+        _isAim = true;
+    }
 }

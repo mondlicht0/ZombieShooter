@@ -18,6 +18,7 @@ public class WaveSpawner : MonoBehaviour
 
     private AudioSource _audio;
     [SerializeField] private float _smoothVolumeFade = 0.2f;
+    [SerializeField] private float _musicVolume = 0.3f;
 
     private float _breakTime = 5;
 
@@ -122,7 +123,7 @@ public class WaveSpawner : MonoBehaviour
 
         _waveDisplayer.TurnBreaktime(!on);
 
-        _audio.DOFade(1, _smoothVolumeFade);
+        _audio.DOFade(_musicVolume, _smoothVolumeFade);
 
         SpawnEnemyInWaveWithout();
     }

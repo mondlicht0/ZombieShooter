@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class NPCChasePlayerState : NPCState
 {
-
+    private PlayerHealth playerHealth;
     float timer = 0.0f;
 
     public NPCStateId GetId()
@@ -19,6 +19,8 @@ public class NPCChasePlayerState : NPCState
         agent.playerSeen = true;
         agent.isChaseing = true;
         agent.navMeshAgent.stoppingDistance = agent.config.attackRadius;
+
+        playerHealth = agent.playerTransform.GetComponent<PlayerHealth>();
     }
 
     void NPCState.Exit(NPCAgent agent)
@@ -57,6 +59,12 @@ public class NPCChasePlayerState : NPCState
                 }
             }
         }
+
+        if (playerHealth.IsDead)
+        {
+            agent.playerSeen = false;
+            agent.stateMachine.ChangeState(NPCStateId.Idle);
+        }
     }
 
     private static void ChasePlayer(NPCAgent agent)
@@ -91,7 +99,7 @@ public class NPCChasePlayerState : NPCState
 
             if (player.isDead)
             {
-                agent.stateMachine.ChangeState(NPCStateId.Patrol);
+                agent.stateMachine.ChangeState(NPCStateId.Idle);
             }
 
             else if (!agent.aiHealth.isDead && !(distance > agent.config.attackRadius + agent.config.offsetAttackRadius))
