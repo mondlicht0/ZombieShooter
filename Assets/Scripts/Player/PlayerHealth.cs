@@ -79,7 +79,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     public void Die(Vector3 direction)
     {
         Debug.Log("Player Dead");
-        _isDead = false;
+        _isDead = true;
     }
 
     public void TakeDamage(int damage, Vector3 direction, int multiplier = 1)

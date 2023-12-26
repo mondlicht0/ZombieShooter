@@ -26,19 +26,23 @@ public class PlayerUI : MonoBehaviour
         _interactText.text = text;
     }
 
-    public async UniTask CrosshairHit()
+    public void CrosshairHit()
     {
-        await UniTask.WhenAll(_crosshairHits.Select(hit => SetActiveAsync(hit, true)));
+        /*        await UniTask.WhenAll(_crosshairHits.Select(hit => SetActiveAsync(hit, true)));
 
-        await UniTask.Delay(TimeSpan.FromSeconds(0.3f), DelayType.DeltaTime, PlayerLoopTiming.Update);
+                await UniTask.Delay(TimeSpan.FromSeconds(0.1f), DelayType.DeltaTime, PlayerLoopTiming.Update);
 
-        await UniTask.WhenAll(_crosshairHits.Select(hit => SetActiveAsync(hit, false)));
+                await UniTask.WhenAll(_crosshairHits.Select(hit => SetActiveAsync(hit, false)));*/
 
-/*
-        foreach (var hit in _crosshairHits)
+        foreach (Image hit in _crosshairHits)
         {
-            hit.gameObject.SetActive(true);
-        }*/
+            hit.DOFade(1, 0);
+        }
+
+        foreach (Image hit in _crosshairHits)
+        {
+            hit.DOFade(0, 0.3f);
+        }
     }
     private async UniTask SetActiveAsync(Image hit, bool isFadeIn)
     {

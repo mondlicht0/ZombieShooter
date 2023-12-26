@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class WaveSpawner : MonoBehaviour
     private int _currentWaveIndex;
     private int _enemiesLeftToSpawn;
 
+    private AudioSource _audio;
+    [SerializeField] private float _smoothVolumeFade = 0.2f;
+    [SerializeField] private float _musicVolume = 0.3f;
+
     private float _breakTime = 5;
 
     public int CurrentEnemyIndex { get => _currentEnemyIndex; }
@@ -23,6 +28,8 @@ public class WaveSpawner : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        _audio = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -97,6 +104,8 @@ public class WaveSpawner : MonoBehaviour
     {
         _waveDisplayer.TurnBreaktime(on);
 
+        _audio.DOFade(0, _smoothVolumeFade);
+
         float remainingTime = _breakTime;
 
         while (remainingTime > 0f)
@@ -113,6 +122,8 @@ public class WaveSpawner : MonoBehaviour
         //await UniTask.Delay(TimeSpan.FromSeconds(_breakTime));
 
         _waveDisplayer.TurnBreaktime(!on);
+
+        _audio.DOFade(_musicVolume, _smoothVolumeFade);
 
         SpawnEnemyInWaveWithout();
     }

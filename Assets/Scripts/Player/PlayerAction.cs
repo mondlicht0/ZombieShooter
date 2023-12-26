@@ -55,9 +55,9 @@ public class PlayerAction : MonoBehaviour
 
             if (ShouldAutoReload() || ShouldManualReload())
             {
+                GunSelector.ActiveGun.StartReloading();
                 IsReloading = true;
                 GunSelector.ActiveGun.WeaponAnim.SetTrigger("Reload");
-
             }
         }
             
@@ -91,7 +91,7 @@ public class PlayerAction : MonoBehaviour
 
     private bool ShouldManualReload()
     {
-        return !IsReloading && Keyboard.current.rKey.wasReleasedThisFrame && GunSelector.ActiveGun.CanReload();
+        return !IsReloading && Input.IsReload && GunSelector.ActiveGun.CanReload();
     }
 
     private bool ShouldAutoReload()

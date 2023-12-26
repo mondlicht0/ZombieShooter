@@ -40,6 +40,7 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
     public SO_TrailConfiguration TrailConfig;
     public SO_AmmoConfiguration AmmoConfig;
     public SO_DamageConfiguration DamageConfig;
+    public SO_AudioConfiguration AudioConfig;
 
     [Header("UI Icons")]
     public Sprite WeaponIcon;
@@ -47,6 +48,7 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
 
     private MonoBehaviour _activeMonoBehaviour;
     private GameObject _model;
+    private AudioSource _audioSource;
     private float _lastShootTime;
     private ParticleSystem _shootSystem;
     private ObjectPool<TrailRenderer> _trailPool;
@@ -97,23 +99,28 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
         _weaponRigidbody = ModelWithoutHands.GetComponent<Rigidbody>();
         _weaponAnim = _model.GetComponent<Animator>();
 
-        //_mag = _model.transform.Find("Mag");
-
         _recoil = FindObjectOfType<Recoil>();
         _input = FindObjectOfType<InputHandler>();
         _camera = FindObjectOfType<CinemachineVirtualCamera>();
 
         _shootSystem = _model.GetComponentInChildren<ParticleSystem>();
+        _audioSource = _model.GetComponent<AudioSource>();
 
         //parent.localPosition = PivotPoint;
     }
 
-    public async void Shoot(PlayerUI playerUI)
+    public async void TryToShoot(PlayerUI playerUI)
     {
         if (Time.time > ShootConfig.FireRate + _lastShootTime)
         {
             _lastShootTime = Time.time;
+            if (AmmoConfig.CurrentClip == 0)
+            {
+                AudioConfig.PlayOutOfAmmoClip(_audioSource);
+                return;
+            }
             _shootSystem.Play();
+            AudioConfig.PlayShootingClip(_audioSource, AmmoConfig.CurrentClip == 1);
 
             _weaponAnim.SetTrigger("Shoot");
 
@@ -145,7 +152,7 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
                     Instantiate(BloodParticle, hit.point, Quaternion.Euler(hit.point - _shootSystem.transform.position));
                     
                     hitbox.Accept(this);
-                    await playerUI.CrosshairHit();
+                    playerUI.CrosshairHit();
                 }
             }
             else
@@ -172,6 +179,11 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
         }
     }
 
+    public void StartReloading()
+    {
+        AudioConfig.PlayReloadClip(_audioSource);
+    }
+
     public bool CanReload()
     {
         return AmmoConfig.CanReload();
@@ -186,15 +198,12 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
     {
         if (isAttack)
         {
-            if (AmmoConfig.CurrentClip > 0 && !isReload)
-            {
-                gunSelector.ActiveGun.Shoot(playerUI);
-            }
+            gunSelector.ActiveGun.TryToShoot(playerUI);
 
             /*if (isReload)
             {
                 //gunSelector.ActiveGun.Reload(isReload);
-            }*/  
+            }*/
         }
         CrosshairtCheckEnemy(playerUI);
         gunSelector.ActiveGun.Aim(isAim, weaponPivot, _camera, playerUI.Crosshair);

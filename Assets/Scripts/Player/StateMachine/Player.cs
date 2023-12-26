@@ -66,12 +66,12 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _camera = FindObjectOfType<CinemachineVirtualCamera>();
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
     {
-        if (!IsReadyToJump && IsGrounded) Invoke(nameof(ResetJump), PlayerData.JumpCD);
+        //if (!IsReadyToJump && IsGrounded) Invoke(nameof(ResetJump), PlayerData.JumpCD);
     }
 
     private void ResetJump()
