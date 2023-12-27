@@ -46,25 +46,6 @@ public class PlayerStateMachine : MonoBehaviour
         _currentState.Enter();
     }
 
-    public void InvokeDashing()
-    {
-        Invoke(nameof(DelayedDashForce), 0.025f);
-
-        Invoke(nameof(ResetDash), Player.PlayerData.DashDuration);
-    }
-
-    public void DelayedDashForce()
-    {
-        Player.Rigidbody.AddForce(Player.Orientation.forward * Player.PlayerData.DashForce, ForceMode.Impulse);
-    }
-
-    public void ResetDash()
-    {
-        Debug.Log("Reset Dash");
-
-        Player.IsDashing = false;
-    }
-
     public void TranslateToNewValues(float frequency, float amplitude)
     {
         //_noiseSettings.PositionNoise[0].Y.Frequency = Mathf.Lerp(_noiseSettings.PositionNoise[0].Y.Frequency, frequency, 2f);
@@ -72,18 +53,5 @@ public class PlayerStateMachine : MonoBehaviour
 
         _noiseSettings.PositionNoise[0].Y.Frequency = frequency;
         _noiseSettings.PositionNoise[0].Y.Amplitude = amplitude;
-    }
-
-    private IEnumerator ChangeValueSmoothly(float startValue, float targetValue, float duration)
-    {
-        float elapsedTime = 0f;
-        float currentValue = startValue;
-        while (elapsedTime < 0.5f)
-        {
-            elapsedTime += Time.deltaTime;
-            currentValue = Mathf.Lerp(startValue, targetValue, elapsedTime / duration);
-            yield return null;
-        }
-        currentValue = targetValue;
     }
 }
