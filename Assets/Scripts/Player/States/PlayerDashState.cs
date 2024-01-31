@@ -77,7 +77,7 @@ public class PlayerDashState : PlayerBaseState, IRootState
 
         Player.IsDashing = false;
 
-        Context.InvokeDashing();
+        //Context.InvokeDashing();
 
         //Exit();
     }

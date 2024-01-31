@@ -30,6 +30,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     public void AddHealth(float amount)
     {
+        Debug.Log("Add Health");
         float maxCurrentDifference = _maxHealth - _currentHealth;
         _currentHealth += maxCurrentDifference > amount ? amount : maxCurrentDifference;
 
@@ -37,6 +38,11 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         {
             OnHealthAdd();
         }
+    }
+
+    public bool IsHealthFull()
+    {
+        return _currentHealth == _maxHealth;
     }
 
     private void Start()

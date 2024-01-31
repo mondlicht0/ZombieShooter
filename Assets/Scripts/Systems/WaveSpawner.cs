@@ -16,11 +16,15 @@ public class WaveSpawner : MonoBehaviour
     private int _currentWaveIndex;
     private int _enemiesLeftToSpawn;
 
+    [Header("Audio")]
     private AudioSource _audio;
     [SerializeField] private float _smoothVolumeFade = 0.2f;
     [SerializeField] private float _musicVolume = 0.3f;
 
-    private float _breakTime = 5;
+    [Header("Weapon Store")]
+    [SerializeField] private WeaponStore _weaponStore;
+
+    private float _breakTime = 60;
 
     public int CurrentEnemyIndex { get => _currentEnemyIndex; }
 
@@ -40,6 +44,8 @@ public class WaveSpawner : MonoBehaviour
 
     private void SpawnEnemyInWaveWithout()
     {
+        _weaponStore.gameObject.SetActive(false);
+
         EnemyCount = _waves[_currentWaveIndex].WaveSettings.Length;
 
         _waveDisplayer.RemainingEnemies.text = $"ZOMBIES: {EnemyCount}";
@@ -103,6 +109,7 @@ public class WaveSpawner : MonoBehaviour
     public async void Breaktime(bool on)
     {
         _waveDisplayer.TurnBreaktime(on);
+        _weaponStore.gameObject.SetActive(true);
 
         _audio.DOFade(0, _smoothVolumeFade);
 

@@ -1,6 +1,4 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -33,6 +31,7 @@ public class Player : MonoBehaviour
     private PlayerLook _look;
     private PlayerGunSelector _gunSelector;
     private InputHandler _inputHandler;
+    private PlayerHealth _health;
     [SerializeField] private HeadBobController _headBob;
 
     private Animator _animator;
@@ -47,6 +46,8 @@ public class Player : MonoBehaviour
     public CinemachineVirtualCamera Camera { get => _camera; }
     public HeadBobController HeadBob { get => _headBob; }
     public PlayerGunSelector GunSelector { get => _gunSelector; }
+    public PlayerHealth Health { get => _health; }
+    public PlayerLook Look { get => _look; }
     public float DashCDTimer { get => _dashCDTimer; set { _dashCDTimer = value; } }
 
     private void Awake()
@@ -58,6 +59,7 @@ public class Player : MonoBehaviour
         _animator = GetComponent<Animator>();
         _animatorStateController = GetComponent<AnimationStateController>();
         _gunSelector = GetComponent<PlayerGunSelector>();
+        _health = GetComponent<PlayerHealth>();
         //_headBob = GetComponent<HeadBobController>();
 
         PlayerData.Instance = _playerData;
@@ -66,7 +68,6 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _camera = FindObjectOfType<CinemachineVirtualCamera>();
-        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
