@@ -26,8 +26,8 @@ public class NPCAttackState : NPCState
         attackTime = agent.config.attackTime;
         agent.isAttacking = true;
         //offset = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
-        playerHealth = agent.playerTransform.GetComponent<PlayerHealth>();
         player = agent.playerTransform.GetComponent<Player>();
+        playerHealth = player.Health;
     }
     void NPCState.Update(NPCAgent agent)
     {

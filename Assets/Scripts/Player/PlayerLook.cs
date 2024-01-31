@@ -10,6 +10,7 @@ public class PlayerLook : MonoBehaviour
 
     [Header("Other Settings")]
     [SerializeField] private CinemachineVirtualCamera _playerCamera;
+    [SerializeField] private CinemachineInputProvider _inputProvider;
     [SerializeField] private Transform _weaponHolder;
     [SerializeField] private Transform _armature;
     [SerializeField] private Transform _camera;
@@ -23,29 +24,35 @@ public class PlayerLook : MonoBehaviour
     private float xRotation;
     private float yRotation;
 
-    /*    private void Update()
-        {
-            float mouseX = _input.MouseInput.x * Time.deltaTime * sensX;
-            float mouseY = _input.MouseInput.y * Time.deltaTime * sensY;
+    private bool _isLocked;
 
-            yRotation += mouseX;
-            xRotation -= mouseY;
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-            transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-
-            _weaponRotation = Quaternion.Slerp(_weaponRotation, Quaternion.Euler(xRotation, yRotation, 0), smooth * Time.deltaTime);
-            _weaponHolder.rotation = _weaponRotation;
-        }
-
-        private void LateUpdate()
-        {
-            //_orientationRotation.rotation = Quaternion.Euler(0, yRotation, 0);
-
-        }*/
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
 
     private void Update()
+    {
+        if (!_isLocked)
+        {
+            Rotation();
+        }
+
+
+    }
+
+    private void LateUpdate()
+    {
+        if (!_isLocked)
+        {
+            transform.rotation = _orientationRotation;
+            _armature.rotation = _weaponRotation;
+            _weaponHolder.rotation = _weaponRotation;
+        }
+    }
+
+    private void Rotation()
     {
         Quaternion playerCameraRotation = _playerCamera.transform.rotation;
         float yRotation = playerCameraRotation.eulerAngles.y;
@@ -57,14 +64,21 @@ public class PlayerLook : MonoBehaviour
 
         _orientationRotation = Quaternion.Euler(0, yRotation, 0);
         _weaponRotation = Quaternion.Slerp(_weaponRotation, Quaternion.Euler(xRotation, yRotation, 0), smooth * Time.deltaTime);
-
-
     }
 
-    private void LateUpdate()
+    public void LockOnStore()
     {
-        transform.rotation = _orientationRotation;
-        _armature.rotation = _weaponRotation;
-        _weaponHolder.rotation = _weaponRotation;
+        _isLocked = true;
+        _input.enabled = false;
+
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+
+    public void LockOffStore()
+    {
+        _isLocked = false;
+        _input.enabled = true;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

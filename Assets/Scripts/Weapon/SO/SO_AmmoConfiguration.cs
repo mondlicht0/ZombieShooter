@@ -33,4 +33,9 @@ public class SO_AmmoConfiguration : ScriptableObject
 
         return config;
     }
+
+    public void AddAmmo(int amount)
+    {
+        CurrentAmmo += amount;
+    }
 }

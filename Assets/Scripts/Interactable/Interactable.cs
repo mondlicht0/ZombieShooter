@@ -8,6 +8,11 @@ public abstract class Interactable : MonoBehaviour
     public string Text;
     public bool IsInteractable = true;
 
+    private void OnEnable()
+    {
+        gameObject.layer = 14;
+    }
+
     public void BaseInteract()
     {
         Debug.Log($"Interacted with {Text}");

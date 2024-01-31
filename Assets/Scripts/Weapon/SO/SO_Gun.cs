@@ -9,6 +9,8 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
 {
     public string Name;
     public GunType Type;
+    public int Price;
+    public Sprite Sprite;
     public ImpactType ImpactType;
     public GameObject ModelPrefab;
     public GameObject ModelWithoutHands;
