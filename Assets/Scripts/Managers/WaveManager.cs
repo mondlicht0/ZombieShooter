@@ -10,6 +10,6 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        EnemyCount = FindObjectsOfType<NPCAgent>().Length;
+        //EnemyCount = FindObjectsOfType<NPCAgent>().Length;
     }
 }

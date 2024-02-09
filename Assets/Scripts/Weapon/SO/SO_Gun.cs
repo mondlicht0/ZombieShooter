@@ -126,40 +126,40 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
 
             _weaponAnim.SetTrigger("Shoot");
 
-            Vector3 spreadAmount = ShootConfig.GetSpread();
-            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0) + spreadAmount / 10);
-            //Vector3 screenCenter = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            //Vector3 shootDirection = _camera.transform.forward + spreadAmount;
-            Vector3 shootDirection = ray.origin - _shootSystem.transform.forward;
-            //shootDirection += spreadAmount;
-
+            
 
             AmmoConfig.CurrentClip--;
 
-            shootDirection.Normalize();
-
-            _recoil.RecoilFire();
-
-            if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, ShootConfig.HitMask))
+            for (int i = 0; i < ShootConfig.BulletsPerShot; i++)
             {
-                _activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position, hit.point, hit));
-                SurfaceManager.Instance.HandleImpact(hit.transform.gameObject, hit.point, hit.normal, ImpactType, 0);
+                Vector3 spreadAmount = ShootConfig.GetSpread();
+                Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0) + spreadAmount / 10);
+                Vector3 shootDirection = ray.origin - _shootSystem.transform.forward;
+                shootDirection.Normalize();
 
-                if (hit.collider.TryGetComponent(out HitBox hitbox))
+                _recoil.RecoilFire();
+
+                if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, ShootConfig.HitMask))
                 {
-                    /*                ParticleSystem particleInstance = _particlePool.Get();
-                                    _particlePool.Release(particleInstance);*/
+                    _activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position, hit.point, hit));
+                    SurfaceManager.Instance.HandleImpact(hit.transform.gameObject, hit.point, hit.normal, ImpactType, 0);
 
-                    
-                    Instantiate(BloodParticle, hit.point, Quaternion.Euler(hit.point - _shootSystem.transform.position));
-                    
-                    hitbox.Accept(this);
-                    playerUI.CrosshairHit();
+                    if (hit.collider.TryGetComponent(out HitBox hitbox))
+                    {
+                        /*                ParticleSystem particleInstance = _particlePool.Get();
+                                        _particlePool.Release(particleInstance);*/
+
+
+                        Instantiate(BloodParticle, hit.point, Quaternion.Euler(hit.point - _shootSystem.transform.position));
+
+                        hitbox.Accept(this);
+                        playerUI.CrosshairHit();
+                    }
                 }
-            }
-            else
-            {
-                _activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position, (ray.GetPoint(75) - _shootSystem.transform.forward), new RaycastHit()));
+                else
+                {
+                    _activeMonoBehaviour.StartCoroutine(PlayTrail(_shootSystem.transform.position, (ray.GetPoint(75) - _shootSystem.transform.forward), new RaycastHit()));
+                }
             }
         }
     }
@@ -193,7 +193,15 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
 
     public void EndReload()
     {
-        AmmoConfig.Reload();
+        if (Type != GunType.Shotgun)
+        {
+            AmmoConfig.Reload();
+        }
+
+        else
+        {
+            AmmoConfig.ReloadShotgunSingle();
+        }
     }
 
     public void Tick(bool isAttack, bool isReload, bool isAim, PlayerGunSelector gunSelector, Transform weaponPivot, PlayerUI playerUI)

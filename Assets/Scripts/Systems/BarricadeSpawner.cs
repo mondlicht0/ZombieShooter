@@ -127,10 +127,10 @@ public class BarricadeSpawner : Interactable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out NPCAgent agent))
+/*        if (other.TryGetComponent(out NPCAgent agent))
         {
             if (agent.attackWall) RemoveBoard();
-        }
+        }*/
     }
 }
 

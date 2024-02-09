@@ -65,9 +65,6 @@ public class PlayerDashState : PlayerBaseState, IRootState
     private void CheckGround()
     {
         Player.IsGrounded = Physics.Raycast(Player.transform.position, Vector3.down, Player.PlayerData.PlayerHeight * 0.5f + 0.2f, Player.PlayerData.GroundLayer);
-
-        if (Player.IsGrounded) Player.Rigidbody.drag = Player.PlayerData.GroundDrag;
-        else Player.Rigidbody.drag = 0;
     }
 
     private void Dash()

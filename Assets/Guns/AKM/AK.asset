@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde29a84161e7754f825ba9afa28c8e8, type: 3}
+  m_Name: AK
+  m_EditorClassIdentifier: 
+  Name: MCX
+  Type: 1
+  Price: 0
+  Sprite: {fileID: 0}
+  ImpactType: {fileID: 11400000, guid: b3f92483fabfb6348af9f086faa1cec5, type: 2}
+  ModelPrefab: {fileID: 7991385533601314730, guid: 43cd500658a50e04e895c08122b8a582,
+    type: 3}
+  ModelWithoutHands: {fileID: 3523528700248198161, guid: 9af1220653f5a7344bca267f84402183,
+    type: 3}
+  BloodParticle: {fileID: 4302051180656694884, guid: c5e32ff72de437346a6b56d648c55b93,
+    type: 3}
+  AnimationClip: {fileID: 7400000, guid: 500bfba1c0515f44f8820b65a6f819c3, type: 2}
+  SpawnPoint: {x: 0.06, y: -0.63, z: 0.14}
+  SpawnRotation: {x: 0, y: 0, z: 0}
+  PivotPoint: {x: 0, y: 0, z: 0}
+  RightHandIKTarget: {fileID: 0}
+  LeftHandIKTarget: {fileID: 0}
+  AimPosition: {x: -0.059, y: -0.59, z: -0.01}
+  AimRotation: {x: -91, y: 0, z: -0.05}
+  AimSpeed: 4
+  AimFOV: 45
+  BaseFOV: 70
+  ShootConfig: {fileID: 11400000, guid: 1733b0493159b624da7f59cf2ab86560, type: 2}
+  TrailConfig: {fileID: 11400000, guid: e319c8d20ec8ca34aaef1b1bc68a88a6, type: 2}
+  AmmoConfig: {fileID: 11400000, guid: 07aeb4b409797bc48a497a7e96474280, type: 2}
+  DamageConfig: {fileID: 11400000, guid: 1cd5c2ba5162e42468d1ce9ec19075ba, type: 2}
+  AudioConfig: {fileID: 11400000, guid: 9daad5498a3725c48945787c322aef8f, type: 2}
+  WeaponIcon: {fileID: 21300000, guid: cc65d9b037e6c9441bc575c8ac77eeb7, type: 3}
+  BulletIcon: {fileID: 21300000, guid: 3d40dd2b310c2ae4e96c9597dd8fe275, type: 3}

@@ -20,8 +20,6 @@ public class PlayerGunSelector : MonoBehaviour
     [SerializeField] private GameObject _knife;
 
     [SerializeField] private GameObject _magazine;
-
-    private PlayerIK _playerIK;
     private Player _player;
 
     [Space]
@@ -34,11 +32,6 @@ public class PlayerGunSelector : MonoBehaviour
 
     public SO_Gun GunActive { get => ActiveGun; }
     public List<SO_Gun> GunsSlots { get => _gunsSlots; }
-
-    public void InitAwake()
-    {
-        _playerIK = GetComponent<PlayerIK>();
-    }
 
     public void InitStart()
     {
@@ -55,7 +48,6 @@ public class PlayerGunSelector : MonoBehaviour
 
     private void Awake()
     {
-        _playerIK = GetComponent<PlayerIK>();
         _player = GetComponent<Player>();
     }
 

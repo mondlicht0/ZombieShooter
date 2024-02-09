@@ -25,28 +25,6 @@ public class PlayerAction : MonoBehaviour
     private Vector3 _origPos;
     public bool IsReloading;
 
-    public void InitAwake()
-    {
-        _parentConstraint.data.constrainedObject = GunSelector.ActiveGun.Mag;
-        _magConstraint.data.target = GunSelector.ActiveGun.Mag;
-    }
-
-    public void InitStart()
-    {
-        _origPos = WeaponPivot.transform.position;
-    }
-
-    private void Awake()
-    {
-
-    }
-
-    private void Start()
-    {
-        
-        //_origPos = WeaponPivot.transform.position;
-    }
-
     private void Update()
     {
         if (GunSelector.ActiveGun != null)
@@ -57,12 +35,11 @@ public class PlayerAction : MonoBehaviour
             {
                 GunSelector.ActiveGun.StartReloading();
                 IsReloading = true;
-                GunSelector.ActiveGun.WeaponAnim.SetTrigger("Reload");
+                GunSelector.ActiveGun.WeaponAnim.Play("Reload");
             }
         }
             
     }
-
 
 
     public void KnifeAttack()
@@ -98,76 +75,4 @@ public class PlayerAction : MonoBehaviour
     {
         return !IsReloading && AutoReload && GunSelector.ActiveGun.AmmoConfig.CurrentClip == 0 && GunSelector.ActiveGun.CanReload();
     }
-
-    private void FixedUpdate()
-    {
-        
-    }
-
-    /*    private void UpdateCrosshair()
-        {
-            Vector3 gunTipPoint = GunSelector.ActiveGun.GetRaycastOrigin();
-            Vector3 forward;
-            if (GunSelector.ActiveGun.ShootConfig.ShootType == ShootType.FromGun)
-            {
-                forward = GunSelector.ActiveGun.GetGunForward();
-            }
-            else
-            {
-                forward = GunSelector.Camera.transform.forward;
-            }
-
-            Vector3 hitPoint = gunTipPoint + forward * 10;
-            if (Physics.Raycast(gunTipPoint, forward, out RaycastHit hit, float.MaxValue, GunSelector.ActiveGun.ShootConfig.HitMask))
-            {
-                hitPoint = hit.point;
-            }
-
-            AimTarget.transform.position = hitPoint;
-
-            if (GunSelector.ActiveGun.ShootConfig.ShootType == ShootType.FromGun)
-            {
-                Vector3 screenSpaceLocation = GunSelector.Camera.WorldToScreenPoint(hitPoint);
-
-                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    (RectTransform)Crosshair.transform.parent,
-                    screenSpaceLocation,
-                    null,
-                    out Vector2 localPosition))
-                {
-                    Crosshair.rectTransform.anchoredPosition = localPosition;
-                }
-                else
-                {
-                    Crosshair.rectTransform.anchoredPosition = Vector2.zero;
-                }
-            }
-            else
-            {
-                Crosshair.rectTransform.anchoredPosition = Vector2.zero;
-            }
-        }
-
-        private bool ShouldManualReload()
-        {
-            return !IsReloading
-                && Keyboard.current.rKey.wasReleasedThisFrame
-                && GunSelector.ActiveGun.CanReload();
-        }
-
-        private bool ShouldAutoReload()
-        {
-            return !IsReloading
-                && AutoReload
-                && GunSelector.ActiveGun.AmmoConfig.CurrentClipAmmo == 0
-                && GunSelector.ActiveGun.CanReload();
-        }
-
-        private void EndReload()
-        {
-            GunSelector.ActiveGun.EndReload();
-            InverseKinematics.HandIKAmount = 1f;
-            InverseKinematics.ElbowIKAmount = 1f;
-            IsReloading = false;
-        }*/
 }
