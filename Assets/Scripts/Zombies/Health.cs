@@ -8,18 +8,15 @@ public class Health : MonoBehaviour, IDamagable
     public bool isDead = false;
     public bool isInjured = false;
     public float dieForce = 2f;
-    private NPCRagdol ragdol;
     private HitBox hitBox;
     private Rigidbody[] rigidBody;
 
-    public NPCRagdol Ragdol { get { return ragdol; } }
 
     public event Action OnHealthChange;
     public event Action OnDied;
 
     public void Start()
     {
-        ragdol = GetComponent<NPCRagdol>();
         currentHealth = maxHealth;
     }
 
@@ -44,12 +41,14 @@ public class Health : MonoBehaviour, IDamagable
     public void Die(Vector3 direction)
     {
         Debug.Log("Dead");
+
         currentHealth = 0;
         isInjured = false;
         isDead = true;
-        ragdol.GetComponent<NPCAgent>().isDead = true;
-        ragdol.ActivateRagdol();
 
-        GlobalEventManager.SendEnemyKilled(WaveSpawner.Instance.EnemyCount);
+        if (WaveSpawner.Instance != null)
+        {
+            GlobalEventManager.SendEnemyKilled(WaveSpawner.Instance.EnemyCount);
+        }
     }
 }

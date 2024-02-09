@@ -12,6 +12,8 @@ public class WeaponReloadEvents : MonoBehaviour
 
     [SerializeField] private Animator _animator;
 
+    public bool IsShotgun;
+
     private void Start()
     {
         _action = FindObjectOfType<PlayerAction>();
@@ -26,6 +28,25 @@ public class WeaponReloadEvents : MonoBehaviour
     private void EndReload()
     {
         _action.EndReload();
+    }
+
+    private void ShouldReloadYet()
+    {
+        if (_gunSelector.ActiveGun.AmmoConfig.GetReloadAmount() != 0)
+        {
+            Debug.Log("df");
+            _animator.Play("Reload_Shell");
+        }
+
+        else
+        {
+            EndReloadYet();
+        }
+    }
+
+    private void EndReloadYet()
+    {
+        _animator.Play("Reload_End");
     }
 
     public void AttachMagazine()
