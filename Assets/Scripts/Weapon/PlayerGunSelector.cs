@@ -14,11 +14,12 @@ public class PlayerGunSelector : MonoBehaviour
     [SerializeField] private Transform GunParent;
     [SerializeField] private List<SO_Gun> Guns;
     [SerializeField] private List<SO_Gun> _gunsSlots = new List<SO_Gun>(4);
+    [field: SerializeField] public SO_Gun Knife { get; private set; }
     [SerializeField] private Animator _animator;
     [SerializeField] private Animator _rigController;
     [SerializeField] private PlayerAction _action;
-    [SerializeField] private GameObject _knife;
-
+    //[SerializeField] private GameObject _knife;
+    
     [SerializeField] private GameObject _magazine;
     private Player _player;
 
@@ -28,7 +29,7 @@ public class PlayerGunSelector : MonoBehaviour
 
     [SerializeField] private SO_Gun ActiveBaseGun;
 
-    public GameObject Knife { get => _knife; }
+    
 
     public SO_Gun GunActive { get => ActiveGun; }
     public List<SO_Gun> GunsSlots { get => _gunsSlots; }
@@ -96,10 +97,15 @@ public class PlayerGunSelector : MonoBehaviour
             //_action.IsReloading = false;
         }
 
-        /*        if (Keyboard.current.vKey.wasPressedThisFrame)
-                {
-                    _action.KnifeAttack();
-                }*/
+        if (Keyboard.current.digit5Key.wasPressedThisFrame)
+        {
+            SelectWeapon(Knife);
+        }
+
+        if (Keyboard.current.vKey.wasPressedThisFrame)
+        {
+            _action.KnifeAttack();
+        }
     }
 
     public void Drop()
