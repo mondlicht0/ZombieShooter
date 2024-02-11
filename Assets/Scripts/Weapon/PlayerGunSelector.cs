@@ -143,8 +143,11 @@ public class PlayerGunSelector : MonoBehaviour
 
     public void SelectWeapon(SO_Gun Gun)
     {
-        DespawnActiveGun();
-        SetupGun(Gun);
+        if (Gun != null)
+        {
+            DespawnActiveGun();
+            SetupGun(Gun);
+        }
     }
 
     private void SetupGun(SO_Gun Gun)

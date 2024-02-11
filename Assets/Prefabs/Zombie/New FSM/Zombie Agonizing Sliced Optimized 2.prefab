@@ -1607,7 +1607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2123891211307963840
 Transform:
   m_ObjectHideFlags: 0
@@ -1632,7 +1632,7 @@ Transform:
   - {fileID: 4957672335246419008}
   - {fileID: 656845343592047636}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8829884110603306926
 Animator:
@@ -1646,7 +1646,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 957df30120bb7614b82747dad77935b7, type: 3}
   m_Controller: {fileID: 9100000, guid: 630a8a36a234deb4ebe218ed7b828fb5, type: 2}
   m_CullingMode: 1
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -1676,7 +1676,7 @@ NavMeshAgent:
   m_Height: 1.63
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!54 &3317959504470744573
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1830,7 +1830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
-  _health: {fileID: 0}
+  _health: {fileID: 1946496717190898177}
   _followPlayerSensor: {fileID: 8584729239945083266}
   _meleePlayerSensor: {fileID: 5893689752523392371}
   _rightHandAttackSensor: {fileID: 8846921522083302999}
