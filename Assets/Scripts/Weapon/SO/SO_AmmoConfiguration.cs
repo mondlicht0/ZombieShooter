@@ -17,28 +17,6 @@ public class SO_AmmoConfiguration : ScriptableObject
         CurrentAmmo -= GetReloadAmount();
     }
 
-    public IEnumerator ReloadShotgun(Animator animator)
-    {
-        for (int i = 0; i < GetReloadAmount(); i++)
-        {
-            animator.Play("Reload_Shell");
-
-            while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-            {
-                yield return null;
-            }
-
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-            if (stateInfo.normalizedTime >= 1f)
-            {
-                ReloadShotgunSingle();
-            }
-
-        }
-
-    }
-
     public int GetReloadAmount()
     {
         int maxReload = Mathf.Min(ClipSize, CurrentAmmo);
@@ -51,7 +29,6 @@ public class SO_AmmoConfiguration : ScriptableObject
     {
         int maxReload = Mathf.Min(ClipSize, CurrentAmmo);
         int avaliableBulletsinClip = ClipSize - CurrentClip;
-        int reloadAmount = Mathf.Min(maxReload, avaliableBulletsinClip);
 
         CurrentClip++;
         CurrentAmmo--;

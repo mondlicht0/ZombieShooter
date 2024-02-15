@@ -30,17 +30,21 @@ public class WeaponReloadEvents : MonoBehaviour
         _action.EndReload();
     }
 
+    private void EndReloadShotgun()
+    {
+
+    }
+
     private void ShouldReloadYet()
     {
-        if (_gunSelector.ActiveGun.AmmoConfig.GetReloadAmount() != 0)
+        if (_gunSelector.ActiveGun.AmmoConfig.ClipSize - _gunSelector.ActiveGun.AmmoConfig.CurrentClip > 0)
         {
-            Debug.Log("df");
-            _animator.Play("Reload_Shell");
+            _animator.SetBool("ShouldReloadYet", true);
         }
 
         else
         {
-            EndReloadYet();
+            _animator.SetBool("ShouldReloadYet", false);
         }
     }
 
@@ -62,12 +66,12 @@ public class WeaponReloadEvents : MonoBehaviour
     public void KnifeAttackStart()
     {
         _gunSelector.ActiveGun.Model.SetActive(false);
-        _gunSelector.Knife.SetActive(true);
+        _gunSelector.Knife.Model.SetActive(true);
     }
 
     public void KnifeAttackEnd()
     {
-        _gunSelector.Knife.SetActive(false);
+        _gunSelector.Knife.Model.SetActive(false);
         _gunSelector.ActiveGun.Model.SetActive(true);
     }
 }

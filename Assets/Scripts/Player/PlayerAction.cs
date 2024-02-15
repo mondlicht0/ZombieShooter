@@ -50,12 +50,12 @@ public class PlayerAction : MonoBehaviour
     public void KnifeAttackStart()
     {
         GunSelector.ActiveGun.Model.SetActive(false);
-        GunSelector.Knife.SetActive(true);
+        GunSelector.Knife.Model.SetActive(true);
     }
 
     public void KnifeAttackEnd()
     {
-        GunSelector.Knife.SetActive(false);
+        GunSelector.Knife.Model.SetActive(false);
         GunSelector.ActiveGun.Model.SetActive(true);
     }
 

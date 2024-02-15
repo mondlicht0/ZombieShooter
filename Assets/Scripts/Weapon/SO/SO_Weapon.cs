@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/Weapon", order = 0)]
-public class SO_Weapon : ScriptableObject
+
+public class SO_Weapon 
 {
     public string Name;
     public float FireRate;

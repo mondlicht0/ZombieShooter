@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour, IDamagable
@@ -8,7 +9,7 @@ public class Health : MonoBehaviour, IDamagable
     public bool isDead = false;
     public bool isInjured = false;
     public float dieForce = 2f;
-    private HitBox hitBox;
+    [SerializeField] private List<HitBox> hitBoxes;
     private Rigidbody[] rigidBody;
 
 
@@ -18,6 +19,7 @@ public class Health : MonoBehaviour, IDamagable
     public void Start()
     {
         currentHealth = maxHealth;
+        hitBoxes.AddRange(gameObject.GetComponentsInChildren<HitBox>());
     }
 
     public void TakeDamage(int damage, Vector3 direction, int multiplier = 1)
@@ -32,7 +34,7 @@ public class Health : MonoBehaviour, IDamagable
         {
             isInjured = true;
         }
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !isDead)
         {
             Die(direction);
         }
@@ -41,10 +43,15 @@ public class Health : MonoBehaviour, IDamagable
     public void Die(Vector3 direction)
     {
         Debug.Log("Dead");
+        isDead = true;
+        foreach (var box in hitBoxes)
+        {
+            box.enabled = false;
+        }
 
         currentHealth = 0;
         isInjured = false;
-        isDead = true;
+        
 
         if (WaveSpawner.Instance != null)
         {

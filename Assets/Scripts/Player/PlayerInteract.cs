@@ -18,7 +18,7 @@ public class PlayerInteract : MonoBehaviour
         _playerUI = GetComponent<PlayerUI>();
     }
 
-    private async void Update()
+    private void Update()
     {
         Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
         RaycastHit hitInfo;

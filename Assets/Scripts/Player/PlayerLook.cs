@@ -24,7 +24,7 @@ public class PlayerLook : MonoBehaviour
     private float xRotation;
     private float yRotation;
 
-    private bool _isLocked;
+    private bool _isLocked = false;
 
     private void Start()
     {
@@ -58,7 +58,7 @@ public class PlayerLook : MonoBehaviour
         float yRotation = playerCameraRotation.eulerAngles.y;
         float xRotation = playerCameraRotation.eulerAngles.x;
 
-        Vector3 rotate = new Vector3(_input.MouseInput.x, _input.MouseInput.y * 2f, 0);
+        Vector3 rotate = new Vector3(_input.MouseInput.x * sensX, _input.MouseInput.y * sensY, 0);
         transform.eulerAngles = transform.eulerAngles - rotate;
 
 
