@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 [RequireComponent(typeof(RectTransform))]
 [DisallowMultipleComponent]
@@ -12,4 +12,4 @@ public class FloatingJoystick : MonoBehaviour
     {
         RectTransform = GetComponent<RectTransform>();
     }
-}
+}*/

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using Cinemachine;
 
@@ -7,17 +6,18 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private NoiseSettings _noiseSettings;
     [SerializeField] private Animator _armatureAnimator;
 
-    private PlayerStates currState;
-
     private Player _player;
     private PlayerBaseState _currentState;
     private PlayerStateFactory _states;
     private InputHandler _inputHandler;
+
+    #region Properties
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
     public Player Player { get { return _player; } }
     public InputHandler InputHandler { get { return _inputHandler; } }
     public NoiseSettings NoiseSettings { get { return _noiseSettings; } }
     public Animator Armature { get { return _armatureAnimator; } }
+    #endregion
 
 
     private void Awake()
@@ -48,9 +48,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void TranslateToNewValues(float frequency, float amplitude)
     {
-        //_noiseSettings.PositionNoise[0].Y.Frequency = Mathf.Lerp(_noiseSettings.PositionNoise[0].Y.Frequency, frequency, 2f);
-        //_noiseSettings.PositionNoise[0].Y.Amplitude = Mathf.Lerp(_noiseSettings.PositionNoise[0].Y.Amplitude, amplitude, 2f);
-
         _noiseSettings.PositionNoise[0].Y.Frequency = frequency;
         _noiseSettings.PositionNoise[0].Y.Amplitude = amplitude;
     }

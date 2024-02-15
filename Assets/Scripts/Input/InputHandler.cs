@@ -1,9 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.OnScreen;
 using UnityEngine.UI;
 
 public class InputHandler : MonoBehaviour
 {
+    [Header("Platform")]
+    public bool IsMobile;
+
     private Vector2 _movementInput;
     private Vector2 _mouseInput;
     private float _inputX;
@@ -109,8 +113,10 @@ public class InputHandler : MonoBehaviour
         _inputX = MovementInput.x;
         _inputY = MovementInput.y;
 
-        if (_movementInput != Vector2.zero) _isMovementPressed = true;
-        else _isMovementPressed = false;
+        if (_movementInput != Vector2.zero) 
+            _isMovementPressed = true;
+        else 
+            _isMovementPressed = false;
 
     }
 
