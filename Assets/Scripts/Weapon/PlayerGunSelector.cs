@@ -14,7 +14,7 @@ public class PlayerGunSelector : MonoBehaviour
     [SerializeField] private Transform GunParent;
     [SerializeField] private List<SO_Gun> Guns;
     [SerializeField] private List<SO_Gun> _gunsSlots = new List<SO_Gun>(4);
-    [field: SerializeField] public SO_Gun Knife { get; private set; }
+    [field: SerializeField] public SO_Knife Knife { get; private set; }
     [SerializeField] private Animator _animator;
     [SerializeField] private Animator _rigController;
     [SerializeField] private PlayerAction _action;
@@ -55,6 +55,8 @@ public class PlayerGunSelector : MonoBehaviour
     private void Start()
     {
         SO_Gun gun = Guns?.Find(gun => gun.Type == Gun);
+
+        Knife.Spawn(GunParent, this);
 
         //if (gun == null)
         //{
@@ -97,10 +99,10 @@ public class PlayerGunSelector : MonoBehaviour
             //_action.IsReloading = false;
         }
 
-        if (Keyboard.current.digit5Key.wasPressedThisFrame)
+        /*if (Keyboard.current.digit5Key.wasPressedThisFrame)
         {
             SelectWeapon(Knife);
-        }
+        }*/
 
         if (Keyboard.current.vKey.wasPressedThisFrame)
         {

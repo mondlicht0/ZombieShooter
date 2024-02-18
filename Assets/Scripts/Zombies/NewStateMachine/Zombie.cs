@@ -1,5 +1,3 @@
-using Unity.MLAgents;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityHFSM;
@@ -30,8 +28,8 @@ public class Zombie : MonoBehaviour
     [Header("Attack Config")]
     [SerializeField]
     [Range(0.1f, 5f)]
-    private float _attackCooldown = 2;  
-    private float _damage = 10;  
+    private float _attackCooldown = 2;
+    private int _damage = 10;
 
     [Space]
     [Header("Debug Info")]
@@ -50,6 +48,11 @@ public class Zombie : MonoBehaviour
     [SerializeField]
     private float _lastRollTime;
 
+    private bool _isPlayerOnAttackSensor;
+    private Ray ray;
+    private RaycastHit hit;
+    [SerializeField] private float distance;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -57,6 +60,7 @@ public class Zombie : MonoBehaviour
         _health = GetComponent<Health>();
         _zombieFSM = new();
 
+        ray = new Ray(transform.position, transform.forward);
 
         _player = FindObjectOfType<Player>();
 
@@ -71,7 +75,7 @@ public class Zombie : MonoBehaviour
         _zombieFSM.AddTriggerTransition(StateEvent.DetectPlayer, new Transition<ZombieState>(ZombieState.Idle, ZombieState.ChasePlayer));
         //_zombieFSM.AddTriggerTransition(StateEvent.DetectWall, new Transition<ZombieState>(ZombieState.Idle, ZombieState.AttackWall));
 
-        _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.Idle, ZombieState.ChasePlayer, 
+        _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.Idle, ZombieState.ChasePlayer,
                                 (transition) => !_isInChasingRange || Vector3.Distance(_player.transform.position, transform.position) <= _agent.stoppingDistance));
 
 
@@ -83,19 +87,19 @@ public class Zombie : MonoBehaviour
         _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.AttackPlayer, ZombieState.Idle, IsNotWithinIdleRange));
 
         // Attack Wall
-/*        _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.Idle, ZombieState.AttackWall, ShouldAttackWall, forceInstantly: true));
-        _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.ChasePlayer, ZombieState.AttackWall, ShouldAttackWall, forceInstantly: true));
-        _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.AttackPlayer, ZombieState.AttackWall, ShouldAttackWall, forceInstantly: true));*/
+        /*        _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.Idle, ZombieState.AttackWall, ShouldAttackWall, forceInstantly: true));
+                _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.ChasePlayer, ZombieState.AttackWall, ShouldAttackWall, forceInstantly: true));
+                _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.AttackPlayer, ZombieState.AttackWall, ShouldAttackWall, forceInstantly: true));*/
 
-/*        _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.AttackWall, ZombieState.Idle, IsWithinIdleRange, forceInstantly: true));
-        _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.AttackWall, ZombieState.ChasePlayer, ShouldAttackWall, forceInstantly: true));
-        _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.AttackWall, ZombieState.AttackPlayer, ShouldAttackWall, forceInstantly: true));*/
+        /*        _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.AttackWall, ZombieState.Idle, IsWithinIdleRange, forceInstantly: true));
+                _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.AttackWall, ZombieState.ChasePlayer, ShouldAttackWall, forceInstantly: true));
+                _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.AttackWall, ZombieState.AttackPlayer, ShouldAttackWall, forceInstantly: true));*/
 
         // Dead State Transition
         _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.Idle, ZombieState.Dead, IsDead));
         _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.ChasePlayer, ZombieState.Dead, IsDead));
         _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.AttackPlayer, ZombieState.Dead, IsDead));
-       // _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.AttackWall, ZombieState.Dead, IsDead));
+        // _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.AttackWall, ZombieState.Dead, IsDead));
 
         // AddTransitionFromAny
         _zombieFSM.SetStartState(ZombieState.Idle);
@@ -137,6 +141,7 @@ public class Zombie : MonoBehaviour
     private void MeleePlayerSensorOnPlayerEnter(Transform player) => _isInMeleeRange = true;
 
     private bool ShouldMelee(Transition<ZombieState> transition) => _lastAttackTime + _attackCooldown <= Time.time && _isInMeleeRange;
+
     private bool ShouldAttackWall(Transition<ZombieState> transition)
     {
         if (_isInMeleeRange)
@@ -158,7 +163,7 @@ public class Zombie : MonoBehaviour
         }
 
         return _isInWallRange;
-    } 
+    }
 
     private bool IsNotInWallRange(Transition<ZombieState> transition)
     {
@@ -178,17 +183,25 @@ public class Zombie : MonoBehaviour
         return _isInWallRange;
     }
 
-
-
     private bool IsWithinIdleRange(Transition<ZombieState> transition) => _agent.remainingDistance <= _agent.stoppingDistance;
+
     private bool IsNotWithinIdleRange(Transition<ZombieState> transition) => !IsWithinIdleRange(transition);
+
     private bool IsDead(Transition<ZombieState> transition) => _health.isDead;
 
     public void AttackAnimationEvent(Transform player)
     {
+        /*        if (Physics.Raycast(ray, out hit, distance))
+                {
+                    if (player.TryGetComponent(out PlayerHealth health))
+                    {
+                        health.TakeDamage(_damage, Vector3.forward);
+                    }
+                }*/
+
         if (player.TryGetComponent(out PlayerHealth health))
         {
-            health.TakeDamage(10, Vector3.forward);
+            health.TakeDamage(_damage, Vector3.forward);
         }
     }
 }

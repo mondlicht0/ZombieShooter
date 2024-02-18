@@ -37,19 +37,22 @@ public class PlayerLook : MonoBehaviour
         if (!_isLocked)
         {
             Rotation();
+            transform.rotation = _orientationRotation;
+            _armature.rotation = _weaponRotation;
+            //_weaponHolder.rotation = _weaponRotation;
         }
 
-
-    }
-
-    private void LateUpdate()
-    {
-        if (!_isLocked)
+/*        if (!_isLocked)
         {
             transform.rotation = _orientationRotation;
             _armature.rotation = _weaponRotation;
             _weaponHolder.rotation = _weaponRotation;
-        }
+        }*/
+    }
+
+    private void LateUpdate()
+    {
+        _weaponHolder.rotation = _weaponRotation;
     }
 
     private void Rotation()

@@ -44,7 +44,8 @@ public class PlayerAction : MonoBehaviour
 
     public void KnifeAttack()
     {
-        GunSelector.ActiveGun.WeaponAnim.Play("Untake");
+        GunSelector.Knife.Model.SetActive(true);
+        GunSelector.Knife.WeaponAnim.Play("Attack-3");
     }
 
     public void KnifeAttackStart()
