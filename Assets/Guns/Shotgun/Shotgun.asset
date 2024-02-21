@@ -38,6 +38,6 @@ MonoBehaviour:
   TrailConfig: {fileID: 11400000, guid: e319c8d20ec8ca34aaef1b1bc68a88a6, type: 2}
   AmmoConfig: {fileID: 11400000, guid: 4c7077bcb8b502b45bcf4bcd177a0ccb, type: 2}
   DamageConfig: {fileID: 11400000, guid: 255cdeb6859c0d44d800aeee14cee789, type: 2}
-  AudioConfig: {fileID: 11400000, guid: 9daad5498a3725c48945787c322aef8f, type: 2}
+  AudioConfig: {fileID: 11400000, guid: 9737c61ebe891ba42b861fb4fbeeec82, type: 2}
   WeaponIcon: {fileID: 21300000, guid: cc65d9b037e6c9441bc575c8ac77eeb7, type: 3}
   BulletIcon: {fileID: 21300000, guid: 3d40dd2b310c2ae4e96c9597dd8fe275, type: 3}
