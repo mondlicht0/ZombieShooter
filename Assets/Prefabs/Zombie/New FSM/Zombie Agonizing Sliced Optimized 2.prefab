@@ -995,8 +995,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7787926354029441502}
   - component: {fileID: 2391969148217560920}
-  - component: {fileID: 24251674983313065}
-  m_Layer: 13
+  - component: {fileID: 4433443862629701472}
+  m_Layer: 19
   m_Name: mixamorig:LeftForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1036,11 +1036,11 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.2
   m_Center: {x: 0.18, y: 0.36, z: 0.04}
---- !u!114 &24251674983313065
+--- !u!114 &4433443862629701472
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1601,13 +1601,14 @@ GameObject:
   - component: {fileID: 3808653439271665198}
   - component: {fileID: 1946496717190898177}
   - component: {fileID: 2736094643542134440}
+  - component: {fileID: 4658218358991238828}
   m_Layer: 13
   m_Name: Zombie Agonizing Sliced Optimized 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2123891211307963840
 Transform:
   m_ObjectHideFlags: 0
@@ -1632,7 +1633,7 @@ Transform:
   - {fileID: 4957672335246419008}
   - {fileID: 656845343592047636}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8829884110603306926
 Animator:
@@ -1817,6 +1818,7 @@ MonoBehaviour:
   isDead: 0
   isInjured: 0
   dieForce: 2
+  hitBoxes: []
 --- !u!114 &2736094643542134440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1833,8 +1835,8 @@ MonoBehaviour:
   _health: {fileID: 1946496717190898177}
   _followPlayerSensor: {fileID: 8584729239945083266}
   _meleePlayerSensor: {fileID: 5893689752523392371}
-  _rightHandAttackSensor: {fileID: 8846921522083302999}
-  _leftHandAttackSensor: {fileID: 24251674983313065}
+  _rightHandAttackSensor: {fileID: 2219492335446068708}
+  _leftHandAttackSensor: {fileID: 4433443862629701472}
   _attackCooldown: 2
   _isInMeleeRange: 0
   _isInWallRange: 0
@@ -1843,6 +1845,21 @@ MonoBehaviour:
   _lastAttackTime: 0
   _lastBounceTime: 0
   _lastRollTime: 0
+  distance: 10
+--- !u!114 &4658218358991238828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5280578270184908281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 994183c1d57c9c542bceb3901335635a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _leftArmCollider: {fileID: 2391969148217560920}
+  _rightArmCollider: {fileID: 3914645282480430585}
 --- !u!1 &5373999617239476446
 GameObject:
   m_ObjectHideFlags: 0
@@ -2694,14 +2711,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5748151448398384682}
   - component: {fileID: 3914645282480430585}
-  - component: {fileID: 8846921522083302999}
-  m_Layer: 13
+  - component: {fileID: 2219492335446068708}
+  m_Layer: 19
   m_Name: mixamorig:RightForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5748151448398384682
 Transform:
   m_ObjectHideFlags: 0
@@ -2739,7 +2756,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.2
   m_Center: {x: -0.01, y: 0.47, z: 0.06}
---- !u!114 &8846921522083302999
+--- !u!114 &2219492335446068708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

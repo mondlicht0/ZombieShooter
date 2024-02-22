@@ -1253,7 +1253,7 @@ MonoBehaviour:
   _action: {fileID: 0}
   _magazine: {fileID: 0}
   _hand: {fileID: 0}
-  _animator: {fileID: 0}
+  _animator: {fileID: -5595700182932877370}
   IsShotgun: 0
 --- !u!1 &5918248341590836352
 GameObject:
