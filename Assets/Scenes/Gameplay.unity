@@ -4263,18 +4263,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1038285157}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &562152482 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2736094643542134440, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1105718998}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b606c010c651c0f40ae0371be004e454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &566973062
 GameObject:
   m_ObjectHideFlags: 0
@@ -7076,7 +7064,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1025056987
 Transform:
   m_ObjectHideFlags: 0
@@ -7105,7 +7093,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyCount: 0
-  _zombiePrefab: {fileID: 562152482}
+  _zombiePrefab: {fileID: 2736094643542134440, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
+    type: 3}
   _spawnPoints:
   - {fileID: 1334152674}
   - {fileID: 693060378}
@@ -8183,105 +8172,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 898644035}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1105718998
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.62
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.62
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.62
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.421167
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.075
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.0981693
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123891211307963840, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2736094643542134440, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: distance
-      value: 15.19
-      objectReference: {fileID: 0}
-    - target: {fileID: 5280578270184908281, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_Name
-      value: Zombie Agonizing Sliced Optimized 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5280578270184908281, guid: 2194b5cd2f78e014bb6f89c25cbbefe2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1008867379092227101, guid: 2194b5cd2f78e014bb6f89c25cbbefe2, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2194b5cd2f78e014bb6f89c25cbbefe2, type: 3}
 --- !u!1 &1120422850
 GameObject:
   m_ObjectHideFlags: 0
@@ -10329,6 +10219,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 6767d39ea73197e4dbbde50394138364, type: 3}
       propertyPath: m_Name
       value: cold_drinks
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 6767d39ea73197e4dbbde50394138364, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 6767d39ea73197e4dbbde50394138364, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -15259,7 +15153,7 @@ PrefabInstance:
     - target: {fileID: 5997456420288067486, guid: e9e716037dc4f5440858753648d778c4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5997456420288067486, guid: e9e716037dc4f5440858753648d778c4,
         type: 3}
@@ -23466,7 +23360,7 @@ PrefabInstance:
     - target: {fileID: 8313341114662761749, guid: 2c79e52e244d10d4387cca4d07be8368,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8313341114662761749, guid: 2c79e52e244d10d4387cca4d07be8368,
         type: 3}

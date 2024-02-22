@@ -136,6 +136,16 @@ public class Zombie : MonoBehaviour
         _isInChasingRange = true;
     }
 
+    private void OnDestroy()
+    {
+        int enemiesLeft = 0;
+        enemiesLeft = FindObjectsOfType<Zombie>().Length;
+
+        if (enemiesLeft == 0)
+            WaveSpawner.Instance.LaunchWave();
+    }
+
+
     private void MeleePlayerSensorOnPlayerExit(Vector3 lastKnownPosition) => _isInMeleeRange = false;
 
     private void MeleePlayerSensorOnPlayerEnter(Transform player) => _isInMeleeRange = true;

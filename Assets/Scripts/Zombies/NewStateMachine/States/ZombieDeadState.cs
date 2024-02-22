@@ -12,7 +12,7 @@ public class ZombieDeadState : ZombieStateBase
     {
         base.OnEnter();
         Animator.SetBool("IsDead", true);
-        Health.Die(Vector3.forward);
+        //Health.Die(Vector3.forward);
         Agent.height = 0;
         Agent.velocity = Vector3.zero;
     }

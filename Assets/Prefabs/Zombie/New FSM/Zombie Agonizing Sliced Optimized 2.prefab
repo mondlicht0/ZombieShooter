@@ -1618,7 +1618,7 @@ Transform:
   m_GameObject: {fileID: 5280578270184908281}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.648, y: -0.00000071525574, z: -1.8069719}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.62, y: 0.62, z: 0.62}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6480441475484341608}
@@ -1818,6 +1818,7 @@ MonoBehaviour:
   isDead: 0
   isInjured: 0
   dieForce: 2
+  _fadeOutDelay: 2
   hitBoxes: []
 --- !u!114 &2736094643542134440
 MonoBehaviour:
@@ -1845,7 +1846,7 @@ MonoBehaviour:
   _lastAttackTime: 0
   _lastBounceTime: 0
   _lastRollTime: 0
-  distance: 10
+  distance: 15.19
 --- !u!114 &4658218358991238828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2453,7 +2454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 913834173549231988}
   - component: {fileID: 2649618513622546699}
-  - component: {fileID: 7777765614153282346}
+  - component: {fileID: 2407655476943171409}
   m_Layer: 13
   m_Name: mixamorig:Head
   m_TagString: Untagged
@@ -2492,8 +2493,8 @@ MonoBehaviour:
   Type: 0
   Root: {fileID: 2123891211307963840}
   SlicedPart: {fileID: 2401797520372127090}
---- !u!135 &7777765614153282346
-SphereCollider:
+--- !u!65 &2407655476943171409
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2511,8 +2512,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.14
-  m_Center: {x: -0.03, y: 0.09, z: 0}
+  m_Size: {x: 0.15, y: 0.17, z: 0.21}
+  m_Center: {x: -0.03, y: 0.09, z: 0.03}
 --- !u!1 &7264006994461980557
 GameObject:
   m_ObjectHideFlags: 0
