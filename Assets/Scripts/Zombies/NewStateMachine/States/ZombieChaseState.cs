@@ -28,7 +28,7 @@ public class ZombieChaseState : ZombieStateBase
             Agent.SetDestination(_target.position);
         }
 
-        else if (Agent.remainingDistance <=Agent.stoppingDistance)
+        else if (Agent != null && Agent.remainingDistance <=Agent.stoppingDistance)
         {
             fsm.StateCanExit();
         }

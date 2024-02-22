@@ -5,15 +5,13 @@ using UnityHFSM;
 [RequireComponent(typeof(Animator), typeof(NavMeshAgent))]
 public class Zombie : MonoBehaviour
 {
-    [SerializeField]
-    private Player _player;
-
-    [SerializeField]
-    private Health _health;
+    [SerializeField] private Player _player;
 
     private StateMachine<ZombieState, StateEvent> _zombieFSM;
-    private Animator _animator;
-    private NavMeshAgent _agent;
+    public ZombieRagdoll ZombieRagdoll { get; private set; }
+    public Animator Animator { get; private set; }
+    public Health Health { get; private set; }
+    public NavMeshAgent Agent { get; private set; }
 
     [Header("Player Sensors")]
     [SerializeField]
@@ -55,9 +53,10 @@ public class Zombie : MonoBehaviour
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
-        _agent = GetComponent<NavMeshAgent>();
-        _health = GetComponent<Health>();
+        Animator = GetComponent<Animator>();
+        Health = GetComponent<Health>();
+        Agent = GetComponent<NavMeshAgent>();
+        ZombieRagdoll = GetComponent<ZombieRagdoll>();
         _zombieFSM = new();
 
         ray = new Ray(transform.position, transform.forward);
@@ -76,7 +75,7 @@ public class Zombie : MonoBehaviour
         //_zombieFSM.AddTriggerTransition(StateEvent.DetectWall, new Transition<ZombieState>(ZombieState.Idle, ZombieState.AttackWall));
 
         _zombieFSM.AddTransition(new Transition<ZombieState>(ZombieState.Idle, ZombieState.ChasePlayer,
-                                (transition) => !_isInChasingRange || Vector3.Distance(_player.transform.position, transform.position) <= _agent.stoppingDistance));
+                                (transition) => !_isInChasingRange || Vector3.Distance(_player.transform.position, transform.position) <= Agent.stoppingDistance));
 
 
         // Attack Player
@@ -156,7 +155,7 @@ public class Zombie : MonoBehaviour
     {
         if (_isInMeleeRange)
         {
-            Ray ray = new Ray(_agent.transform.position + Vector3.up, _agent.transform.forward);
+            Ray ray = new Ray(Agent.transform.position + Vector3.up, Agent.transform.forward);
 
             if (Physics.Raycast(ray, out RaycastHit hit, 2f))
             {
@@ -179,7 +178,7 @@ public class Zombie : MonoBehaviour
     {
         if (_isInMeleeRange)
         {
-            Ray ray = new Ray(_agent.transform.position + Vector3.up, _agent.transform.forward);
+            Ray ray = new Ray(Agent.transform.position + Vector3.up, Agent.transform.forward);
 
             if (Physics.Raycast(ray, out RaycastHit hit, 2f))
             {
@@ -193,11 +192,11 @@ public class Zombie : MonoBehaviour
         return _isInWallRange;
     }
 
-    private bool IsWithinIdleRange(Transition<ZombieState> transition) => _agent.remainingDistance <= _agent.stoppingDistance;
+    private bool IsWithinIdleRange(Transition<ZombieState> transition) => Agent.remainingDistance <= Agent.stoppingDistance;
 
     private bool IsNotWithinIdleRange(Transition<ZombieState> transition) => !IsWithinIdleRange(transition);
 
-    private bool IsDead(Transition<ZombieState> transition) => _health.isDead;
+    private bool IsDead(Transition<ZombieState> transition) => Health.isDead;
 
     public void AttackAnimationEvent(Transform player)
     {

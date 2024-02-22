@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IDamagable
 {
+    private Zombie _zombie;
     public int maxHealth = 100;
     public int currentHealth;
     public bool isDead = false;
@@ -17,6 +18,11 @@ public class Health : MonoBehaviour, IDamagable
 
     public event Action OnHealthChange;
     public event Action OnDied;
+
+    private void Awake()
+    {
+        _zombie = GetComponent<Zombie>();
+    }
 
     public void Start()
     {
@@ -64,10 +70,7 @@ public class Health : MonoBehaviour, IDamagable
     {
         Debug.Log("Dead");
         isDead = true;
-        foreach (var box in hitBoxes)
-        {
-            box.enabled = false;
-        }
+        _zombie.ZombieRagdoll.ActivateRagdol();
 
         currentHealth = 0;
         isInjured = false;
@@ -79,5 +82,6 @@ public class Health : MonoBehaviour, IDamagable
         }
 
         StartCoroutine(FadeOut());
+
     }
 }
