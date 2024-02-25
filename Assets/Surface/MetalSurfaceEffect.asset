@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a654b9e54a2a0438431dace374c8a1, type: 3}
   m_Name: MetalSurfaceEffect
   m_EditorClassIdentifier: 
-  SpawnObjectEffects: []
+  SpawnObjectEffects:
+  - {fileID: 11400000, guid: 8375bc25a6c8ef940a3051e6abf5033f, type: 2}
   PlayAudioEffects: []

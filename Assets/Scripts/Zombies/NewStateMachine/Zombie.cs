@@ -14,37 +14,28 @@ public class Zombie : MonoBehaviour
     public NavMeshAgent Agent { get; private set; }
 
     [Header("Player Sensors")]
-    [SerializeField]
-    private PlayerSensor _followPlayerSensor;
-    [SerializeField]
-    private PlayerSensor _meleePlayerSensor;
-    [SerializeField]
-    private PlayerSensor _rightHandAttackSensor;
-    [SerializeField]
-    private PlayerSensor _leftHandAttackSensor;
+    [SerializeField] private PlayerSensor _followPlayerSensor;
+    [SerializeField] private PlayerSensor _meleePlayerSensor;
+
+    [field: SerializeField] public ZombieDamageDealer LeftDealer { get; private set; }
+    [field: SerializeField] public ZombieDamageDealer RightDealer { get; private set; }
 
     [Header("Attack Config")]
     [SerializeField]
     [Range(0.1f, 5f)]
     private float _attackCooldown = 2;
-    private int _damage = 10;
+
+    public int Damage { get; private set; } = 10;
 
     [Space]
     [Header("Debug Info")]
-    [SerializeField]
-    private bool _isInMeleeRange;
-    [SerializeField]
-    private bool _isInWallRange;
-    [SerializeField]
-    private bool _isInSpitRange;
-    [SerializeField]
-    private bool _isInChasingRange;
-    [SerializeField]
-    private float _lastAttackTime;
-    [SerializeField]
-    private float _lastBounceTime;
-    [SerializeField]
-    private float _lastRollTime;
+    [SerializeField] private bool _isInMeleeRange;
+    [SerializeField] private bool _isInWallRange;
+    [SerializeField] private bool _isInSpitRange;
+    [SerializeField] private bool _isInChasingRange;
+    [SerializeField] private float _lastAttackTime;
+    [SerializeField] private float _lastBounceTime;
+    [SerializeField] private float _lastRollTime;
 
     private bool _isPlayerOnAttackSensor;
     private Ray ray;
@@ -112,9 +103,6 @@ public class Zombie : MonoBehaviour
 
         _meleePlayerSensor.OnPlayerEnter += MeleePlayerSensorOnPlayerEnter;
         _meleePlayerSensor.OnPlayerExit += MeleePlayerSensorOnPlayerExit;
-
-        _leftHandAttackSensor.OnPlayerEnter += AttackAnimationEvent;
-        _rightHandAttackSensor.OnPlayerEnter += AttackAnimationEvent;
     }
 
 
@@ -197,20 +185,4 @@ public class Zombie : MonoBehaviour
     private bool IsNotWithinIdleRange(Transition<ZombieState> transition) => !IsWithinIdleRange(transition);
 
     private bool IsDead(Transition<ZombieState> transition) => Health.isDead;
-
-    public void AttackAnimationEvent(Transform player)
-    {
-        /*        if (Physics.Raycast(ray, out hit, distance))
-                {
-                    if (player.TryGetComponent(out PlayerHealth health))
-                    {
-                        health.TakeDamage(_damage, Vector3.forward);
-                    }
-                }*/
-
-        if (player.TryGetComponent(out PlayerHealth health))
-        {
-            health.TakeDamage(_damage, Vector3.forward);
-        }
-    }
 }

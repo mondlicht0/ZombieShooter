@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ef6180113c29d47aae881e8b9f7bc2, type: 3}
   m_Name: SpawnMetalImpactSystem
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 7745226267183290989, guid: aaaf0885a51e4bd4191b5e2d25b5bcf5, type: 3}
   Probability: 1
-  RandomizeRotation: 0
+  RandomizeRotation: 1
   RandomizedRotationMultiplier: {x: 0, y: 0, z: 0}

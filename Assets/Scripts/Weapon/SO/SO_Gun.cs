@@ -88,7 +88,7 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
         this._activeMonoBehaviour = activeMonoBehaviour;
         _lastShootTime = 0;
         _trailPool = new ObjectPool<TrailRenderer>(CreateTrail);
-        //_particlePool = new ObjectPool<GameObject>(CreateBlood);
+        _particlePool = new ObjectPool<GameObject>(CreateBlood);
 
         /*AmmoConfig.CurrentClip = AmmoConfig.ClipSize;
         AmmoConfig.CurrentAmmo = AmmoConfig.MaxAmmo;*/
@@ -285,17 +285,12 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
         return trail;
     }
 
-/*    private GameObject CreateBlood()
+    private GameObject CreateBlood()
     {
         GameObject instance = new GameObject("Blood Particle");
-        GameObject bloodParticle = Instantiate(BloodParticle, hit.transform.position + new Vector3(Random.Range(-0.3f, 0.3f),
-                                                                                1,
-                                                                                Random.Range(-0.3f, 0.3f)), Quaternion.Euler(hit.transform.rotation.x + Random.Range(-30f, 30f),
-                                                                                                 hit.transform.rotation.y + Random.Range(-30f, 30f),
-                                                                                                 hit.transform.rotation.z + Random.Range(-30f, 30f)));
-
+        GameObject bloodParticle = Instantiate(BloodParticle);
         return bloodParticle;
-    }*/
+    }
 
     public void Despawn()
     {
@@ -303,6 +298,7 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
         //Model.SetActive(false);
         Destroy(Model);
         _trailPool.Clear();
+        _particlePool.Clear();
         //if (BulletPool != null)
         //{
             //BulletPool.Clear();

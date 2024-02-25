@@ -2,18 +2,31 @@ using UnityEngine;
 
 public class ZombieAnimationEvents : MonoBehaviour
 {
-    [SerializeField] private SphereCollider _leftArmCollider;
-    [SerializeField] private SphereCollider _rightArmCollider;
+    private Zombie _zombie;
 
-    public void EnableColliders()
+    private void Awake()
     {
-        _leftArmCollider.enabled = true;
-        _rightArmCollider.enabled = true;
+        _zombie = GetComponent<Zombie>();
     }
 
-    public void DisableColliders()
+    public void StartLeftDealDamage()
     {
-        _leftArmCollider.enabled = false;
-        _rightArmCollider.enabled = false;
+        Debug.Log("dfdf");
+        _zombie.LeftDealer.StartDealDamage();
+    }
+
+    public void EndLeftDealDamage()
+    {
+        _zombie.LeftDealer.EndDealDamage();
+    }
+
+    public void StartRightDealDamage()
+    {
+        _zombie.RightDealer.StartDealDamage();
+    }
+
+    public void EndRightDealDamage()
+    {
+        _zombie.RightDealer.EndDealDamage();
     }
 }

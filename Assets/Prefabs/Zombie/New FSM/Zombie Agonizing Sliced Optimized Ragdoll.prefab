@@ -1228,6 +1228,7 @@ GameObject:
   - component: {fileID: 7401458436105013838}
   - component: {fileID: 8843264089128099064}
   - component: {fileID: 216439647640912226}
+  - component: {fileID: 1471472070644865930}
   m_Layer: 19
   m_Name: mixamorig:LeftForeArm
   m_TagString: Untagged
@@ -1347,6 +1348,23 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &1471472070644865930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3644058578358235141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921ec5cc79fd05e4f931ddf1754b029a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _zombie: {fileID: 2736094643542134440}
+  _armLength: 3
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &3842704718990896697
 GameObject:
   m_ObjectHideFlags: 0
@@ -2026,7 +2044,7 @@ Transform:
   - {fileID: 4957672335246419008}
   - {fileID: 656845343592047636}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8829884110603306926
 Animator:
@@ -2228,8 +2246,8 @@ MonoBehaviour:
   _player: {fileID: 0}
   _followPlayerSensor: {fileID: 8584729239945083266}
   _meleePlayerSensor: {fileID: 5893689752523392371}
-  _rightHandAttackSensor: {fileID: 0}
-  _leftHandAttackSensor: {fileID: 0}
+  <LeftDealer>k__BackingField: {fileID: 1471472070644865930}
+  <RightDealer>k__BackingField: {fileID: 1102974284029644968}
   _attackCooldown: 2
   _isInMeleeRange: 0
   _isInWallRange: 0
@@ -2251,8 +2269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994183c1d57c9c542bceb3901335635a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftArmCollider: {fileID: 0}
-  _rightArmCollider: {fileID: 0}
 --- !u!114 &4466789985079647266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3274,6 +3290,7 @@ GameObject:
   - component: {fileID: 6701862828211247694}
   - component: {fileID: 8065683072523420200}
   - component: {fileID: 1987419577947778501}
+  - component: {fileID: 1102974284029644968}
   m_Layer: 19
   m_Name: mixamorig:RightForeArm
   m_TagString: Untagged
@@ -3393,6 +3410,23 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &1102974284029644968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7471219126140559380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921ec5cc79fd05e4f931ddf1754b029a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _zombie: {fileID: 2736094643542134440}
+  _armLength: 3
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &7719256308446876030
 GameObject:
   m_ObjectHideFlags: 0
