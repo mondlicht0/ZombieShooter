@@ -9,71 +9,71 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public class PlayerAction : MonoBehaviour
 {
-    // public for editor
-    public PlayerGunSelector GunSelector;
-    public InputHandler Input;
-    public Transform WeaponPivot;
+	// public for editor
+	public PlayerGunSelector GunSelector;
+	public InputHandler Input;
+	public Transform WeaponPivot;
 
-    [SerializeField] private CinemachineVirtualCamera _camera;
-    [SerializeField] private PlayerUI _UI;
-    [SerializeField] private Animator _animator;
-    [SerializeField] private Animator _rigController;
-    [SerializeField] private MultiParentConstraint _parentConstraint;
-    [SerializeField] private TwoBoneIKConstraint _magConstraint;
-    [SerializeField] private bool AutoReload = false;
+	[SerializeField] private CinemachineVirtualCamera _camera;
+	[SerializeField] private PlayerUI _UI;
+	[SerializeField] private Animator _animator;
+	[SerializeField] private Animator _rigController;
+	[SerializeField] private MultiParentConstraint _parentConstraint;
+	[SerializeField] private TwoBoneIKConstraint _magConstraint;
+	[SerializeField] private bool AutoReload = false;
 
-    private Vector3 _origPos;
-    public bool IsReloading;
+	private Vector3 _origPos;
+	public bool IsReloading;
 
-    private void Update()
-    {
-        if (GunSelector.ActiveGun != null)
-        {
-            GunSelector.ActiveGun.Tick(Input.IsAttack && GunSelector.ActiveGun != null, IsReloading, Input.IsAim, GunSelector, WeaponPivot, _UI);
+	private void Update()
+	{
+		if (GunSelector.ActiveGun != null)
+		{
+			GunSelector.ActiveGun.Tick(Input.IsAttack && GunSelector.ActiveGun != null, IsReloading, Input.IsAim, GunSelector, WeaponPivot, _UI);
 
-            if (ShouldAutoReload() || ShouldManualReload())
-            {
-                GunSelector.ActiveGun.StartReloading();
-                IsReloading = true;
-                GunSelector.ActiveGun.WeaponAnim.Play("Reload");
-            }
-        }
-            
-    }
-
-
-    public void KnifeAttack()
-    {
-        GunSelector.Knife.Model.SetActive(true);
-        GunSelector.Knife.WeaponAnim.Play("Attack-3");
-    }
-
-    public void KnifeAttackStart()
-    {
-        GunSelector.ActiveGun.Model.SetActive(false);
-        GunSelector.Knife.Model.SetActive(true);
-    }
-
-    public void KnifeAttackEnd()
-    {
-        GunSelector.Knife.Model.SetActive(false);
-        GunSelector.ActiveGun.Model.SetActive(true);
-    }
+			if (ShouldAutoReload() || ShouldManualReload())
+			{
+				GunSelector.ActiveGun.StartReloading();
+				IsReloading = true;
+				GunSelector.ActiveGun.WeaponAnim.Play("Reload");
+			}
+		}
+			
+	}
 
 
-    public void EndReload()
-    {
-        GunSelector.ActiveGun.EndReload();
-        IsReloading = false;
-    }
+	public void KnifeAttack()
+	{
+		GunSelector.Knife.Model.SetActive(true);
+		GunSelector.Knife.WeaponAnim.Play("Attack-3");
+	}
 
-    private bool ShouldManualReload()
-    {
-        return !IsReloading && Input.IsReload && GunSelector.ActiveGun.CanReload();
-    }
+	public void KnifeAttackStart()
+	{
+		GunSelector.ActiveGun.Model.SetActive(false);
+		GunSelector.Knife.Model.SetActive(true);
+	}
 
-    private bool ShouldAutoReload()
-    {
-        return !IsReloading && AutoReload && GunSelector.ActiveGun.AmmoConfig.CurrentClip == 0 && GunSelector.ActiveGun.CanReload();
-    }
+	public void KnifeAttackEnd()
+	{
+		GunSelector.Knife.Model.SetActive(false);
+		GunSelector.ActiveGun.Model.SetActive(true);
+	}
+
+
+	public void EndReload()
+	{
+		GunSelector.ActiveGun.EndReload();
+		IsReloading = false;
+	}
+
+	private bool ShouldManualReload()
+	{
+		return !IsReloading && Input.IsReload && GunSelector.ActiveGun.CanReload();
+	}
+
+	private bool ShouldAutoReload()
+	{
+		return !IsReloading && AutoReload && GunSelector.ActiveGun.AmmoConfig.CurrentClip == 0 && GunSelector.ActiveGun.CanReload();
+	}
 }
