@@ -38,35 +38,7 @@ public class SurfaceManager : MonoBehaviour
 
     public void HandleImpact(GameObject HitObject, Vector3 HitPoint, Vector3 HitNormal, ImpactType Impact, int TriangleIndex)
     {
-        if (HitObject.TryGetComponent(out Terrain terrain))
-        {
-            List<TextureAlpha> activeTextures = GetActiveTexturesFromTerrain(terrain, HitPoint);
-            foreach (TextureAlpha activeTexture in activeTextures)
-            {
-                SurfaceType surfaceType = Surfaces.Find(surface => surface.Albedo == activeTexture.Texture);
-                if (surfaceType != null)
-                {
-                    foreach (Surface.SurfaceImpactTypeEffect typeEffect in surfaceType.Surface.ImpactTypeEffects)
-                    {
-                        if (typeEffect.ImpactType == Impact)
-                        {
-                            PlayEffects(HitPoint, HitNormal, typeEffect.SurfaceEffect, activeTexture.Alpha);
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (Surface.SurfaceImpactTypeEffect typeEffect in DefaultSurface.ImpactTypeEffects)
-                    {
-                        if (typeEffect.ImpactType == Impact)
-                        {
-                            PlayEffects(HitPoint, HitNormal, typeEffect.SurfaceEffect, 1);
-                        }
-                    }
-                }
-            }
-        }
-        else if (HitObject.TryGetComponent<MeshRenderer>(out MeshRenderer renderer))
+        if (HitObject.TryGetComponent(out MeshRenderer renderer))
         {
             Texture activeTexture = GetActiveTextureFromRenderer(renderer, TriangleIndex);
 

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Barracuda;
 using UnityEngine;
 
 public class WeaponReloadEvents : MonoBehaviour, IWeaponVisitor
@@ -92,6 +89,11 @@ public class WeaponReloadEvents : MonoBehaviour, IWeaponVisitor
     }
 
     public void Visit(SO_Gun gun)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Visit(GameObject environmentObject)
     {
         throw new System.NotImplementedException();
     }

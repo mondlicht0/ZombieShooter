@@ -89,6 +89,11 @@ public class SO_Knife : ScriptableObject, IWeaponVisitor
     {
         source.PlayOneShot(AudioClip);
     }
+
+    public void Visit(GameObject environmentObject)
+    {
+        
+    }
 }
   
 

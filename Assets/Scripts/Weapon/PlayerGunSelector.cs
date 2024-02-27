@@ -160,15 +160,6 @@ public class PlayerGunSelector : MonoBehaviour
         ActiveGun.Spawn(GunParent, this);
 
         GunDisplayer.Instance.ChangeWeaponIcons(Gun.WeaponIcon, Gun.BulletIcon);
-
-/*        _animator.SetBool("Is1Handed", ActiveGun.Type == GunType.Glock);
-        _animator.SetBool("Is2Handed", ActiveGun.Type == GunType.MCX);
-
-
-        _playerIK.Setup(GunParent);
-
-        _rigController.Play("equip_" + Gun.Name);*/
-
     }
 
     public void DespawnActiveGun()

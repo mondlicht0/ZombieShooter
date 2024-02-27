@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a654b9e54a2a0438431dace374c8a1, type: 3}
+  m_Name: MetalSurfaceEffect
+  m_EditorClassIdentifier: 
+  SpawnObjectEffects:
+  - {fileID: 11400000, guid: 8375bc25a6c8ef940a3051e6abf5033f, type: 2}
+  PlayAudioEffects:
+  - {fileID: 11400000, guid: f4c26245bcfa7884eb4a244b1689345b, type: 2}
