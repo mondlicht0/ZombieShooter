@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Barracuda;
 using UnityEngine;
 
-public class WeaponReloadEvents : MonoBehaviour
+public class WeaponReloadEvents : MonoBehaviour, IWeaponVisitor
 {
     [SerializeField] private PlayerGunSelector _gunSelector;
     [SerializeField] private PlayerAction _action;
@@ -63,6 +64,12 @@ public class WeaponReloadEvents : MonoBehaviour
         //_magazine = _gunSelector.ActiveGun.Mag.gameObject;
     }
 
+    public void KnifeAttack()
+    {
+        _gunSelector.Knife.TryToAttack(_gunSelector.GetComponent<PlayerUI>());
+    }
+
+
     public void KnifeAttackStart()
     {
         _gunSelector.ActiveGun.Model.SetActive(false);
@@ -72,6 +79,20 @@ public class WeaponReloadEvents : MonoBehaviour
     public void KnifeAttackEnd()
     {
         _gunSelector.Knife.Model.SetActive(false);
-        _gunSelector.ActiveGun.Model.SetActive(true);
+        
+        if (_gunSelector.ActiveGun != null)
+        {
+            _gunSelector.ActiveGun.Model.SetActive(true);
+        }
+    }
+
+    public void Visit(EnemyHitBox enemy)
+    {
+        enemy.Health.TakeDamage(_gunSelector.Knife.Damage, _gunSelector.Knife.Model.transform.forward.normalized, enemy.Type == EnemyHitBoxType.Head ? 1000 : 1);
+    }
+
+    public void Visit(SO_Gun gun)
+    {
+        throw new System.NotImplementedException();
     }
 }

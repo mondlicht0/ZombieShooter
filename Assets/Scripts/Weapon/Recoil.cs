@@ -35,6 +35,11 @@ public class Recoil : MonoBehaviour
         _targetRotation = Vector3.Lerp(_targetRotation, Vector3.zero, ReturnSpeed * Time.deltaTime);
         _currentRotation = Vector3.Slerp(_currentRotation, _targetRotation, Snapinness * Time.fixedDeltaTime);
         transform.localRotation = Quaternion.Euler(_currentRotation);
+        //WeaponHolder.localPosition = Vector3.Lerp(WeaponHolder.localPosition, OrigPosition, Time.deltaTime * 3f);
+    }
+
+    private void LateUpdate()
+    {
         WeaponHolder.localPosition = Vector3.Lerp(WeaponHolder.localPosition, OrigPosition, Time.deltaTime * 3f);
     }
 

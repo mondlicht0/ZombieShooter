@@ -21,16 +21,15 @@ public class SO_Knife : ScriptableObject, IWeaponVisitor
 
     [Header("UI Icons")]
     public Sprite WeaponIcon;
-    public Sprite BulletIcon;
 
     private MonoBehaviour _activeMonoBehaviour;
-    private GameObject _model;
     private AudioSource _audioSource;
     private float _lastShootTime;
 
     private InputHandler _input;
     private CinemachineVirtualCamera _camera;
-    private Animator _weaponAnim;
+    public GameObject Model;
+    public Animator WeaponAnim;
 
     public void Visit(EnemyHitBox enemy)
     {
@@ -47,14 +46,16 @@ public class SO_Knife : ScriptableObject, IWeaponVisitor
         this._activeMonoBehaviour = activeMonoBehaviour;
         _lastShootTime = 0;
 
-        _model = Instantiate(ModelPrefab);
-        _model.transform.SetParent(parent, false);
-        _model.transform.localPosition = SpawnPoint;
-        _model.transform.localRotation = Quaternion.Euler(SpawnRotation);
-        _weaponAnim = _model.GetComponent<Animator>();
+        Model = Instantiate(ModelPrefab);
+        Model.transform.SetParent(parent, false);
+        Model.transform.localPosition = SpawnPoint;
+        Model.transform.localRotation = Quaternion.Euler(SpawnRotation);
+        WeaponAnim = Model.GetComponent<Animator>();
         _input = FindObjectOfType<InputHandler>();
         _camera = FindObjectOfType<CinemachineVirtualCamera>();
-        _audioSource = _model.GetComponent<AudioSource>();
+        _audioSource = Model.GetComponent<AudioSource>();
+
+        Model.SetActive(false);
     }
 
     public void TryToAttack(PlayerUI playerUI)
@@ -65,11 +66,11 @@ public class SO_Knife : ScriptableObject, IWeaponVisitor
 
             //PlayShootingClip(_audioSource);
 
-            _weaponAnim.SetTrigger("Shoot");
+            WeaponAnim.SetTrigger("Attack-3");
 
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            Vector3 shootDirection = ray.origin - _model.transform.forward;
-            shootDirection.Normalize();
+            //Vector3 shootDirection = ray.origin - Model.transform.forward;
+            //shootDirection.Normalize();
 
             if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, HitMask))
             {

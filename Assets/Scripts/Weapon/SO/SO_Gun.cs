@@ -111,7 +111,7 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
         //parent.localPosition = PivotPoint;
     }
 
-    public async void TryToShoot(PlayerUI playerUI)
+    public void TryToShoot(PlayerUI playerUI)
     {
         if (Time.time > ShootConfig.FireRate + _lastShootTime)
         {
