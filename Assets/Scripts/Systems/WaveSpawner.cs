@@ -120,7 +120,6 @@ public class WaveSpawner : MonoBehaviour
 
         if (_enemiesLeftToSpawn > 0)
         {
-            //yield return new WaitForSeconds(_waves[_currentWaveIndex].WaveSettings[_currentEnemyIndex].SpawnDelay);
             Instantiate(_zombiePrefab,
                         GetRandomPosition(),
                         Quaternion.identity);
@@ -128,7 +127,6 @@ public class WaveSpawner : MonoBehaviour
             _enemiesLeftToSpawn--;
             _currentEnemyIndex++;
             SpawnEnemyInWave2();
-            //StartCoroutine(SpawnEnemyInWave());
         }
 
         else
@@ -137,7 +135,7 @@ public class WaveSpawner : MonoBehaviour
             if (_currentWaveIndex < _waves.Length - 1)
             {
                 _currentWaveIndex++;
-                _enemiesLeftToSpawn = 3 + _currentWaveIndex;
+                _enemiesLeftToSpawn = _waves[_currentWaveIndex].WaveSettings.Length;
                 _currentEnemyIndex = 0;
             }
         }
