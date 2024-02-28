@@ -1226,7 +1226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zombie: {fileID: 2736094643542134440}
-  _armLength: 3
+  _armLength: 0.3
   _playerLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -3184,7 +3184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zombie: {fileID: 2736094643542134440}
-  _armLength: 3
+  _armLength: 0.3
   _playerLayer:
     serializedVersion: 2
     m_Bits: 512

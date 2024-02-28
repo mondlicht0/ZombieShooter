@@ -25,7 +25,7 @@ public class GameOverDisplayer : MonoBehaviour
 
     public void EnableGameOverScreen()
     {
-        _gameOverScreen.DOFade(1, 5f);
+        _gameOverScreen.DOFade(1, 3f);
         _gameOverScreen.gameObject.SetActive(true);
     }
 

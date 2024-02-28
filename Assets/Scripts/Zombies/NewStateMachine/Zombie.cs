@@ -1,3 +1,4 @@
+using Unity.MLAgents;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityHFSM;
@@ -128,8 +129,13 @@ public class Zombie : MonoBehaviour
         int enemiesLeft = 0;
         enemiesLeft = FindObjectsOfType<Zombie>().Length;
 
-        if (enemiesLeft == 0)
-            WaveSpawner.Instance.LaunchWave();
+        if (enemiesLeft == 0) 
+        {
+            if (WaveSpawner.Instance != null) 
+            {
+            	WaveSpawner.Instance.LaunchWave();
+            }
+        }
     }
 
 
@@ -180,7 +186,7 @@ public class Zombie : MonoBehaviour
         return _isInWallRange;
     }
 
-    private bool IsWithinIdleRange(Transition<ZombieState> transition) => Agent.remainingDistance <= Agent.stoppingDistance;
+    private bool IsWithinIdleRange(Transition<ZombieState> transition) => Agent.enabled ? Agent.remainingDistance <= Agent.stoppingDistance : false;
 
     private bool IsNotWithinIdleRange(Transition<ZombieState> transition) => !IsWithinIdleRange(transition);
 
