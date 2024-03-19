@@ -36,6 +36,8 @@ public class PlayerAction : MonoBehaviour
 				GunSelector.ActiveGun.StartReloading();
 				IsReloading = true;
 				GunSelector.ActiveGun.WeaponAnim.Play("Reload");
+				
+				Debug.Log("DFDFDFD");
 			}
 		}
 			

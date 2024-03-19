@@ -163,7 +163,6 @@ public class WaveSpawner : MonoBehaviour
 
         while (remainingTime > 0f)
         {
-            Debug.Log("Turn");
             _waveDisplayer.UpdateBreaktimeText(remainingTime);
 
             await UniTask.Delay(1000);
@@ -171,8 +170,6 @@ public class WaveSpawner : MonoBehaviour
             remainingTime--;
 
         }
-
-        //await UniTask.Delay(TimeSpan.FromSeconds(_breakTime));
 
         _waveDisplayer.TurnBreaktime(!on);
 
