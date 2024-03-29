@@ -85,9 +85,9 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
 	
 	public void Visit(GameObject environmentObject)
 	{
-		if (environmentObject.TryGetComponent(out Rigidbody rigidbody)) 
+		if (environmentObject.layer == 20 && environmentObject.TryGetComponent(out Rigidbody rigidbody)) 
 		{
-			rigidbody.AddForce(_camera.transform.forward * 3f, ForceMode.Impulse);
+			rigidbody.AddForce(_camera.transform.forward * 20f, ForceMode.Impulse);
 		}
 	}
 
@@ -155,6 +155,11 @@ public class SO_Gun : ScriptableObject, IWeaponVisitor
 
 						hitbox.Accept(this);
 						playerUI.CrosshairHit();
+					}
+
+					else if (hit.collider.TryGetComponent(out Rigidbody rigidbody) && hit.collider.gameObject.layer == 20)
+					{
+						Visit(hit.collider.gameObject);
 					}
 					
 					// else if (hit.collider.CompareTag("Stone"))

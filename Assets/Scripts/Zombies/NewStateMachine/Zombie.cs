@@ -1,12 +1,14 @@
 using Unity.MLAgents;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 using UnityHFSM;
 
 [RequireComponent(typeof(Animator), typeof(NavMeshAgent))]
 public class Zombie : MonoBehaviour
 {
 	[SerializeField] private Player _player;
+	[SerializeField] private Transform _targetRig;
 
 	private StateMachine<ZombieState, StateEvent> _zombieFSM;
 	public ZombieRagdoll ZombieRagdoll { get; private set; }
@@ -107,6 +109,7 @@ public class Zombie : MonoBehaviour
 	}
 
 
+
 	private void OnAttack(State<ZombieState, StateEvent> state)
 	{
 		transform.LookAt(_player.transform.position);
@@ -116,6 +119,8 @@ public class Zombie : MonoBehaviour
 	private void Update()
 	{
 		_zombieFSM.OnLogic();
+
+		_targetRig.position = _player.transform.position;
 	}
 
 	private void FollowPlayerSensorOnPlayerEnter(Transform player)

@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameOverDisplayer : MonoBehaviour
 {
-    [SerializeField] private Image _gameOverScreen;
+    [SerializeField] private CanvasGroup _gameOverScreen;
     [SerializeField] private PlayerHealth _playerHealth;
+    [SerializeField] private GameObject _gunSelec;
 
     private void OnEnable()
     {
@@ -25,7 +26,8 @@ public class GameOverDisplayer : MonoBehaviour
 
     public void EnableGameOverScreen()
     {
-        _gameOverScreen.DOFade(1, 3f);
+        _gameOverScreen.DOFade(1, 2f);
+        _gunSelec.SetActive(false);
         _gameOverScreen.gameObject.SetActive(true);
     }
 

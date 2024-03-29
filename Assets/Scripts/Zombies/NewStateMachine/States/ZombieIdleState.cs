@@ -12,8 +12,12 @@ public class ZombieIdleState : ZombieStateBase
     {
         Debug.Log("Enter to Idle");
         base.OnEnter();
-        Agent.isStopped = true;
-        Animator.SetBool("Idle", true);
+        
+        if (Agent.enabled && Agent)
+        {
+            Agent.isStopped = true;
+            Animator.SetBool("Idle", true);
+        }
     }
 
     public override void OnExit()
