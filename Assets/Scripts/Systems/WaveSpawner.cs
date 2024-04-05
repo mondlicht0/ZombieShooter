@@ -11,7 +11,7 @@ public class WaveSpawner : MonoBehaviour
     
     public int EnemyCount;
 
-    [SerializeField] private Zombie _zombiePrefab;
+    //[SerializeField] private Zombie _zombiePrefab;
     [SerializeField] private List<Transform> _spawnPoints;
 
     [SerializeField] private Wave[] _waves;
@@ -118,27 +118,27 @@ public class WaveSpawner : MonoBehaviour
         _waveDisplayer.RemainingEnemies.text = $"ZOMBIES: {EnemyCount}";
         _waveDisplayer.CurrentWave.text = $"WAVE: {_currentWaveIndex}";
 
-        if (_enemiesLeftToSpawn > 0)
-        {
-            Instantiate(_zombiePrefab,
-                        GetRandomPosition(),
-                        Quaternion.identity);
+        // if (_enemiesLeftToSpawn > 0)
+        // {
+        //     Instantiate(_zombiePrefab,
+        //                 GetRandomPosition(),
+        //                 Quaternion.identity);
 
-            _enemiesLeftToSpawn--;
-            _currentEnemyIndex++;
-            SpawnEnemyInWave2();
-        }
+        //     _enemiesLeftToSpawn--;
+        //     _currentEnemyIndex++;
+        //     SpawnEnemyInWave2();
+        // }
 
-        else
-        {
+        // else
+        // {
 
-            if (_currentWaveIndex < _waves.Length - 1)
-            {
-                _currentWaveIndex++;
-                _enemiesLeftToSpawn = _waves[_currentWaveIndex].WaveSettings.Length;
-                _currentEnemyIndex = 0;
-            }
-        }
+        //     if (_currentWaveIndex < _waves.Length - 1)
+        //     {
+        //         _currentWaveIndex++;
+        //         _enemiesLeftToSpawn = _waves[_currentWaveIndex].WaveSettings.Length;
+        //         _currentEnemyIndex = 0;
+        //     }
+        // }
     }
 
     private Vector3 GetRandomPosition()
