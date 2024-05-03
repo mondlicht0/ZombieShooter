@@ -4,6 +4,9 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Animations;
+using Random = UnityEngine.Random;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -13,9 +16,11 @@ public class WaveSpawner : MonoBehaviour
 
     //[SerializeField] private Zombie _zombiePrefab;
     [SerializeField] private List<Transform> _spawnPoints;
+    [SerializeField] private List<AnimatorController> _animators;
 
     [SerializeField] private Wave[] _waves;
     [SerializeField] private WaveDisplayer _waveDisplayer;
+    [SerializeField] private List<Zombie> _zombiesPrefabs;
 
     // make button, that will be generate random waves
 
@@ -29,7 +34,7 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private float _musicVolume = 0.3f;
 
     [Header("Weapon Store")]
-    [SerializeField] private WeaponStore _weaponStore;
+    //[SerializeField] private WeaponStore _weaponStore;
 
     [SerializeField] private float _breakTime = 60;
 
@@ -47,12 +52,12 @@ public class WaveSpawner : MonoBehaviour
     {
         _enemiesLeftToSpawn = _waves[0].WaveSettings.Length;
         //SpawnEnemyInWaveWithout();
-        SpawnEnemyInWave2();
+        SpawnEnemyInWaveWithout();
     }
 
     private void SpawnEnemyInWaveWithout()
     {
-        _weaponStore.gameObject.SetActive(false);
+        //_weaponStore.gameObject.SetActive(false);
 
         EnemyCount = _waves[_currentWaveIndex].WaveSettings.Length;
 
@@ -61,10 +66,18 @@ public class WaveSpawner : MonoBehaviour
 
         if (_enemiesLeftToSpawn > 0)
         {
-            //yield return new WaitForSeconds(_waves[_currentWaveIndex].WaveSettings[_currentEnemyIndex].SpawnDelay);
-            Instantiate(_waves[_currentWaveIndex].WaveSettings[_currentEnemyIndex].EnemyPrefab,
+            Zombie zombie = Instantiate(_zombiesPrefabs[Random.Range(0, _zombiesPrefabs.Count)],
                         _waves[_currentWaveIndex].WaveSettings[_currentEnemyIndex].Spawner.transform.position,
                         Quaternion.identity);
+            
+            zombie.Animator.runtimeAnimatorController = _animators[Random.Range(0, _animators.Count)];
+
+            if (zombie.Animator.runtimeAnimatorController.name == "ShineZombie_Fast")
+            {
+                zombie.Agent.speed = 3;
+            }
+            
+            
             _enemiesLeftToSpawn--;
             _currentEnemyIndex++;
             SpawnEnemyInWaveWithout();
@@ -90,7 +103,7 @@ public class WaveSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(_waves[_currentWaveIndex].WaveSettings[_currentEnemyIndex].SpawnDelay);
 
-            Instantiate(_waves[_currentWaveIndex].WaveSettings[_currentEnemyIndex].EnemyPrefab, 
+            Instantiate(_zombiesPrefabs[Random.Range(0, _zombiesPrefabs.Count)], 
                         _waves[_currentWaveIndex].WaveSettings[_currentEnemyIndex].Spawner.transform.position, 
                         Quaternion.identity);
             _enemiesLeftToSpawn--;
@@ -111,7 +124,7 @@ public class WaveSpawner : MonoBehaviour
 
     private void SpawnEnemyInWave2()
     {
-        _weaponStore.gameObject.SetActive(false);
+        //_weaponStore.gameObject.SetActive(false);
 
         EnemyCount = _waves[_currentWaveIndex].WaveSettings.Length;
 
@@ -155,7 +168,7 @@ public class WaveSpawner : MonoBehaviour
     public async void Breaktime(bool on)
     {
         _waveDisplayer.TurnBreaktime(on);
-        _weaponStore.gameObject.SetActive(true);
+        //_weaponStore.gameObject.SetActive(true);
 
         _audio.DOFade(0, _smoothVolumeFade);
 
@@ -175,7 +188,7 @@ public class WaveSpawner : MonoBehaviour
 
         _audio.DOFade(_musicVolume, _smoothVolumeFade);
 
-        SpawnEnemyInWave2();
+        SpawnEnemyInWaveWithout();
     }
 }
 

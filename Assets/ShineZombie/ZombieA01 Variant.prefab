@@ -8,6 +8,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 143710287656806650, guid: ff50d2db400ea2742afe61951f5b2d84,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1109378184163342366, guid: ff50d2db400ea2742afe61951f5b2d84,
         type: 3}
       propertyPath: m_Controller
@@ -18,10 +23,25 @@ PrefabInstance:
       propertyPath: m_Speed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1531184794870718430, guid: ff50d2db400ea2742afe61951f5b2d84,
+        type: 3}
+      propertyPath: m_Height
+      value: 1.85
+      objectReference: {fileID: 0}
     - target: {fileID: 1989652473635071896, guid: ff50d2db400ea2742afe61951f5b2d84,
         type: 3}
       propertyPath: m_Name
       value: ZombieA01 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1989652473635071896, guid: ff50d2db400ea2742afe61951f5b2d84,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6230730427542176093, guid: ff50d2db400ea2742afe61951f5b2d84,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7860655465093625244, guid: ff50d2db400ea2742afe61951f5b2d84,
         type: 3}

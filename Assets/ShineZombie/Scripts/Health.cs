@@ -52,8 +52,15 @@ public class Health : MonoBehaviour, IDamagable
 			time += Time.deltaTime;
 			yield return null;
 		}
-
 		Destroy(gameObject);
+	}
+
+	private void OnDestroy()
+	{
+		if (FindObjectsByType<Zombie>(FindObjectsSortMode.None).Length == 0)
+		{
+			WaveSpawner.Instance.LaunchWave();
+		}
 	}
 
 	public void Die(Vector3 direction)
